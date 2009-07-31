@@ -1,0 +1,10 @@
+<ul title="Patients" selected="true"> 
+<% for patient in @patients -%> 
+<li><%= link_to h(patient.firstname), patient %></li> 
+<% end -%> 
+<li class="group">Actions</li> 
+<li> 
+<%= link_to 'Add patient', new_patient_path %> 
+</li> 
+</ul> 
+

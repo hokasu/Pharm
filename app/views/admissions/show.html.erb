@@ -1,0 +1,34 @@
+<p>
+  <b>Admission date:</b>
+  <%=h @admission.admdate %>
+</p>
+
+<p>
+  <b>Ward:</b>
+  <%=h @admission.ward %>
+</p>
+
+<p>
+  <b>Bed:</b>
+  <%=h @admission.bed %>
+</p>
+
+<p>
+  <b>Departure date:</b>
+  <%=h @admission.depdate %>
+</p>
+
+<p>
+  <b>Primary indication:</b>
+  <%=h @admission.primaryindication %>
+</p>
+
+<p>
+  <b>Clinical summary:</b>
+  <%=h @admission.clinicalsummary %>
+</p>
+
+<% @patient = Patient.find(@admission.patient_id)%>	<!-- rf -->
+<% ptname = @patient.firstname.to_s + " " + @patient.middlename.to_s + " " + @patient.surname.to_s%>
+<%= link_to 'Edit', edit_admission_path(@admission) %> |
+<%= link_to ptname, patient_path (:id => @admission.patient_id) %><!-- rf TODO: change to specific patient  DONE-->

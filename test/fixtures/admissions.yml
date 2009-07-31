@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  AdDate: 2009-07-29 16:15:04
+  ward: MyString
+  bed: MyString
+  DepDate: 2009-07-29 16:15:04
+  PrimaryIndication: MyString
+  ClinicalSummary: MyText
+
+two:
+  AdDate: 2009-07-29 16:15:04
+  ward: MyString
+  bed: MyString
+  DepDate: 2009-07-29 16:15:04
+  PrimaryIndication: MyString
+  ClinicalSummary: MyText

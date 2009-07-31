@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  FirstName: MyString
+  MiddleName: MyString
+  Surname: MyString
+  dob: 2009-07-29
+  allergies: MyText
+  sensitivities: MyText
+
+two:
+  FirstName: MyString
+  MiddleName: MyString
+  Surname: MyString
+  dob: 2009-07-29
+  allergies: MyText
+  sensitivities: MyText
