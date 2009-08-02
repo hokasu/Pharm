@@ -29,13 +29,20 @@
   <%=h @patient.sensitivities %>
 </p>
 
+<p>
+  <b>Current admission:</b>
+  Need to somehow add details of current admission.
+  <%=h @patient.sensitivities %>
+</p>
+
+
 <!-- RF: render current admission details-->
 <% unless @admissions.size.zero? %> 
-  <div class="admissions">
+  <div class="Previous admissions">
 <p>
   <b>Admissions:</b>
     <% for admission in @admissions %>
-      <li><%= link_to h(admission.primaryindication.to_s + " " + admission.admdate.to_s), admission %></li>
+      <li><%= link_to h(admission.primaryindication.to_s + " : " + admission.admdate.to_s), admission %></li>
     <% end %>
 </p>
   </div>

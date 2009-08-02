@@ -4641,3 +4641,101 @@ Rendering admissions/index
   [4;35;1mAdmission Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `admissions`[0m
 Completed in 11ms (View: 5, DB: 2) | 200 OK [http://localhost/admissions]
   [4;35;1mSQL (36.3ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-01 16:02:18) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (33.2ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.3ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (12.5ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;36;1mAdmission Columns (45.2ms)[0m   [0;1mSHOW FIELDS FROM `admissions`[0m
+Completed in 1186ms (View: 1039, DB: 91) | 200 OK [http://localhost/patients/1]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-01 16:03:41) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPatient Columns (1.6ms)[0m   [0;1mSHOW FIELDS FROM `patients`[0m
+  [4;35;1mPatient Load (0.5ms)[0m   [0mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;36;1mAdmission Load (0.2ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;35;1mAdmission Columns (1.7ms)[0m   [0mSHOW FIELDS FROM `admissions`[0m
+Completed in 19ms (View: 8, DB: 4) | 200 OK [http://localhost/patients/1]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-01 16:04:43) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (2.1ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.3ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (0.2ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;36;1mAdmission Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `admissions`[0m
+Completed in 20ms (View: 10, DB: 4) | 200 OK [http://localhost/patients/1]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPatient Load (0.4ms)[0m   [0;1mSELECT * FROM `patients` ORDER BY patients.id DESC LIMIT 1[0m
+  [4;35;1mPatient Columns (10.0ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mAdmission Columns (136.2ms)[0m   [0;1mSHOW FIELDS FROM `admissions`[0m
+  [4;35;1mAdmission Load (0.3ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.`id` = 2) [0m
+  [4;36;1mAdmission Load (0.3ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.`id` = 2) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-01 16:24:33) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPatient Columns (47.5ms)[0m   [0;1mSHOW FIELDS FROM `patients`[0m
+  [4;35;1mPatient Load (1.9ms)[0m   [0mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;36;1mAdmission Load (0.4ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;35;1mAdmission Columns (1.8ms)[0m   [0mSHOW FIELDS FROM `admissions`[0m
+Completed in 64ms (View: 6, DB: 52) | 200 OK [http://localhost/patients/1]
+  [4;36;1mSQL (1.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#index (for 127.0.0.1 at 2009-08-02 01:09:23) [GET]
+  [4;35;1mPatient Load (0.4ms)[0m   [0mSELECT * FROM `patients` [0m
+Rendering template within layouts/patients
+Rendering patients/index
+  [4;36;1mPatient Columns (25.2ms)[0m   [0;1mSHOW FIELDS FROM `patients`[0m
+Completed in 157ms (View: 46, DB: 27) | 200 OK [http://localhost/patients]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-02 01:09:28) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPatient Columns (17.8ms)[0m   [0;1mSHOW FIELDS FROM `patients`[0m
+  [4;35;1mPatient Load (3.5ms)[0m   [0mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;36;1mAdmission Load (0.6ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;35;1mAdmission Columns (17.4ms)[0m   [0mSHOW FIELDS FROM `admissions`[0m
+Completed in 129ms (View: 8, DB: 39) | 200 OK [http://localhost/patients/1]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-02 01:09:34) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.2ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (0.2ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;36;1mAdmission Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `admissions`[0m
+Completed in 16ms (View: 6, DB: 3) | 200 OK [http://localhost/patients/1]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#index (for 127.0.0.1 at 2009-08-02 01:09:37) [GET]
+  [4;36;1mPatient Load (0.4ms)[0m   [0;1mSELECT * FROM `patients` [0m
+Rendering template within layouts/patients
+Rendering patients/index
+  [4;35;1mPatient Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+Completed in 35ms (View: 6, DB: 2) | 200 OK [http://localhost/patients]
+  [4;35;1mSQL (0.0ms)[0m   [0mMysql::Error: MySQL server has gone away: ROLLBACK[0m
