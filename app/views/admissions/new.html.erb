@@ -1,6 +1,6 @@
 <h1>New admission</h1>
 <%= debug params %>
-<% form_for(@admission) do |f| %>
+<% form_for [@patient, @admission] do |f| %>
   <%= f.error_messages %>
 
 <p>

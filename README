@@ -1,6 +1,5 @@
 
 Todo:
-1. Add link in patients/show to add new admission for that patient_id
 
 
 
@@ -11,4 +10,5 @@ Construct a route that looks like this:
 In the distance:
 set UI for iPhone
 
-
+Done:
+1. Add link in patients/show to add new admission for that patient_id

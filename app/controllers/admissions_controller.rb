@@ -44,7 +44,7 @@ class AdmissionsController < ApplicationController
   # POST /admissions.xml
   def create
     @admission = Admission.new(params[:admission])
-    @admission.patient_id = params[:patient_id] #setting foreign key
+    @admission.patient = Patient.find(params[:patient_id]) #setting foreign key
     
     respond_to do |format|
       if @admission.save
