@@ -4942,3 +4942,39 @@ Rendering patients/show
   [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
 Rendered admissions/_admission (42.9ms)
 Completed in 118ms (View: 94, DB: 5) | 200 OK [http://localhost/patients/1]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#index (for 127.0.0.1 at 2009-08-03 12:53:01) [GET]
+  [4;35;1mPatient Load (0.3ms)[0m   [0mSELECT * FROM `patients` [0m
+Rendering template within layouts/patients
+Rendering patients/index
+  [4;36;1mPatient Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `patients`[0m
+Completed in 77ms (View: 36, DB: 2) | 200 OK [http://localhost/patients]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 12:53:02) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPatient Columns (2.2ms)[0m   [0;1mSHOW FIELDS FROM `patients`[0m
+  [4;35;1mPatient Load (0.5ms)[0m   [0mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;36;1mAdmission Load (0.3ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+  [4;35;1mAdmission Load (0.2ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+
+ActionView::TemplateError (Missing template admissions/_admission.erb in view path app/views) on line #34 of app/views/patients/show.html.erb:
+31: 
+32: <p>
+33:   <b>Current admission:</b>
+34:   <%= render :partial => @admission %>
+35: 
+36: </p>
+37: 
+
+    app/views/patients/show.html.erb:34
+    app/controllers/patients_controller.rb:20:in `show'
+
+Rendered rescues/_trace (41.7ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
