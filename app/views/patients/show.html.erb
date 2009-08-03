@@ -29,11 +29,7 @@
   <%=h @patient.sensitivities %>
 </p>
 
-<p>
-  <b>Current admission:</b>
-  <%= render :partial => @admission %>
 
-</p>
 
 
 <!-- RF: TODO only render previous admission (i.e. not current)-->
@@ -53,8 +49,11 @@
 
 TODO trying to link to new admission for this patient
 
-<p><%= link_to 'New admission', new_admission_path %></p>
+<p>
+  <b>Current admission:</b>
+  TODO: need to test @admissions for an admission with admndate < now and depdate > now (in model)
+  <%= render :partial => @admission %>
+<p><%= link_to 'New admission', new_admission_path(:patient_id => @patient.id) %></p>
 
+</p>
 
-<%= link_to 'Edit', edit_patient_path(:patient_id => @patient.id) %> |
-<%= link_to 'Back', patients_path %>
