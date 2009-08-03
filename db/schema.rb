@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090729151504) do
+ActiveRecord::Schema.define(:version => 20090803090042) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20090729151504) do
     t.text     "sensitivities"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "phn"
   end
 
 end
