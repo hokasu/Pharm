@@ -53,7 +53,7 @@ TODO trying to link to new admission for this patient
   <b>Current admission:</b>
   TODO: need to test @admissions for an admission with admndate < now and depdate > now (in model)
   <%= render :partial => @admission %>
-<p><%= link_to 'New admission', new_admission_path(:patient_id => @patient.id) %></p>
+<p><%= link_to 'New admission', new_patient_admission_path(@patient) %></p>
 
 </p>
 

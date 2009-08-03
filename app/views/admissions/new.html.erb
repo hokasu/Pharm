@@ -3,11 +3,6 @@
 <% form_for(@admission) do |f| %>
   <%= f.error_messages %>
 
- <p>
-   <%= f.label :patient_id %><br />
-   <%= f.text_field :patient_id %>
-   <%# f.text_field :patient_id, params[:patient_id] %>
- </p>
 <p>
     <%= f.label :admdate %><br />
     <%= f.datetime_select :admdate, :start_year => (Date.today.year - 1), :end_year => (Date.today.year + 3) %>

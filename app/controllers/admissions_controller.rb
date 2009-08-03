@@ -27,8 +27,8 @@ class AdmissionsController < ApplicationController
   # GET /admissions/new
   # GET /admissions/new.xml
   def new
-    @admission = Admission.new
-
+    @patient = Patient.find(params[:patient_id])
+    @admission = @patient.admissions.new
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @admission }
