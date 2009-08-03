@@ -31,12 +31,12 @@
 
 <p>
   <b>Current admission:</b>
-  Need to somehow add details of current admission.
-  <%=h @patient.sensitivities %>
+  <%= render :partial => @admission %>
+
 </p>
 
 
-<!-- RF: render current admission details-->
+<!-- RF: TODO only render previous admission (i.e. not current)-->
 <% unless @admissions.size.zero? %> 
   <div class="Previous admissions">
 <p>

@@ -4739,3 +4739,206 @@ Rendering patients/index
   [4;35;1mPatient Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
 Completed in 35ms (View: 6, DB: 2) | 200 OK [http://localhost/patients]
   [4;35;1mSQL (0.0ms)[0m   [0mMysql::Error: MySQL server has gone away: ROLLBACK[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 10:54:59) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.2ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (0.2ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;36;1mAdmission Columns (1.6ms)[0m   [0;1mSHOW FIELDS FROM `admissions`[0m
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.size) on line #40 of app/views/patients/show.html.erb:
+37: 
+38: 
+39: <!-- RF: render current admission details-->
+40: <% unless @admissions.size.zero? %> 
+41:   <div class="Previous admissions">
+42: <p>
+43:   <b>Admissions:</b>
+
+    app/views/patients/show.html.erb:40
+    app/controllers/patients_controller.rb:19:in `show'
+
+Rendered rescues/_trace (38.8ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#index (for 127.0.0.1 at 2009-08-03 10:55:50) [GET]
+  [4;36;1mPatient Load (0.3ms)[0m   [0;1mSELECT * FROM `patients` [0m
+Rendering template within layouts/patients
+Rendering patients/index
+  [4;35;1mPatient Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+Completed in 15ms (View: 9, DB: 2) | 200 OK [http://localhost/patients]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 10:55:52) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (2.2ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.2ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (0.2ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+  [4;36;1mAdmission Load (0.2ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.admdate) on line #35 of app/views/patients/show.html.erb:
+32: <p>
+33:   <b>Current admission:</b>
+34:  Todo: Need to somehow add details of current admission.
+35:  <%=h @admission.admdate %>
+36: </p>
+37: 
+38: 
+
+    app/views/patients/show.html.erb:35
+    app/controllers/patients_controller.rb:20:in `show'
+
+Rendered rescues/_trace (93.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 10:56:08) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.2ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (0.3ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+  [4;36;1mAdmission Load (0.2ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.admdate) on line #35 of app/views/patients/show.html.erb:
+32: <p>
+33:   <b>Current admission:</b>
+34:  Todo: Need to somehow add details of current admission.
+35:  <%=h @admission.admdate %>
+36: </p>
+37: 
+38: 
+
+    app/views/patients/show.html.erb:35
+    app/controllers/patients_controller.rb:20:in `show'
+
+Rendered rescues/_trace (38.9ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 10:56:30) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPatient Columns (3.2ms)[0m   [0;1mSHOW FIELDS FROM `patients`[0m
+  [4;35;1mPatient Load (1.0ms)[0m   [0mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;36;1mAdmission Load (0.2ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+  [4;35;1mAdmission Load (0.2ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;36;1mAdmission Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `admissions`[0m
+Completed in 64ms (View: 49, DB: 7) | 200 OK [http://localhost/patients/1]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 10:57:58) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPatient Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `patients`[0m
+  [4;35;1mPatient Load (0.3ms)[0m   [0mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;36;1mAdmission Load (0.2ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+  [4;35;1mAdmission Load (0.2ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+
+ActionView::TemplateError (undefined method `render_partial' for #<ActionView::ReloadableTemplate:0x2610e84>) on line #35 of app/views/patients/show.html.erb:
+32: <p>
+33:   <b>Current admission:</b>
+34:  Todo: Need to somehow add details of current admission.
+35:  <%= render :partial => @prev_admission %>
+36: </p>
+37: 
+38: 
+
+    app/views/patients/show.html.erb:35
+    app/controllers/patients_controller.rb:20:in `show'
+
+Rendered rescues/_trace (38.5ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 10:58:31) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (1.7ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.5ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (0.3ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+  [4;36;1mAdmission Load (0.2ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+
+ActionView::TemplateError (undefined method `render_partial' for #<ActionView::ReloadableTemplate:0x2897838>) on line #35 of app/views/patients/show.html.erb:
+32: <p>
+33:   <b>Current admission:</b>
+34:  Todo: Need to somehow add details of current admission.
+35:  <%= render :partial => @prev_admission %>
+36: </p>
+37: 
+38: 
+
+    app/views/patients/show.html.erb:35
+    app/controllers/patients_controller.rb:20:in `show'
+
+Rendered rescues/_trace (39.3ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 11:00:35) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (2.1ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.5ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (0.6ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+  [4;36;1mAdmission Load (0.2ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+
+ActionView::TemplateError (undefined method `render_partial' for #<ActionView::ReloadableTemplate:0x2897630>) on line #35 of app/views/patients/show.html.erb:
+32: <p>
+33:   <b>Current admission:</b>
+34:  Todo: Need to somehow add details of current admission.
+35:   <%= render :partial => @admission %>
+36: 
+37: </p>
+38: 
+
+    app/views/patients/show.html.erb:35
+    app/controllers/patients_controller.rb:20:in `show'
+
+Rendered rescues/_trace (40.6ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PatientsController#show (for 127.0.0.1 at 2009-08-03 11:03:19) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPatient Columns (2.2ms)[0m   [0mSHOW FIELDS FROM `patients`[0m
+  [4;36;1mPatient Load (0.5ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+  [4;35;1mAdmission Load (0.3ms)[0m   [0mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) [0m
+  [4;36;1mAdmission Load (0.2ms)[0m   [0;1mSELECT * FROM `admissions` WHERE (`admissions`.patient_id = 1) ORDER BY admissions.id DESC LIMIT 1[0m
+Rendering template within layouts/patients
+Rendering patients/show
+  [4;35;1mAdmission Columns (1.7ms)[0m   [0mSHOW FIELDS FROM `admissions`[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `patients` WHERE (`patients`.`id` = 1) [0m
+Rendered admissions/_admission (42.9ms)
+Completed in 118ms (View: 94, DB: 5) | 200 OK [http://localhost/patients/1]
