@@ -40,14 +40,19 @@
 <% unless @admissions.size.zero? %> 
   <div class="Previous admissions">
 <p>
-  <b>Admissions:</b>
+  <b>Previous admissions:</b>
     <% for admission in @admissions %>
+      <% unless admission == @admissions.last %>
       <li><%= link_to h(admission.primaryindication.to_s + " : " + admission.admdate.to_s), admission %></li>
+      <% end %>
     <% end %>
 </p>
   </div>
 <% end %>
 
+<!-- RF: TODO trying to link to new admission for this patient-->
+
+<p><%= link_to 'New admission', new_admission_path(@patient) %></p>
 
 
 <%= link_to 'Edit', edit_patient_path(@patient) %> |

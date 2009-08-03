@@ -9,7 +9,7 @@
   </p>
 <p>
     <%= f.label :admdate %><br />
-    <%= f.datetime_select :admdate, :start_year => 2009 %>
+    <%= f.datetime_select :admdate, :start_year => 2009, :end_year => (Date.today.year) %>
   </p>
   <p>
     <%= f.label :ward %><br />
