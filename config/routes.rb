@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
- map.resources :admissions
-
+  map.root :controller => 'patients' #rf
   map.resources :patients, :has_many => :admissions
+ map.resources :admissions
 
   # The priority is based upon order of creation: first created -> highest priority.
 

@@ -31,4 +31,4 @@
 <% @patient = Patient.find(@admission.patient_id)%>	<!-- rf -->
 <% ptname = @patient.firstname.to_s + " " + @patient.middlename.to_s + " " + @patient.surname.to_s%>
 <%= link_to 'Edit', edit_admission_path(@admission) %> |
-<%= link_to ptname, patient_path (:id => @admission.patient_id) %><!-- rf TODO: change to specific patient  DONE-->
+<%= link_to ptname, patient_path (:id => @admission.patient_id) %><!-- rf DONE: change to specific patient  DONE-->

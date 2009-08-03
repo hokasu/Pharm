@@ -4,11 +4,12 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :patient_id %><br />
-    <%= f.text_field :patient_id %>
+    <%= f.text_field :patient_id %>:q
+
   </p>
   <p>
     <%= f.label :admdate %><br />
-    <%= f.datetime_select :admdate, :start_year => 2009 %>
+    <%= f.datetime_select :admdate, :end_year => (Date.today.year) %>
   </p>
   <p>
     <%= f.label :ward %><br />

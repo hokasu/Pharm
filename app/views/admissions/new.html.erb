@@ -1,15 +1,15 @@
 <h1>New admission</h1>
-
+<%= debug params %>
 <% form_for(@admission) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :patient_id %><br />
-    <%= f.text_field :patient_id %>
-  </p>
+ <p>
+   <%= f.label :patient_id %><br />
+   <%= f.text_field :patient_id %>
+ </p>
 <p>
     <%= f.label :admdate %><br />
-    <%= f.datetime_select :admdate, :start_year => 2009, :end_year => (Date.today.year) %>
+    <%= f.datetime_select :admdate, :start_year => (Date.today.year - 1), :end_year => (Date.today.year + 3) %>
   </p>
   <p>
     <%= f.label :ward %><br />
@@ -19,9 +19,9 @@
     <%= f.label :bed %><br />
     <%= f.text_field :bed %>
   </p>
-  <p>
+  <p> Todo: set depdate to admdate
     <%= f.label :depdate %><br />
-    <%= f.datetime_select :depdate %>
+    <%= f.datetime_select :depdate, :start_year => (Date.today.year - 1), :end_year => (Date.today.year + 3)  %>
   </p>
   <p>
     <%= f.label :primaryindication %><br />

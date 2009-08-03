@@ -14,7 +14,7 @@ class AdmissionsController < ApplicationController
   # GET /admissions/1.xml
   def show
     @admission = Admission.find(params[:id])
-  #  @patient = Patient.find(params[:patient_id]) #rf
+    #@patient = Patient.find(params[:patient_id]) #rf
 
     respond_to do |format|
       format.html # show.html.erb
