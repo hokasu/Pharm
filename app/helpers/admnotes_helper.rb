@@ -1,0 +1,3 @@
+
+module AdmnotesHelper
+end
