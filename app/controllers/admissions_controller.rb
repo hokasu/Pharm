@@ -50,7 +50,6 @@ class AdmissionsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(admissions_url) }
-      format.xml  { head :ok }
     end
   end
 end

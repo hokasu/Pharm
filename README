@@ -1,6 +1,7 @@
 
 Todo:
-2. Change input of new admission so that Departure date is set to Admission date once admission date is entered.
+- work out search/dynamic results - jquery?
+- Change input of new admission so that Departure date is set to Admission date once admission date is entered.
 
 Failures:
 
@@ -17,4 +18,5 @@ In the distance:
 set UI for iPhone
 
 Done:
-1. Add link in patients/show to add new admission for that patient_id
+ Add link in patients/show to add new admission for that patient_id
+

@@ -1,7 +1,8 @@
 class Patient < ActiveRecord::Base
   has_many :admissions
+  has_many :admnotes
   validates_presence_of :patient_id
-  #lastadmission = self.admissions.last #why doesn't this work?
+  #lastadmission = self.admissions.last #why doesn't this work? because its a class method
 
   def fullname
     firstname + " " + middlename + " " + surname
