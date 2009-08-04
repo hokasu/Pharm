@@ -1,39 +1,33 @@
 <%= debug params %>
-<p>
-  <b>First name:</b>
-  <%=h @patient.firstname %>
-</p>
 
 <p>
-  <b>Middle name:</b>
-  <%=h @patient.middlename %>
-</p>
-
-<p>
-  <b>Surname:</b>
-  <%=h @patient.surname %>
+  <b>Name:</b>
+  <%=h @patient.fullname %>
 </p>
 
 <p>
   <b>Date of birth:</b>
-  <%=h @patient.dob %>
+  <%=h @patient.dob.to_formatted_s(:long_ordinal) %>
 </p>
 
+<% if @patient.has_allergies? %>
 <p>
   <b>Allergies:</b>
   <%=h @patient.allergies %>
 </p>
+<% end %>
 
+<% if @patient.has_allergies? %>
 <p>
   <b>Sensitivities:</b>
   <%=h @patient.sensitivities %>
 </p>
 
+<% end %>
 
 
 
-<!-- RF: TODO only render previous admission (i.e. not current)-->
-<% unless @admissions.size.zero? %> 
+<% unless @admissions.size.zero? || true %> <!-- rf TURNED OFF -->
   <div class="Previous admissions">
 <p>
   <b>Previous admissions:</b>
@@ -47,11 +41,12 @@
   </div>
 <% end %>
 
+<% if @patient.inpatient? %>
 <p>
-  <b>Current admission:</b>
-  TODO: need to test @admissions for an admission with admndate < now and depdate > now (in model)
+  <b>Current admission</b>
   <%= render :partial => @admission %>
-<p><%= link_to 'New admission', new_patient_admission_path(@patient) %></p>
 
-</p>
+<% end %>
+  <%= link_to 'New admission', new_patient_admission_path(@patient) %>
+
 
