@@ -2,8 +2,14 @@
 Todo:
 2. Change input of new admission so that Departure date is set to Admission date once admission date is entered.
 
+Failures:
+
+Low priority:
+Make UK datetime display format as per api documentation (dd/mm/YYYY).
 
 Wishlist:
+
+Low priority:
 Construct a route that looks like this:
 # map.admit 'patients/:patient_id/admit', :controller => 'admissions', :action => 'admit'
 

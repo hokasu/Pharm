@@ -1,29 +1,31 @@
+<%= debug params %>
+<div class="toolbar>
+  <h1 id="pageTitle"></h1>
+  <a id="backButton" class="button" href="#"></a>
+</div>
 <p>
-  <b>First name:</b>
-  <%=h @patient.firstname %>
-</p>
-
-<p>
-  <b>Middle name:</b>
-  <%=h @patient.middlename %>
-</p>
-
-<p>
-  <b>Surname:</b>
-  <%=h @patient.surname %>
-</p>
-
-<p>
+  <b>PHN:</b>
+  <%=h @patient.phn %>
   <b>Date of birth:</b>
-  <%=h @patient.dob %>
+  <%=h @patient.dob.to_formatted_s(:rfc822) %>
+</p>
+<p>
+  <b>Name:</b>
+  <%=h @patient.fullname %>
 </p>
 
+
+<% if @patient.has_allergies? %>
 <p>
   <b>Allergies:</b>
   <%=h @patient.allergies %>
 </p>
+<% end %>
 
+<% if @patient.has_sensitivities? %>
 <p>
   <b>Sensitivities:</b>
   <%=h @patient.sensitivities %>
 </p>
+
+<% end %>

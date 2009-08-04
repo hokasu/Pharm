@@ -1,25 +1,19 @@
-<h1>Listing admissions</h1>
-
+<h3> Admissions for <%= @patient.fullname %> </h3>
 <table>
   <tr>
-    <th>Patient ID</th>
     <th>Admission date</th>
     <th>Ward</th>
-    <th>Bed</th>
-    <th>Depdate</th>
+    <th>Discharge</th>
     <th>Primary indication</th>
-    <th>Clinical summary</th>
   </tr> 
 
 <% @admissions.each do |admission| %>
   <tr>
-    <td><%=h admission.patient_id %></td>
-    <td><%=h admission.admdate %></td>
+    <td><%=h date_uk (admission.admdate) %></td>
     <td><%=h admission.ward %></td>
-    <td><%=h admission.bed %></td>
-    <td><%=h admission.depdate %></td>
+    <td><%=h date_uk ( admission.depdate )%></td>
+
     <td><%=h admission.primaryindication %></td>
-    <td><%=h admission.clinicalsummary %></td>
     <td><%= link_to 'Show', admission %></td>
     <td><%= link_to 'Edit', edit_admission_path(admission) %></td>
     <td><%= link_to 'Destroy', admission, :confirm => 'Are you sure?', :method => :delete %></td>

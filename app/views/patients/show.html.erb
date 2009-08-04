@@ -1,30 +1,5 @@
-<%= debug params %>
 
-<p>
-  <b>Name:</b>
-  <%=h @patient.fullname %>
-</p>
-
-<p>
-  <b>Date of birth:</b>
-  <%=h @patient.dob.to_formatted_s(:long_ordinal) %>
-</p>
-
-<% if @patient.has_allergies? %>
-<p>
-  <b>Allergies:</b>
-  <%=h @patient.allergies %>
-</p>
-<% end %>
-
-<% if @patient.has_sensitivities? %>
-<p>
-  <b>Sensitivities:</b>
-  <%=h @patient.sensitivities %>
-</p>
-
-<% end %>
-
+<%= render :partial => @patient %>
 
 <% unless @admissions.size.zero? || true %> <!-- rf TURNED OFF -->
   <div class="Previous admissions">
@@ -47,5 +22,6 @@
 
 <% end %>
   <%= link_to 'New admission', new_patient_admission_path(@patient) %>
+  <%= link_to 'Past admissions', patient_admissions_path(@patient) %>
 
 
