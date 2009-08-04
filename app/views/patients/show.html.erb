@@ -17,14 +17,13 @@
 </p>
 <% end %>
 
-<% if @patient.has_allergies? %>
+<% if @patient.has_sensitivities? %>
 <p>
   <b>Sensitivities:</b>
   <%=h @patient.sensitivities %>
 </p>
 
 <% end %>
-
 
 
 <% unless @admissions.size.zero? || true %> <!-- rf TURNED OFF -->

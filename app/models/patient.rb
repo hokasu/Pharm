@@ -8,11 +8,12 @@ class Patient < ActiveRecord::Base
   end
 
   def has_allergies?
-    !allergies.size==0
+    allergies.size>0
   end
+  
 
   def has_sensitivities?
-    !sensitivities.size==0
+    sensitivities.size>0
   end
 
   def inpatient?
