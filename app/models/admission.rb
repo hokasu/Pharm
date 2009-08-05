@@ -1,6 +1,8 @@
 class Admission < ActiveRecord::Base
   belongs_to :patient
   has_many :admnotes
+  has_one :bed
+  has_one :ward, :through => :beds
   validates_presence_of :patient_id
 
   #def admdate_formatted

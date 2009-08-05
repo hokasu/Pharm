@@ -9,12 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090805100837) do
+ActiveRecord::Schema.define(:version => 20090805220456) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
     t.datetime "admdate"
-    t.string   "ward"
     t.string   "bed"
     t.datetime "depdate"
     t.string   "primaryindication"
@@ -24,9 +23,17 @@ ActiveRecord::Schema.define(:version => 20090805100837) do
   end
 
   create_table "admnotes", :force => true do |t|
-    t.integer  "admission_id"
     t.string   "username"
     t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "admission_id"
+  end
+
+  create_table "beds", :force => true do |t|
+    t.integer  "bed_number"
+    t.integer  "ward_id"
+    t.integer  "admission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,6 +48,24 @@ ActiveRecord::Schema.define(:version => 20090805100837) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phn"
+  end
+
+  create_table "pharmacists", :force => true do |t|
+    t.string   "firstname"
+    t.string   "surname"
+    t.string   "pager"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "wards", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.string   "pharmacist_id"
+    t.string   "nurse"
+    t.text     "ward_notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
