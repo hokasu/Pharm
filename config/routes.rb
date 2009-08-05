@@ -1,9 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'patients' #rf
   map.resources :patients, :has_many => :admissions
- map.resources :admissions, :has_many => :admnotes #rf
+ map.resources :admissions, :has_many => :admnotes, :shallow => true #rf
+#sets up the routes for index, create, update and destroy actions of admnotes controller
+ #so /admnotes, /admnotes/new, POST /admnotes/:id, PUT /admnotes/:id, and DELETE /admnotes/:id
 # map.admit 'patients/:patient_id/admit', :controller => 'admissions', :action => 'admit'
-
 
  #
   # The priority is based upon order of creation: first created -> highest priority.

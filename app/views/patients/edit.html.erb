@@ -10,5 +10,5 @@
   </p>
 <% end %>
     <%= link_to 'Destroy', @patient, :confirm => 'Are you sure?', :method => :delete %> |
-
+  <%= link_to 'New note', new_admission_admnote_path(@admission) %> |
 <%= link_to 'Back', patients_path %>

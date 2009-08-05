@@ -45,7 +45,7 @@ class AdmnotesController < ApplicationController
     @admnote = Admnote.find(params[:id])
     @admnote.destroy
 
-      redirect_to(admnote_url)
+    redirect_to admission_admnotes_path(@admnote.admission)
   end
 
 end
