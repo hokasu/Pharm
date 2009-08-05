@@ -1,0 +1,24 @@
+<h1>Listing pharmacists</h1>
+
+<table>
+  <tr>
+    <th>Firstname</th>
+    <th>Surname</th>
+    <th>Pager</th>
+  </tr>
+
+<% @pharmacists.each do |pharmacist| %>
+  <tr>
+    <td><%=h pharmacist.firstname %></td>
+    <td><%=h pharmacist.surname %></td>
+    <td><%=h pharmacist.pager %></td>
+    <td><%= link_to 'Show', pharmacist %></td>
+    <td><%= link_to 'Edit', edit_pharmacist_path(pharmacist) %></td>
+    <td><%= link_to 'Destroy', pharmacist, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New pharmacist', new_pharmacist_path %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090805220456) do
+ActiveRecord::Schema.define(:version => 20090805230543) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20090805220456) do
 
   create_table "wards", :force => true do |t|
     t.string   "name"
-    t.string   "type"
+    t.string   "specialty"
     t.string   "pharmacist_id"
     t.string   "nurse"
     t.text     "ward_notes"

@@ -1,0 +1,32 @@
+<h1>Editing ward</h1>
+
+<% form_for(@ward) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :specialty %><br />
+    <%= f.text_field :specialty %>
+  </p>
+  <p>
+    <%= f.label :pharmacist %><br />
+    <%= f.text_field :pharmacist %>
+  </p>
+  <p>
+    <%= f.label :nurse %><br />
+    <%= f.text_field :nurse %>
+  </p>
+  <p>
+    <%= f.label :ward_notes %><br />
+    <%= f.text_area :ward_notes %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @ward %> |
+<%= link_to 'Back', wards_path %>

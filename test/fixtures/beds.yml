@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  bed_number: 1
+  ward_id: 1
+  admission_id: 1
+
+two:
+  bed_number: 1
+  ward_id: 1
+  admission_id: 1

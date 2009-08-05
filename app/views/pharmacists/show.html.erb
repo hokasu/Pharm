@@ -1,0 +1,18 @@
+<p>
+  <b>Firstname:</b>
+  <%=h @pharmacist.firstname %>
+</p>
+
+<p>
+  <b>Surname:</b>
+  <%=h @pharmacist.surname %>
+</p>
+
+<p>
+  <b>Pager:</b>
+  <%=h @pharmacist.pager %>
+</p>
+
+
+<%= link_to 'Edit', edit_pharmacist_path(@pharmacist) %> |
+<%= link_to 'Back', pharmacists_path %>

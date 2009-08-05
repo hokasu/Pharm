@@ -1,0 +1,28 @@
+<h1>Listing wards</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>specialty</th>
+    <th>Pharmacist</th>
+    <th>Nurse</th>
+    <th>Ward notes</th>
+  </tr>
+
+<% @wards.each do |ward| %>
+  <tr>
+    <td><%=h ward.name %></td>
+    <td><%=h ward.specialty %></td>
+    <td><%=h ward.pharmacist %></td>
+    <td><%=h ward.nurse %></td>
+    <td><%=h ward.ward_notes %></td>
+    <td><%= link_to 'Show', ward %></td>
+    <td><%= link_to 'Edit', edit_ward_path(ward) %></td>
+    <td><%= link_to 'Destroy', ward, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ward', new_ward_path %>

@@ -1,0 +1,24 @@
+<h1>Editing pharmacist</h1>
+
+<% form_for(@pharmacist) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :firstname %><br />
+    <%= f.text_field :firstname %>
+  </p>
+  <p>
+    <%= f.label :surname %><br />
+    <%= f.text_field :surname %>
+  </p>
+  <p>
+    <%= f.label :pager %><br />
+    <%= f.text_field :pager %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @pharmacist %> |
+<%= link_to 'Back', pharmacists_path %>
