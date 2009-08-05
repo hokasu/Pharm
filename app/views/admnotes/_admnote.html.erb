@@ -1,0 +1,7 @@
+<li>
+  <p><%= admnote.username %>   <%= admnote.created_at %> </p>
+ <p><%= admnote.text %></p>
+ <% if updated? %>
+  <p>Updated: <%= admnote.updated_at %> </p>
+<% end %>
+</li>
