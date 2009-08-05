@@ -16,6 +16,7 @@ class AdmnotesController < ApplicationController
         #???TODO
       end
     end
+  end
     
   def update
     @admnote = Admnote.find(params[:id])

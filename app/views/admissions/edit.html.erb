@@ -2,11 +2,7 @@
 
 <% form_for(@admission) do |f| %>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :patient_id %><br />
-    <%= f.text_field :patient_id %>:q
 
-  </p>
   <p>
     <%= f.label :admdate %><br />
     <%= f.datetime_select :admdate, :end_year => (Date.today.year) %>
@@ -36,5 +32,5 @@
 
 <% end %>
 
-<%= link_to 'Show', @admission %> |
+<%= link_to 'Notes', admission_admnotes_path (@admission) %> |
 <%= link_to 'Patient', patient_path (:id => @admission.patient_id) %>

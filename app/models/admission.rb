@@ -8,7 +8,7 @@ class Admission < ActiveRecord::Base
   #end
 
   def has_admnotes?
-    !admnotes.nil?
+    !admnotes.size==0
   end
 
 end

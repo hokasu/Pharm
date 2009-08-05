@@ -1,47 +1,10 @@
-<p>
-  <b>Admission date:</b>
-  <%=h @admission.admdate %>
-</p>
+<%= render :partial => "admission" %>
 
-<p>
-  <b>Ward:</b>
-  <%=h @admission.ward %>
-</p>
-
-<p>
-  <b>Bed:</b>
-  <%=h @admission.bed %>
-</p>
-
-<p>
-  <b>Departure date:</b>
-  <%=h @admission.depdate %>
-</p>
-
-<p>
-  <b>Primary indication:</b>
-  <%=h @admission.primaryindication %>
-</p>
-
-<p>
-  <b>Clinical summary:</b>
-  <%=h @admission.clinicalsummary %>
-</p>
-
-
- <% if @admission.has_admnotes? %>
- <li>
-   <h3>Notes</h3>
-   <ul class="admnotes">
-     <%= render  :partial => "admnotes/admnote",
-                 :collection => @admission.admnotes %>
-   </ul>
- </li>
- <% end %>
 
 
 
 <% @patient = Patient.find(@admission.patient_id)%>	<!-- rf -->
 <% ptname = @patient.firstname.to_s + " " + @patient.middlename.to_s + " " + @patient.surname.to_s%>
-<%= link_to 'Edit', edit_admission_path(@admission) %> |
-<%= link_to ptname, patient_path (:id => @admission.patient_id) %><!-- rf DONE: change to specific patient  DONE-->
+<%= link_to 'Admissions', patient_admissions_path(@patient) %>
+<%#= link_to 'Edit', edit_admission_path(@admission) %>
+<%#= link_to ptname, patient_path (:id => @admission.patient_id) %><!-- rf DONE: change to specific patient  DONE-->

@@ -46,7 +46,9 @@ class PatientsController < ApplicationController
 
   def destroy
     @patient = Patient.find(params[:id])
-    @patient.destroy
+    if @patient.destroy
+      redirect_to patients
+    end
 
   end
 end

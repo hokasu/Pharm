@@ -1,27 +1,18 @@
 
 <%= render :partial => @patient %>
 
-<% unless @admissions.size.zero? || true %> <!-- rf TURNED OFF -->
-  <div class="Previous admissions">
-<p>
-  <b>Previous admissions:</b>
-    <% for admission in @admissions %>
-      <% unless admission.depdate > DateTime.now %>
-      <li><%= link_to h(admission.primaryindication.to_s + " : " + admission.admdate.to_s), admission %></li>
-      <% end %>
-    <% end %>
-</p>
+<% if @patient.has_admissions? %>
 
-  </div>
-<% end %>
-
-<% if @patient.inpatient? %>
-<p>
+  <% if @patient.inpatient? %>
+  <p>
   <b>Current admission</b>
   <%= render :partial => @admission %>
+  <% end %>
 
-<% end %>
-  <%= link_to 'New admission', new_patient_admission_path(@patient) %> |
   <%= link_to 'Admissions', patient_admissions_path(@patient) %>
+    <% else %>
+  <%= link_to 'New admission',new_patient_admissions_path(@patient) %>
+<% end %>
+
 
 
