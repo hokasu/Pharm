@@ -1,5 +1,6 @@
 class Patient < ActiveRecord::Base
   has_many :admissions
+  has_one :ward, :through => :admissions
   has_many :admnotes, :through => :admissions
   
   validates_presence_of  :firstname, :surname, :phn
