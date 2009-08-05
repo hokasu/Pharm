@@ -24,5 +24,8 @@ class Patient < ActiveRecord::Base
     admissions.size > 0 
   end
   
+  def has_currentnotes?
+    admissions.last.admnotes.size > 0
+  end
 
 end

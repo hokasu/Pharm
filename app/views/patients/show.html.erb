@@ -1,18 +1,22 @@
 
 <%= render :partial => @patient %>
-
-<% if @patient.has_admissions? %>
-
-  <% if @patient.inpatient? %>
+<% if !@patient.has_admissions? %>
+  <%= link_to 'New admission',new_patient_admission_path(@patient) %>
+<% else %>
+<% if @patient.inpatient? %>
   <p>
   <b>Current admission</b>
-  <%= render :partial => @admission %>
-  <% end %>
-
-  <%= link_to 'Admissions', patient_admissions_path(@patient) %>
-    <% else %>
-  <%= link_to 'New admission',new_patient_admissions_path(@patient) %>
+    <%= render :partial => @admission %>
+  </p>
+  <%= link_to 'Admissions', patient_admissions_path(@patient) %> |
+<% if @patient.has_currentnotes? %>
+  <%= link_to 'Notes', admission_admnotes_path(@admission) %> |
+<% else %>
+  <%= link_to 'New note', new_admission_admnote_path(@admission) %> |
 <% end %>
-
+  
+  <% end %>
+<% end %>
+<%= link_to 'Ward', patients_path %>
 
 

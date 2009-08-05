@@ -4,6 +4,11 @@ class AdmnotesController < ApplicationController
     @admnotes = @admission.admnotes.all
   end
 
+  def new
+    @admission = Admission.find(params[:admission_id]) #rf
+    @admnote = @admission.admnotes.new
+  end
+
   def create
     @admnote = Admnote.new(params[:admnote])
     @admnote.admission = Admission.find(params[:admission_id]) #setting foreign key

@@ -1,10 +1,9 @@
+<% @patient = Patient.find(@admission.patient_id)%>	<!-- rf -->
+<H3><%= link_to @patient.fullname, patient_path %></H3>
 <%= render :partial => "admission" %>
 
 
-
-
-<% @patient = Patient.find(@admission.patient_id)%>	<!-- rf -->
 <% ptname = @patient.firstname.to_s + " " + @patient.middlename.to_s + " " + @patient.surname.to_s%>
-<%= link_to 'Admissions', patient_admissions_path(@patient) %>
-<%#= link_to 'Edit', edit_admission_path(@admission) %>
+<%= link_to 'Admissions', patient_admissions_path(@patient) %> |
+<%= link_to 'Edit', edit_admission_path(@admission) %>
 <%#= link_to ptname, patient_path (:id => @admission.patient_id) %><!-- rf DONE: change to specific patient  DONE-->

@@ -1,20 +1,14 @@
-<h1>Editing admission note</h1>
-
-<p>
-  <b>Created:</b>
-  <%=h @admnote.created_at %>
-  <% if updated? %>
-    <b>Updated:</b>
-    <%=h @admnote.updated_at %>
-  <% end %>
-</p>
-<p>
-  <b>Author:</b>
-  <%=h @admnote.username %>
-</p>
+<h1>New admission note</h1>
 
 <% form_for(@admnote) do |f| %>
+  
   <%= f.error_messages %>
+  <p>
+  TODO: fill with username
+  <b>Author:</b>
+  <%=h @admnote.username %>
+  </p>
+
 
   <p>
     <%= f.label :text %><br />

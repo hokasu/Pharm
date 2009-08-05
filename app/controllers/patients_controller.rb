@@ -5,7 +5,7 @@ class PatientsController < ApplicationController
   end
 
   def show
-    @patient = Patient.find(params[:id])
+   @patient = Patient.find(params[:id])
    @admissions = @patient.admissions.all  #rf
    @admission = @patient.admissions.last  #rf
   end
