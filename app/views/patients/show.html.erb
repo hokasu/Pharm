@@ -12,7 +12,7 @@
 <% if @patient.has_currentnotes? %>
   <%= link_to 'Notes', admission_admnotes_path(@admission) %> |
 <% else %>
-  <%= link_to 'New note', new_admission_admnote_path(@admission) %> |
+  <%#= link_to 'New note', new_admission_admnote_path(@admission) %> |
 <% end %>
   
   <% end %>
