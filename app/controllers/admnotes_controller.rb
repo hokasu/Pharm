@@ -9,7 +9,10 @@ class AdmnotesController < ApplicationController
     @admnote = @admission.admnotes.new
   end
 
-  
+  def edit
+    @admnote = Admnote.find(params[:id])
+  end
+
   def show
     @admnote = Admnote.find(params[:id])
   end
@@ -21,7 +24,7 @@ class AdmnotesController < ApplicationController
 
       if @admnote.save
         flash[:notice] = 'Admission was successfully created.'
-        redirect_to admission_admnotes_path (@admnote.admission)
+        redirect_to admission_admnotes_path(@admnote.admission)
       else
         #???TODO
       end
