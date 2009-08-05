@@ -21,7 +21,7 @@
   <%= render :partial => @admission %>
 
 <% end %>
-  <%= link_to 'New admission', new_patient_admission_path(@patient) %>
-  <%= link_to 'Past admissions', patient_admissions_path(@patient) %>
+  <%= link_to 'New admission', new_patient_admission_path(@patient) %> |
+  <%= link_to 'Admissions', patient_admissions_path(@patient) %>
 
 

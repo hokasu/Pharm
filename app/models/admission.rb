@@ -7,7 +7,7 @@ class Admission < ActiveRecord::Base
   #   admdate.to_date.strftime '%m/%d/%Y'
   #end
 
-  def has_notes?
+  def has_admnotes?
     !admnotes.nil?
   end
 
