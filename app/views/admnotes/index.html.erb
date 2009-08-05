@@ -1,0 +1,5 @@
+<H3> <%= @admission.patient.fullname %> </H3> 
+<ul>
+<%= render :partial => "admnote",
+ :collection => @admnotes %> 
+</ul>
