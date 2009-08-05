@@ -32,6 +32,7 @@
 
 <% end %>
 
-<%= link_to 'Notes', new_admission_admnotes_path (@admission) %> |
+<%= link_to 'New note', new_admission_admnote_path (@admission) %> |
+<%= link_to 'Notes', admission_admnotes_path (@admission) %> |
 <%= link_to 'Destroy', @admission, :confirm => 'Are you sure?', :method => :delete %> |
 <%= link_to 'Cancel', admission_path  %>
