@@ -1,11 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'patients' #rf
   map.resources :patients, :has_many => :admissions
- map.resources :admissions, :has_many => :admnotes
+ map.resources :admissions, :has_many => :admnotes #rf
 # map.admit 'patients/:patient_id/admit', :controller => 'admissions', :action => 'admit'
 
 
- # patients/1/admissions/new TODO
  #
   # The priority is based upon order of creation: first created -> highest priority.
 

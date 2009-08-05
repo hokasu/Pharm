@@ -1,15 +1,17 @@
 class AdmnotesController < ApplicationController
   def index
-    @admnotes = Admnote.all
+    @admission = Admission.find(params[:admission_id])
+    @admnotes = @admission.admnotes.all
   end
 
   def create
     @admnote = Admnote.new(params[:admnote])
+    @admnote.admission = Admission.find(params[:admission_id]) #setting foreign key
 
     respond_to do |format|
       if @admnote.save
         flash[:notice] = 'Admission was successfully created.'
-        redirect_to(@admnote) 
+        redirect_to admnotes_path
       else
         #???TODO
       end

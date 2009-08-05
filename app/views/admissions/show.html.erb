@@ -28,6 +28,19 @@
   <%=h @admission.clinicalsummary %>
 </p>
 
+
+ <% if @admission.has_admnotes? %>
+ <li>
+   <h3>Notes</h3>
+   <ul class="admnotes">
+     <%= render  :partial => "admnotes/admnote",
+                 :collection => @admission.admnotes %>
+   </ul>
+ </li>
+ <% end %>
+
+
+
 <% @patient = Patient.find(@admission.patient_id)%>	<!-- rf -->
 <% ptname = @patient.firstname.to_s + " " + @patient.middlename.to_s + " " + @patient.surname.to_s%>
 <%= link_to 'Edit', edit_admission_path(@admission) %> |

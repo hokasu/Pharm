@@ -3,8 +3,10 @@
 <p>
   <b>Created:</b>
   <%=h @admnote.created_at %>
-  <b>Updated:</b>
-  <%=h @admnote.updated_at %>
+  <% if updated? %>
+    <b>Updated:</b>
+    <%=h @admnote.updated_at %>
+  <% end %>
 </p>
 <p>
   <b>Author:</b>

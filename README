@@ -1,5 +1,6 @@
 
 Todo:
+- change admissions layout so that title includes patient's name
 - work out search/dynamic results - jquery?
 - Change input of new admission so that Departure date is set to Admission date once admission date is entered.
 
