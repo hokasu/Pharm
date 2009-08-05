@@ -1,5 +1,7 @@
 class Patient < ActiveRecord::Base
   has_many :admissions
+  has_many :admnotes, :through => :admissions
+  
   validates_presence_of  :firstname, :surname, :phn
   #lastadmission = self.admissions.last #why doesn't this work? because its a class method
 
@@ -28,8 +30,5 @@ class Patient < ActiveRecord::Base
     admissions.last.admnotes.size > 0
   end
 
-  def all_admnotes
-    admissions.each { |a| a.admnotes }
-  end
 
 end

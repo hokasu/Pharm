@@ -11,12 +11,13 @@
   <%= link_to 'Admissions', patient_admissions_path(@patient) %> |
 <% if @patient.has_currentnotes? %>
   <%= link_to 'Notes', admission_admnotes_path(@admission) %> |
-
+<% else %>
+  <%# if @patient.admnotes.size > 0 %>
 <% end %>
- <% else %> 
   <%= link_to 'New note', new_admission_admnote_path(@admission) %> |
   <% end %>
 <% end %>
 <%= link_to 'Ward', patients_path %>
 
+    <%= link_to 'All notes', admonotes_path(@patient.admnotes) %>
 
