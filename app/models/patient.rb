@@ -19,8 +19,23 @@ class Patient < ActiveRecord::Base
     sensitivities.size>0
   end
 
+  def current_admission
+    admissions.each  {|a| if a.admdate < DateTime.now && a.depdate > DateTime.now
+      then return a else return nil end }
+
+  end
+
+  def current_ward
+    if current_admission!=nil
+      then return current_admission.ward
+    else
+      return nil
+    end
+  end
+
+
   def inpatient?
-    DateTime.now < self.admissions.last.depdate && DateTime.now > self.admissions.last.admdate
+    return current_admission!=nil
   end
 
   def has_admissions?
