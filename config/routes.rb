@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :pharmacists, :has_many => :wards
 
-  map.resources :wards
+  map.resources :wards, :has_many => :patients
 
   map.root :controller => 'wards'
   map.resources :patients, :has_many => :admissions
