@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :wards
 
-  map.root :controller => 'patients' #rf
+  map.root :controller => 'wards'
   map.resources :patients, :has_many => :admissions
  map.resources :admissions, :has_many => :admnotes, :has_one => :bed
  map.resources :admnotes

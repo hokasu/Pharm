@@ -1,8 +1,6 @@
 class Pharmacist < ActiveRecord::Base
   has_one :ward
   has_many :beds, :through => :ward
-#  has_many :admissions, :through => :beds
-# has_many :patients, :through => :admissions
 
   def current_patients
     patients = Array.new
@@ -13,12 +11,38 @@ class Pharmacist < ActiveRecord::Base
   end
 
   def admissions
-    beds.map {|bed| bed.admission}
-  end
-  
-  def patients
-    admissions.map {|admission| admission.patient}
-  end
-
+    beds.map {|bed| bed.admission}
+  end
   
+  def patients
+    admissions.map {|admission| admission.patient}
+  end
 end
+#tomoj: robert__: for the has_one ward in patient, you need like "has_one :current_admission, :conditions => ...however you tell that it's current..."
+#[18:14] leachim6 joined the chat room.
+#[18:14] tomoj: robert__: then has_one :ward, :through => :current_admission
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
