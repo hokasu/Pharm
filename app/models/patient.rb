@@ -20,9 +20,10 @@ class Patient < ActiveRecord::Base
   end
 
   def current_admission
-    admissions.each  {|a| if a.admdate < DateTime.now && a.depdate > DateTime.now
-      then return a else return nil end }
+    #admissions.each  {|a| if a.admdate < DateTime.now && a.depdate > DateTime.now
+    #  then return a else return nil end }
 
+    admissions.find(:all, :conditions => ["admdate <  NOW() AND depdate > NOW()"]).last
   end
 
   def current_ward
