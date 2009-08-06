@@ -1,6 +1,7 @@
 class WardsController < ApplicationController
   def index
     @wards = Ward.all
+   #TODO set @patients to all current patients 
   end
 
   def show

@@ -24,6 +24,7 @@
 </p>
 
 
-<%= link_to 'Patients', patients_url(@ward) %> |
+<%= link_to 'All patients', patients %> |
+<%= link_to 'Ward patients', ward_patients_path(@ward) %> |
 <%= link_to 'Edit', edit_ward_path(@ward) %> |
 <%= link_to 'Back', wards_path %>
