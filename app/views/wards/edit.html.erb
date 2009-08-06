@@ -13,7 +13,8 @@
   </p>
   <p>
     <%= f.label :pharmacist %><br />
-    <%= f.text_field :pharmacist %>
+    <%= f.collection_select :pharmacist_id, Pharmacist.all, :id, :firstname %>
+    
   </p>
   <p>
     <%= f.label :nurse %><br />
@@ -28,5 +29,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @ward %> |
+<%= link_to 'Destroy', @ward, :confirm => 'Are you sure?', :method => :delete %> |
 <%= link_to 'Back', wards_path %>
