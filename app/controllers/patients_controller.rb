@@ -1,9 +1,6 @@
 class PatientsController < ApplicationController
-  def index
-    @patients = Patient.find(:all)
-  end
 
-  def ward
+  def index
     @ward = Ward.find(params[:ward_id])
     @patients = @ward.current_patients
   end
