@@ -6,6 +6,7 @@ class WardsController < ApplicationController
 
   def show
     @ward = Ward.find(params[:id])
+    @patients = @ward.patients
   end
 
   def new
