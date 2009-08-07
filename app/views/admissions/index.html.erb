@@ -10,7 +10,7 @@
 <% @admissions.each do |admission| %>
   <tr>
     <td><%=h date_uk (admission.admdate) %></td>
-    <td><%=h admission.ward %></td>
+    <td><%=h admission.ward.name %></td>
     <td><%=h date_uk ( admission.depdate )%></td>
 
     <td><%=h admission.primaryindication %></td>

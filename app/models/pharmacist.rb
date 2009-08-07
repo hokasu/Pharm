@@ -14,7 +14,7 @@ class Pharmacist < ActiveRecord::Base
     beds.map {|bed| bed.admission}
   end
   
-  def patients
+  def patients #displays all patients for this pharmacist, including discharged ones
     admissions.map {|admission| admission.patient}
   end
 end
