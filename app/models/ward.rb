@@ -8,7 +8,7 @@ class Ward < ActiveRecord::Base
   def current_patients
     patients = Array.new
     beds.each do |b|
-      patients << b.admission.patient
+      patients << b.admissions.current.last.patient #for some reason .current is returning array
       end
     return patients
   end
