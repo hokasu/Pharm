@@ -1,7 +1,8 @@
 class PatientsController < ApplicationController
   def index
     @ward = Ward.find(params[:ward_id])
-    @patients = @ward.patients
+    #@patients = Patient.all
+    @patients = @ward.admissions.current(:join => Patient.all)  #doesn't like this collection
   end
 
   def show

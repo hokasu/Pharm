@@ -1,17 +1,4 @@
-<p>
-  <b>Firstname:</b>
-  <%=h @pharmacist.firstname %>
-</p>
-
-<p>
-  <b>Surname:</b>
-  <%=h @pharmacist.surname %>
-</p>
-
-<p>
-  <b>Pager:</b>
-  <%=h @pharmacist.pager %>
-</p>
+<%= render :partial => 'pharmacist' %>
 
 
 <%= link_to 'Edit', edit_pharmacist_path(@pharmacist) %> |

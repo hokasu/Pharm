@@ -1,10 +1,9 @@
 class Patient < ActiveRecord::Base
   has_many :admissions
-  has_one :ward, :through => :admissions
+  #has_one :ward, :through => :admissions, :conditions => ["admdate < NOW()"]
   has_many :admnotes, :through => :admissions
   
   validates_presence_of  :firstname, :surname, :phn
-  #lastadmission = self.admissions.last #why doesn't this work? because its a class method
 
   def fullname
     firstname + " " + middlename + " " + surname
@@ -33,6 +32,8 @@ class Patient < ActiveRecord::Base
       return nil
     end
   end
+
+  
 
 
   def inpatient?
