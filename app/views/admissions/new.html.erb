@@ -8,14 +8,16 @@
     <%= f.datetime_select :admdate, :start_year => (Date.today.year - 1), :end_year => (Date.today.year + 3) %>
   </p>
   <p>
-    <%= f.label :ward %><br />
+    <%#= f.label :ward %><br />
     <%#= f.collection_select :ward_id, Ward.all, :id, :name %>
-    <%= f.text_field :ward %>
+    <%#= f.text_field :ward %>
   </p>
   <p>
     <%= f.label :bed %><br />
     <%#= f.collection_select :bed_id, Bed.all, :id, :name %>
-    <%= f.text_field :bed %>
+    <%#= f.text_field :bed %>
+    <%= f.select :bed_id, Bed.all.collect {|bed| [ bed.ward.name + bed.bed_number.to_s, bed.id ] } %>
+
   </p>
   <p> Todo: set depdate to admdate
     <%= f.label :depdate %><br />
