@@ -3,7 +3,7 @@ class Admission < ActiveRecord::Base
   belongs_to :bed
   has_many :admnotes
   #has_one :current_admission, :conditions =>  ["admdate <  NOW() AND depdate > NOW()"]
-  has_one :bed
+  belongs_to :bed
   has_one :ward, :through => :bed
   validates_presence_of :patient_id
 

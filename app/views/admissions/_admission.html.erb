@@ -11,12 +11,12 @@
 <b>Admission: </b>
   <%=h @admission.admdate.to_formatted_s(:long_ordinal) %>
   <b> Ward:</b> <!-- TODO need to work out CSS for left/right collumns -->
-  <%=h @admission.ward %>
+  <%=h @admission.ward.name %>
 </p>
 
 <p>
   <b>Bed:</b>
-  <%=h @admission.bed %>
+  <%=h @admission.bed.bed_number %>
 
   <b>Discharge date:</b>
   <%=h @admission.depdate.to_date.to_formatted_s(:long_ordinal) %>

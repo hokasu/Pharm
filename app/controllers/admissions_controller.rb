@@ -11,6 +11,7 @@ class AdmissionsController < ApplicationController
   def new
     @patient = Patient.find(params[:patient_id])
     @admission = @patient.admissions.new  #p
+    #find_by_name
   end
 
   def edit

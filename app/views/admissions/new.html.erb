@@ -15,7 +15,7 @@
   </p>
   <p>
     <%= f.label :bed %><br />
-    <%= f.collection_select :bed, Bed.find(:all, :conditions => ['ward_id = ?', @ward.id]), :id, :bed_number %>
+    <%= f.collection_select :bed_id, Bed.find(:all, :conditions => ['ward_id = ?', @ward.id]), :id, :bed_number %>
     <%#= f.text_field :bed %>
     <%#= f.select :bed_id, Bed.all.collect {|bed| [ bed.ward.name + bed.bed_number.to_s, bed.id ] } %>
 
