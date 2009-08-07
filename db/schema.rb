@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(:version => 20090805230543) do
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
     t.datetime "admdate"
-    t.string   "bed"
     t.datetime "depdate"
     t.string   "primaryindication"
     t.text     "clinicalsummary"

@@ -1,5 +1,6 @@
 class Admission < ActiveRecord::Base
   belongs_to :patient
+  belongs_to :bed
   has_many :admnotes
   #has_one :current_admission, :conditions =>  ["admdate <  NOW() AND depdate > NOW()"]
   has_one :bed

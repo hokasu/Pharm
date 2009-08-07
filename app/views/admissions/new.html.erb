@@ -9,10 +9,12 @@
   </p>
   <p>
     <%= f.label :ward %><br />
+    <%#= f.collection_select :ward_id, Ward.all, :id, :name %>
     <%= f.text_field :ward %>
   </p>
   <p>
     <%= f.label :bed %><br />
+    <%#= f.collection_select :bed_id, Bed.all, :id, :name %>
     <%= f.text_field :bed %>
   </p>
   <p> Todo: set depdate to admdate
