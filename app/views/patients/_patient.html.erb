@@ -1,33 +1,30 @@
-<%= debug params %>
-<div class="toolbar"> <!-- iPhone - iUI -->
-  <h1 id="pageTitle"></h1>
-  <a id="backButton" class="button" href="#"></a>
-</div>
-<p>
-  <b>PHN:</b>
-  <%=h @patient.phn %>
-  <b>Date of birth:</b>
-  <%=h @patient.dob.to_formatted_s(:rfc822) %>
-</p>
-<p>
-  <b>Name:</b>
-  <%=h @patient.fullname %>
-</p>
+<%#= debug params %>
+<table>
+  <tr>
+    <th>Firstname</th>
+    <th>Middlename</th>
+    <th>Surname</th>
+    <th>Dob</th>
+    <th>Allergies</th>
+    <th>Sensitivities</th>
+  </tr>
 
-
-<% if @patient.has_allergies? %>
-<p>
-  <b>Allergies:</b>
-  <%=h @patient.allergies %>
-</p>
+<% @patients.each do |patient| %>
+  <tr>
+    <td><%=h patient.firstname %></td>
+    <td><%=h patient.middlename %></td>
+    <td><%=h patient.surname %></td>
+    <td><%=h patient.dob %></td>
+    <td><%=h patient.allergies %></td>
+    <td><%=h patient.sensitivities %></td>
+    <td><%= link_to 'Show', patient %></td>
+  </tr>
 <% end %>
+</table>
 
-<% if @patient.has_sensitivities? %>
-<p>
-  <b>Sensitivities:</b>
-  <%=h @patient.sensitivities %>
-</p>
-<% end %>
-    <%= link_to 'Edit', edit_patient_path(@patient) %>
+<br />
+
+<%= link_to 'Wards', wards_path %>
+
 
 

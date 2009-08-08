@@ -1,14 +1,20 @@
 class PatientsController < ApplicationController
 
   def index
+    if params
+      then 
     @ward = Ward.find(params[:ward_id])
     @patients = @ward.current_patients
+    else
+      redirect_to wards_path
+    end
   end
 
   def show
    @patient = Patient.find(params[:id])
    @admissions = @patient.admissions.all  #rf
    @admission = @patient.admissions.last  #rf
+   @ward = @admission.ward
   end
 
   def new
@@ -48,7 +54,7 @@ class PatientsController < ApplicationController
   def destroy
     @patient = Patient.find(params[:id])
     if @patient.destroy
-      redirect_to patients
+      redirect_to wards
     end
 
   end

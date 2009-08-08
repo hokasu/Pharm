@@ -1,5 +1,34 @@
+<%= debug params %>
+<div class="toolbar"> <!-- iPhone - iUI -->
+  <h1 id="pageTitle"></h1>
+  <a id="backButton" class="button" href="#"></a>
+</div>
+<p>
+  <b>PHN:</b>
+  <%=h @patient.phn %>
+  <b>Date of birth:</b>
+  <%=h @patient.dob.to_formatted_s(:rfc822) %>
+</p>
+<p>
+  <b>Name:</b>
+  <%=h @patient.fullname %>
+</p>
 
-<%= render :partial => @patient %>
+
+<% if @patient.has_allergies? %>
+<p>
+  <b>Allergies:</b>
+  <%=h @patient.allergies %>
+</p>
+<% end %>
+
+<% if @patient.has_sensitivities? %>
+<p>
+  <b>Sensitivities:</b>
+  <%=h @patient.sensitivities %>
+</p>
+<% end %>
+    <%= link_to 'Edit', edit_patient_path(@patient) %>
 <% if !@patient.has_admissions? %>
   <%= link_to 'New admission',new_patient_admission_path(@patient) %>
 <% else %>
@@ -17,8 +46,8 @@
   <%= link_to 'New note', new_admission_admnote_path(@admission) %> |
   <% end %>
 <% end %>
-<%= link_to 'Ward', patients_path %>
-<%= link_to 'All patients', patients_path %>
+<%= link_to 'Ward', ward_patients_path(@ward) %>
+<%#= link_to 'All patients', patients_path %>
 
     <%#= link_to 'All notes', admnotes_path(@patient) %>
 

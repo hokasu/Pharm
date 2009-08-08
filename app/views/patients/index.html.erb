@@ -1,29 +1,3 @@
 <h1>All patients</h1>
-<%#= debug params %>
-<table>
-  <tr>
-    <th>Firstname</th>
-    <th>Middlename</th>
-    <th>Surname</th>
-    <th>Dob</th>
-    <th>Allergies</th>
-    <th>Sensitivities</th>
-  </tr>
+<%= render :partial => "patient" %>
 
-<% @patients.each do |patient| %>
-  <tr>
-    <td><%=h patient.firstname %></td>
-    <td><%=h patient.middlename %></td>
-    <td><%=h patient.surname %></td>
-    <td><%=h patient.dob %></td>
-    <td><%=h patient.allergies %></td>
-    <td><%=h patient.sensitivities %></td>
-    <td><%= link_to 'Show', patient %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'Wards', wards_path %>
-<%= link_to 'Wards', wards_path %>
