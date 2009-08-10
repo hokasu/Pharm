@@ -8,9 +8,9 @@ class WardsController < ApplicationController
   def show
     if params[:id] == 'ducked'
       render :action => 'ducked'
-    else unless
-    #@ward = Ward.find(params[:id])
-    #@patients = @ward.patients
+    else 
+    @ward = Ward.find(params[:id])
+    @patients = @ward.patients
     end
   end
 

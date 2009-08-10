@@ -11,10 +11,12 @@ class AdmnotesController < ApplicationController
 
   def edit
     @admnote = Admnote.find(params[:id])
+    @admission = Admission.find(@admnote.admission_id)
   end
 
   def show
     @admnote = Admnote.find(params[:id])
+    @admission = Admission.find(params[:admission_id])
   end
 
   def create
