@@ -4,9 +4,14 @@ class WardsController < ApplicationController
    #TODO set @patients to all current patients 
   end
 
+
   def show
-    @ward = Ward.find(params[:id])
-    @patients = @ward.patients
+    if params[:id] == 'ducked'
+      render :action => 'ducked'
+    else unless
+    #@ward = Ward.find(params[:id])
+    #@patients = @ward.patients
+    end
   end
 
   def new

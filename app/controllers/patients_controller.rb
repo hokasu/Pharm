@@ -1,13 +1,17 @@
 class PatientsController < ApplicationController
 
   def index
-    if params
+    if params[:ward_id]
       then 
     @ward = Ward.find(params[:ward_id])
     @patients = @ward.current_patients
     else
-      redirect_to wards_path
+      allpatients
     end
+  end
+
+  def allpatients
+    @patients = Patient.all
   end
 
   def show

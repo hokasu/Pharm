@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+#map.patients 'patients', :controller => 'patients', :action => 'allpatients'
   map.resources :pharmacists, :has_many => :wards
 
   map.resources :wards, :has_many => :patients
@@ -9,7 +10,8 @@ ActionController::Routing::Routes.draw do |map|
  map.resources :admnotes
 
 
-
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
 #sets up the routes for index, create, update and destroy actions of admnotes controller
  #so /admnotes, /admnotes/new, POST /admnotes/:id, PUT /admnotes/:id, and DELETE /admnotes/:id
 # map.admit 'patients/:patient_id/admit', :controller => 'admissions', :action => 'admit'
@@ -54,6 +56,4 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
 end
