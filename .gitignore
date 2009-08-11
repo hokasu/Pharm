@@ -6,3 +6,4 @@ config/development.sphinx.conf
 db/*.sqlite3
 *.swp
 config/database.yml
+db/sphinx/
