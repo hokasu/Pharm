@@ -1,6 +1,7 @@
 <%#= debug params %>
 <table>
   <tr>
+    <th>Ward</th>
     <th>Firstname</th>
     <th>Middlename</th>
     <th>Surname</th>
@@ -11,6 +12,11 @@
 
 <% @patients.each do |patient| %>
   <tr>
+    <td><% if patient.current_ward %>
+      <%= patient.current_ward.name %>
+    <% else %>
+      <%= "n/a" %>
+    <% end %></td>
     <td><%=h patient.firstname %></td>
     <td><%=h patient.middlename %></td>
     <td><%=h patient.surname %></td>
