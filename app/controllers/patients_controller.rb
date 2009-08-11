@@ -8,6 +8,7 @@ class PatientsController < ApplicationController
     else
       allpatients
     end
+    
   end
 
   def allpatients

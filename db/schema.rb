@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090807131215) do
+ActiveRecord::Schema.define(:version => 20090811151404) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(:version => 20090807131215) do
     t.string   "firstname"
     t.string   "surname"
     t.string   "pager"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "username"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

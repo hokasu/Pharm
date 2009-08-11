@@ -1,10 +1,17 @@
 ActionController::Routing::Routes.draw do |map|
+map.login "login", :controller => "user_sessions", :action => "new"
+map.logout "logout", :controller => "user_sessions", :action => "destroy"
+
+  #map.root :controller => 'wards'
+  map.root :controller => "user_sessions", :action => "new"
+  map.resources :user_sessions
+  map.resources :users
+
 #map.patients 'patients', :controller => 'patients', :action => 'allpatients'
   map.resources :pharmacists, :has_many => :wards
 
   map.resources :wards, :has_many => :patients
 
-  map.root :controller => 'wards'
   map.resources :patients, :has_many => :admissions
  map.resources :admissions, :has_many => :admnotes, :has_one => :bed
  map.resources :admnotes
