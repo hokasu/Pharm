@@ -1,8 +1,13 @@
 class Patient < ActiveRecord::Base
   has_many :admissions
-  #has_one :ward, :through => :admissions, :conditions => ["admdate < NOW()"]
   has_many :admnotes, :through => :admissions
-  
+  define_index do
+    indexes surname
+    indexes phn
+    indexes admnotes.text, :as => :admnote_text
+    indexes admnotes.username, :as => :author_name
+  end
+
   validates_presence_of  :firstname, :surname, :phn
 
   def fullname

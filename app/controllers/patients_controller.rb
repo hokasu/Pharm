@@ -8,11 +8,10 @@ class PatientsController < ApplicationController
     else
       allpatients
     end
-    
   end
 
   def allpatients
-    @patients = Patient.all
+     @patients = Patient.search params[:search] 
   end
 
   def show
