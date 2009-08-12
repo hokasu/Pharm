@@ -6,12 +6,8 @@ class WardsController < ApplicationController
 
 
   def show
-    if params[:id] == 'ducked'
-      render :action => 'ducked'
-    else 
     @ward = Ward.find(params[:id])
     @patients = @ward.patients
-    end
   end
 
   def new
