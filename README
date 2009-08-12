@@ -1,7 +1,6 @@
 
 Need:
-Search function in /patients index view
-application wide layout/css
+Change Edit user and new user functionality to be rendered in admin page only
 
 Todo:
 -

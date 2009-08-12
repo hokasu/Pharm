@@ -1,4 +1,4 @@
-<h1>Editing patient</h1>
+<% title("Editing " + @patient.surname) %>
 
 <% form_for(@patient) do |f| %>
   <%= f.error_messages %>

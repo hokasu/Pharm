@@ -1,8 +1,8 @@
-<h1><%if @ward != nil %>
-    <%= @ward.name %>
+<%if @ward != nil %>
+    <% title @ward.name %>
   <%else %>
-    All
-  <% end %> patients</h1>
+    <% title "Patients listing" %>
+  <% end %> 
 <% form_tag patients_path, :method => :get do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
@@ -10,4 +10,3 @@
   </p>
 <% end %>
 <%= render :partial => "patient" %>
-

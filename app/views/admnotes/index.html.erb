@@ -1,4 +1,4 @@
-<H3> <%= @admission.patient.fullname %> </H3> 
+<% title @admission.patient.fullname %> 
 <ul>
 <%= render :partial => "admnote",
  :collection => @admnotes %> 
