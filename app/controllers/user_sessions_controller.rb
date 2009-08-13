@@ -4,7 +4,6 @@ class UserSessionsController < ApplicationController
     respond_to do |format| 
       format.html # index.html.erb 
       format.iphone # index.iphone.erb 
-      format.xml { render :xml => @lists } 
     end
   end 
     
@@ -15,14 +14,12 @@ class UserSessionsController < ApplicationController
       respond_to do |format| 
         format.html # index.html.erb 
         format.iphone # index.iphone.erb 
-        format.xml { render :xml => @lists } 
       end
       redirect_to wards_url
     else
       respond_to do |format| 
         format.html # index.html.erb 
         format.iphone # index.iphone.erb 
-        format.xml { render :xml => @lists } 
       end
       render :action => 'new'
     end

@@ -1,18 +1,11 @@
-<h1>Listing wards</h1>
-
-<table>
-  <td>
 <% @wards.each do |ward| %>
    <%=h ward.name + ", " + ward.specialty %><br />
   <%=h "Pharmacist: " + ward.pharmacist.firstname %><br />
     <%=h "Nurse in charge: " + ward.nurse %><br />
     <%=h ward.ward_notes %><br />
     <%= link_to 'Show', ward %><br />
-  <br />
 
 <% end %>
-  </td>
-</table>
 
 <br />
 
