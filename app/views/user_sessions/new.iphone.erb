@@ -1,15 +1,18 @@
 <% title "Login" %>
-<% form_for @user_session do |f| %>
+<% form_for(@user_session, :html => { :class => 'panel',
+            :selected => 'true',
+            :title => 'Login'}) do |f| %>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
-  </p>
-  <p>
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
+  <fieldset>
+    <div class="row">
+      <label for=":username">Username</label>
+        <%= f.text_field :username %>
+    </div>
+    <div class="row">
+      <label for=":password">Password</label>
+        <%= f.password_field :password %>
+    </div>
+    <a class="whiteButton" type="submit" hfref="#">Subit</a>
 <% end %>
 
 
