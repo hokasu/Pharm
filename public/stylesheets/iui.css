@@ -40,7 +40,7 @@ a[selected], a:active {
 }
 
 a[selected="progress"] {
-    background-image: url(loading.gif), url(../images/selection.png) !important;
+    background-image: url(../images/loading.gif), url(../images/selection.png) !important;
 }
 
 /************************************************************************************************/
@@ -391,6 +391,6 @@ fieldset > .row:last-child {
 
 #preloader {
     display: none;
-    background-image: url(loading.gif), url(../images/selection.png),
+    background-image: url(../images/loading.gif), url(../images/selection.png),
         url(../images/blueButton.png), url(../images/listArrowSel.png), url(../images/listGroup.png);
 }

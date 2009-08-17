@@ -1,4 +1,4 @@
-<% title "Login" %>
+<% title "Pharmacy info" %>
 <% form_for(@user_session, :html => { :class => 'panel',
             :selected => 'true',
             :title => 'Login'}) do |f| %>
@@ -12,7 +12,8 @@
       <label for=":password">Password</label>
         <%= f.password_field :password %>
     </div>
-    <a class="whiteButton" type="submit" hfref="#">Subit</a>
+
+    <a class="whiteButton" type="submit" href="#">Subit</a>
 <% end %>
 
 

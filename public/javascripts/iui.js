@@ -25,7 +25,7 @@ var landscapeVal = "landscape";
 
 window.iui =
 {
-	animOn: false,	// Experimental slide animation with CSS transition disabled by default
+	animOn: true,	// Experimental slide animation with CSS transition disabled by default
 
 	showPage: function(page, backwards)
 	{

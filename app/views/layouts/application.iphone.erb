@@ -4,16 +4,14 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta id="viewport" name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
   <title><%= h(yield(:title) || "Ward pharmacy information system") %></title>
-  <%#= stylesheet_link_tag 'iui', :media => "only screen and (max-device-width: 480px)"%>
-  <%#= stylesheet_link_tag 'scaffold', :media => "screen and (min-device-width: 481px)" %>
-  <%#= stylesheet_link_tag 'scaffold' %>
   <%= stylesheet_link_tag 'iui' %>
-  <%= javascript_include_tag 'iui', 'prototype', 'application' %>
+  <%= javascript_include_tag 'iui' %>
   </head>
 <body>
     <div class="toolbar">
         <h1 id="pageTitle"></h1>
-        <a id="backButton" class="button" href="#"></a>
+          <a id="backButton" class="button" href="#"></a>
+          <!-- <a class="button" href="#searchForm">Search</a> -->
     </div>
 
     <%= yield %>

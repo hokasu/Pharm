@@ -7,5 +7,9 @@ module LayoutHelper
   def show_title?
     @show_title
   end
+
+  def no_back?
+    true
+  end
 end
 

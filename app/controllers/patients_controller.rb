@@ -5,6 +5,10 @@ class PatientsController < ApplicationController
       then 
     @ward = Ward.find(params[:ward_id])
     @patients = @ward.current_patients
+    respond_to do |format| 
+      format.html 
+      format.iphone { render :layout => false }
+    end
     else
       allpatients
     end
@@ -12,6 +16,10 @@ class PatientsController < ApplicationController
 
   def allpatients
      @patients = Patient.search params[:search] 
+    respond_to do |format| 
+      format.html 
+      format.iphone { render :layout => false }
+    end
   end
 
   def show
@@ -19,14 +27,26 @@ class PatientsController < ApplicationController
    @admissions = @patient.admissions.all  #rf
    @admission = @patient.admissions.last  #rf
    @ward = @admission.ward
+    respond_to do |format| 
+      format.html 
+      format.iphone { render :layout => false }
+    end
   end
 
   def new
     @patient = Patient.new
+    respond_to do |format| 
+      format.html 
+      format.iphone { render :layout => false }
+    end
   end
 
   def edit
     @patient = Patient.find(params[:id])
+    respond_to do |format| 
+      format.html 
+      format.iphone { render :layout => false }
+    end
   end
 
   def create

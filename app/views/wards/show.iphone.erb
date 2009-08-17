@@ -1,0 +1,32 @@
+<% title @ward.name %>
+<ul title=<%= @ward.name %> selected="true">
+<p>
+  <b>Name:</b>
+  <%=h @ward.name %>
+</p>
+
+<p>
+  <b>Specialty:</b>
+  <%=h @ward.specialty %>
+</p>
+
+<p>
+  <b>Pharmacist:</b>
+  <%=h @ward.pharmacist.firstname %>
+</p>
+
+<p>
+  <b>Nurse:</b>
+  <%=h @ward.nurse %>
+</p>
+
+<p>
+  <b>Ward notes:</b>
+  <%=h @ward.ward_notes %>
+</p>
+<li class="group">Actions</li>
+<li>
+<%= link_to 'Patients', ward_patients_path(@ward) %>
+<%= link_to 'Edit', edit_ward_path(@ward) %>
+</li>
+</ul>

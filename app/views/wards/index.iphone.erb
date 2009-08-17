@@ -1,13 +1,11 @@
+<ul title="Wards" selected="true">
+<div class="panel"></div>
 <% @wards.each do |ward| %>
-   <%=h ward.name + ", " + ward.specialty %><br />
-  <%=h "Pharmacist: " + ward.pharmacist.firstname %><br />
-    <%=h "Nurse in charge: " + ward.nurse %><br />
-    <%=h ward.ward_notes %><br />
-    <%= link_to 'Show', ward %><br />
-
+  <li> <%= link_to h(ward.name + ", " + ward.specialty), ward %></li>
 <% end %>
-
-<br />
-
-<%= link_to 'New ward', new_ward_path %>
-TODO: only available to administrator
+<li class="group">Actions</li>
+<li>
+  <%= link_to 'New ward', new_ward_path %>
+  <%= link_to 'Logout', logout_path %>
+</li>
+</ul>
