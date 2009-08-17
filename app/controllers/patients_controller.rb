@@ -25,8 +25,12 @@ class PatientsController < ApplicationController
   def show
    @patient = Patient.find(params[:id])
    @admissions = @patient.admissions.all  #rf
-   @admission = @patient.admissions.last  #rf
-   @ward = @admission.ward
+   @admission = @patient.admissions.current.last  #rf
+   if @admission
+     @ward = @admission.ward
+   else
+     @ward = nil
+   end
     respond_to do |format| 
       format.html 
       format.iphone { render :layout => false }

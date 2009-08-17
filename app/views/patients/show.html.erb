@@ -1,9 +1,6 @@
 <% title @patient.surname %>
 <%= debug params %>
-<div class="toolbar"> <!-- iPhone - iUI -->
-  <h1 id="pageTitle"></h1>
-  <a id="backButton" class="button" href="#"></a>
-</div>
+
 <p>
   <b>PHN:</b>
   <%=h @patient.phn %>
@@ -47,7 +44,10 @@
   <%= link_to 'New note', new_admission_admnote_path(@admission) %> |
   <% end %>
 <% end %>
+<% unless !@ward %>
 <%= link_to 'Ward', ward_patients_path(@ward) %>
+<% end %>
+
 <%#= link_to 'All patients', patients_path %>
 
     <%#= link_to 'All notes', admnotes_path(@patient) %>

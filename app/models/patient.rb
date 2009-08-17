@@ -4,6 +4,7 @@ class Patient < ActiveRecord::Base
   define_index do
     indexes [surname, firstname], :as => :patient_name #need to combine first and second names for indexing
     indexes phn
+    #indexes Ward.find(Bed.find(admissions.current).last.ward_id)
     indexes admnotes.text, :as => :admnote_text
     indexes admnotes.username, :as => :author_name
   end

@@ -1,17 +1,14 @@
 <ul title="Patients" selected="true"> 
-<% for patient in @patients -%> 
-<% form_tag patients_path, :method => :get do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-<% end %>
 
+<% for patient in @patients -%> 
 <li><%= link_to h(patient.firstname), patient %></li> 
 <% end -%> 
 <li class="group">Actions</li> 
 <li> 
 <%= link_to 'Add patient', new_patient_path %> 
+</li> 
+<li> 
+<%= link_to 'All patients', allpatients_path %> 
 </li> 
 </ul> 
 
