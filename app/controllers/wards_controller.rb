@@ -25,6 +25,11 @@ class WardsController < ApplicationController
 
   def new
     @ward = Ward.new
+        respond_to do |format| 
+      format.html 
+      format.iphone { render :layout => false }
+    end
+
   end
 
   def edit
