@@ -5,12 +5,12 @@
   </p>
   <p>
     <%= f.label :bed %><br />
-    <% if params[:bed_id].blank? %>
-    <%= f.select :bed_id, option_groups_from_collection_for_select(Ward.all, :beds, :name, :id, :bed_number.to_s, nil) %>
+     <% if @admission.bed_id.size != 1 %>
+    <%= f.select :bed_id, option_groups_from_collection_for_select(Ward.all, :beds, :name, :id, :bed_number, nil) %>
   <% else %>
-    <%= f.select :bed_id, option_groups_from_collection_for_select(Ward.all, :beds, :name, :id, :bed_number.to_s, Bed.find(params[:bed_id])) %>
+    <%= f.select :bed_id, option_groups_from_collection_for_select(Ward.all, :beds, :name, :id, :bed_number, Bed.find(@admission.bed_id).id) %>
   <% end %>
-  </p>
+ </p>
   <p> Todo: set depdate to admdate
     <%= f.label :depdate %><br />
     <%= f.datetime_select :depdate, :start_year => (Date.today.year - 1), :end_year => (Date.today.year + 3)  %>
