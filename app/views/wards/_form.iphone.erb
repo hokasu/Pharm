@@ -1,22 +1,24 @@
 
-  <p>
-    <%= f.label :name %><br />
+
+<fieldset>
+  <div class="row">
+  <label for="title">Name</label>
     <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :specialty %><br />
+  </div>
+  <div class="row">
+  <label for="title">Specialty</label>
     <%= f.text_field :specialty %>
-  </p>
-  <p>
-    <%= f.label :pharmacist %><br />
+  </div>
+  </fieldset>
+  <label for="title">Pharmacist</label>
     <%= f.collection_select :pharmacist_id, Pharmacist.all, :id, :firstname %>
-    
-  </p>
-  <p>
-    <%= f.label :nurse %><br />
+    <fieldset>
+  <div class="row">
+  <label for="title">Nurse</label>
     <%= f.text_field :nurse %>
-  </p>
-  <p>
-    <%= f.label :ward_notes %><br />
+  </div>
+  </fieldset>
+  <div class="row">
+  <label for="title">Ward notes</label>
     <%= f.text_area :ward_notes %>
-  </p>
+  </div>

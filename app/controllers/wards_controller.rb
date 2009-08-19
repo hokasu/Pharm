@@ -48,7 +48,7 @@ class WardsController < ApplicationController
       if @ward.save
         flash[:notice] = 'Ward was successfully created.'
         format.html { redirect_to(@ward) }
-      format.iphone { redirect_to(@ward)  }
+      format.iphone { redirect_to(@ward) }
       else
         format.html { render :action => "new" }
         #put something useful here for iphone
@@ -63,10 +63,10 @@ class WardsController < ApplicationController
       if @ward.update_attributes(params[:ward])
         flash[:notice] = 'Ward was successfully updated.'
         format.html { redirect_to(@ward) }
-        format.xml  { head :ok }
+      format.iphone { redirect_to(@ward) }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @ward.errors, :status => :unprocessable_entity }
+        format.iphone { render :action => "edit" }
       end
     end
   end

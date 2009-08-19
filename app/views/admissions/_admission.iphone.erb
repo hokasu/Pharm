@@ -1,0 +1,41 @@
+<p>
+  <b>Primary indication:</b>
+  <%=h @admission.primaryindication %>
+</p>
+<p>
+  <b>Clinical summary:</b>
+  <%=h @admission.clinicalsummary %>
+</p>
+
+<p>
+<b>Admission: </b>
+  <%=h @admission.admdate.to_formatted_s(:long_ordinal) %>
+  <b> Ward:</b> <!-- TODO need to work out CSS for left/right collumns -->
+  <%=h @admission.ward.name %>
+</p>
+
+<p>
+  <b>Bed:</b>
+  <%=h @admission.bed.bed_number %>
+
+  <b>Discharge date:</b>
+  <%=h @admission.depdate.to_date.to_formatted_s(:long_ordinal) %>
+</p>
+
+<% if @admission.has_admnotes? %>
+ <li>
+   <h3>Notes</h3>
+   <ul class="admnotes">
+     <%= render  :partial => "admnotes/admnote",
+                 :collection => @admission.admnotes %>
+   </ul>
+ </li>
+ <% end %>
+
+
+<% @patient = Patient.find(@admission.patient_id)%>	<!-- rf -->
+<% ptname = @patient.firstname.to_s + " " + @patient.middlename.to_s + " " + @patient.surname.to_s%>
+<%#= link_to 'Edit admission', edit_admission_path(@admission) %> 
+<%#= link_to 'Patients', patients_path %> 
+
+<!-- <%#= link_to ptname, patient_path (:id => @admission.patient_id) %> rf TODO: change to specific patient  DONE-->

@@ -7,11 +7,13 @@
     <%= f.label :specialty %><br />
     <%= f.text_field :specialty %>
   </p>
-  <p>
-    <%= f.label :pharmacist %><br />
-    <%= f.collection_select :pharmacist_id, Pharmacist.all, :id, :firstname %>
-    
-  </p>
+  <%= f.label :pharmacist %>
+  <% if @ward.pharmacist.to_s != "" %>
+    <%= f.collection_select(:pharmacist_id, Pharmacist.all, :id, :firstname, { :selected => @ward.pharmacist.id })%>
+  <% else %>
+    <%= f.collection_select(:pharmacist_id, Pharmacist.all, :id, :firstname)%>
+  <% end %>
+
   <p>
     <%= f.label :nurse %><br />
     <%= f.text_field :nurse %>

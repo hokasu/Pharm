@@ -1,0 +1,16 @@
+<% title("Editing " + @patient.surname) %>
+
+<% form_for(@patient, 
+  :html => { :class => 'panel',
+    :selected => 'true',
+    :title => 'Make a new\'n'}) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => "form",
+            :locals => {:f => f} %>
+  <p>
+  <%= f.submit 'Update'%>
+  </p>
+<% end %>
+    <%= link_to 'Destroy', @patient, :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to 'Back', patients_path %>

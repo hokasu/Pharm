@@ -1,0 +1,12 @@
+<ul title="Edit <%= @ward.name %>" selected="true" >
+</ul>
+<% form_for(@ward, :html => { :class => 'panel',
+            :selected => 'true',
+            :title => @ward.name}) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= f.submit 'Update' %>
+  <p>
+    <%= button_to 'Delete ward', @ward, :confirm => 'Are you sure?', :method => :delete %>
+    </p>
+  <% end %>

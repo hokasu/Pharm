@@ -3,32 +3,10 @@
 <% form_for(@admission) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :admdate %><br />
-    <%= f.datetime_select :admdate, :end_year => (Date.today.year) %>
-  </p>
-  <p>
-    <%= f.label :ward %><br />
-    <%= f.text_field :ward %>
-  </p>
-  <p>
-    <%= f.label :bed %><br />
-    <%= f.text_field :bed %>
-  </p>
-  <p>
-    <%= f.label :depdate %><br />
-    <%= f.datetime_select :depdate %>
-  </p>
-  <p>
-    <%= f.label :primaryindication %><br />
-    <%= f.text_field :primaryindication %>
-  </p>
-  <p>
-    <%= f.label :clinicalsummary %><br />
-    <%= f.text_area :clinicalsummary %>
-  </p>
-  <p>
+<%= render :partial => 'form' %>
+   <p>
     <%= f.submit 'Update' %>
+    </p>
 
 <% end %>
 

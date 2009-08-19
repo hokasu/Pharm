@@ -1,8 +1,3 @@
-<%if @ward != nil %>
-    <% title @ward.name %>
-  <%else %>
-    <% title "Patients listing" %>
-  <% end %> 
 <% form_tag patients_path, :method => :get do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
@@ -10,3 +5,9 @@
   </p>
 <% end %>
 <%= render :partial => "patient" %>
+<%if @ward != nil %>
+    <% title @ward.name %>
+  <%else %>
+    <% title "Patients listing" %>
+    <%= link_to 'New patient', new_patient_path %>
+  <% end %> 

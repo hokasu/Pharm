@@ -1,7 +1,7 @@
 <ul title="Patients" selected="true"> 
 
 <% for patient in @patients -%> 
-<li><%= link_to h(patient.firstname), patient %></li> 
+<li><%= link_to h(patient.fullname), patient %></li> 
 <% end -%> 
 <li class="group">Actions</li> 
 <li> 

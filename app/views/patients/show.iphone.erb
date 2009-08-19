@@ -1,0 +1,54 @@
+<ul title=<%= @patient.surname%>>
+<p>
+  <b>PHN:</b>
+  <%=h @patient.phn %>
+  <b>Date of birth:</b>
+  <%=h @patient.dob.to_formatted_s(:rfc822)  %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @patient.fullname %>
+</p>
+
+
+<% if @patient.has_allergies? %>
+<p>
+  <b>Allergies:</b>
+  <%=h @patient.allergies %>
+</p>
+<% end %>
+
+<% if @patient.has_sensitivities? %>
+<p>
+  <b>Sensitivities:</b>
+  <%=h @patient.sensitivities %>
+</p>
+<% end %>
+<% if @patient.inpatient? %>
+  <li class="group">Current admission</li>
+    <%= render :partial => @admission %>
+<% end %>
+<li class="group">Actions</li>
+<li>
+    <%= link_to 'Edit patient', edit_patient_path(@patient) %>
+<% if !@patient.has_admissions? %>
+  <%= link_to 'New admission',new_patient_admission_path(@patient) %>
+<% else %>
+  <%= link_to 'All admissions', patient_admissions_path(@patient) %> 
+<% if @patient.has_currentnotes? %>
+  <%= link_to 'Notes', admission_admnotes_path(@admission) %> 
+<% else %>
+  <%# if @patient.admnotes.size > 0 %>
+<% end %>
+  <%= link_to 'New note', new_admission_admnote_path(@admission) %> 
+  <% end %>
+<% unless !@ward %>
+<%= link_to 'Ward', ward_patients_path(@ward) %>
+<% end %>
+</li>
+</ul>
+<div class="panel"></div>
+<li class="group">Previous admissions</li>
+</ul>
+

@@ -1,37 +1,8 @@
 <h1>New admission</h1>
-<%= debug params %>
 <% form_for [@patient, @admission] do |f| %>
   <%= f.error_messages %>
 
-<p>
-    <%= f.label :admdate %><br />
-    <%= f.datetime_select :admdate, :start_year => (Date.today.year - 1), :end_year => (Date.today.year + 3) %>
-  </p>
-  <p>
-    <%#= f.label :ward %><br />
-    <%#= f.collection_select :ward_id, Ward.all, :id, :name %>
-    <%#= f.text_field :ward %>
-    <%# @ward = Ward.find(1) %>
-  </p>
-  <p>
-    <%= f.label :bed %><br />
-    <%#= f.collection_select :bed_id, Bed.find(:all, :conditions => ['ward_id = ?', @ward.id]), :id, :bed_number %>
-    <%#= f.text_field :bed %>
-    <%= f.select :bed_id, Bed.all.collect {|bed| [ bed.ward.name + " bed " + bed.bed_number.to_s, bed.id ] } %>
-
-  </p>
-  <p> Todo: set depdate to admdate
-    <%= f.label :depdate %><br />
-    <%= f.datetime_select :depdate, :start_year => (Date.today.year - 1), :end_year => (Date.today.year + 3)  %>
-  </p>
-  <p>
-    <%= f.label :primaryindication %><br />
-    <%= f.text_field :primaryindication %>
-  </p>
-  <p>
-    <%= f.label :clinicalsummary %><br />
-    <%= f.text_area :clinicalsummary %>
-  </p>
+<%= render :partial => 'form' %>
   <p>
     <%= f.submit 'Create' %>
   </p>
