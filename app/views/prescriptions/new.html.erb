@@ -1,5 +1,8 @@
 <% title "New Prescription" %>
 
-<%= render :partial => 'form' %>
+<% form_for [@patient, @prescription] do |f| %>
+<%= render :partial => 'form', :locals => {:f => f} %>
 
+  <p><%= f.submit "Create" %></p>
+<% end %>
 <p><%= link_to "Back to List", prescriptions_path %></p>

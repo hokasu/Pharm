@@ -1,8 +1,8 @@
-<% title "Product" %>
+<% title @product.brand + " " + @product.form.form %>
 
 <p>
-  <strong>Brand:</strong>
-  <%=h @product.brand %>
+  <strong>  <%=h @product.brand_description %></strong>
+
 </p>
   <strong>Constituents:</strong>
 <%= render :partial => "agents/agent",

@@ -1,4 +1,3 @@
-<% form_for @prescription do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
@@ -12,5 +11,3 @@
     <%= f.label :ancillary_instructions %><br />
     <%= f.text_area :ancillary_instructions %>
   </p>
-  <p><%= f.submit "Submit" %></p>
-<% end %>
