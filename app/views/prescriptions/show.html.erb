@@ -1,0 +1,20 @@
+<% title "Prescription" %>
+
+<p>
+  <strong>Start:</strong>
+  <%=h @prescription.start %>
+</p>
+<p>
+  <strong>End:</strong>
+  <%=h @prescription.end %>
+</p>
+<p>
+  <strong>Ancillary Instructions:</strong>
+  <%=h @prescription.ancillary_instructions %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_prescription_path(@prescription) %> |
+  <%= link_to "Destroy", @prescription, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", prescriptions_path %>
+</p>

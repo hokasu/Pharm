@@ -1,0 +1,11 @@
+one:
+  brand: MyString
+  strength: 1.5
+  pack_size: 1
+  form_id: 1
+
+two:
+  brand: MyString
+  strength: 1.5
+  pack_size: 1
+  form_id: 1

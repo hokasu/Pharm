@@ -25,7 +25,6 @@
 <% if @admission.has_admnotes? %>
  <li>
    <h3>Notes</h3>
-   <ul class="admnotes">
      <%= render  :partial => "admnotes/admnote",
                  :collection => @admission.admnotes %>
    </ul>

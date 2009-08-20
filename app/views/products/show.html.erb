@@ -1,0 +1,19 @@
+<% title "Product" %>
+
+<p>
+  <strong>Brand:</strong>
+  <%=h @product.brand %>
+</p>
+  <strong>Constituents:</strong>
+<%= render :partial => "agents/agent",
+  :collection => @product.agents %>
+<p>
+  <strong>Pack Size:</strong>
+  <%=h @product.pack_size %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_product_path(@product) %> |
+  <%= link_to "Destroy", @product, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", products_path %>
+</p>

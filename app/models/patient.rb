@@ -1,5 +1,6 @@
 class Patient < ActiveRecord::Base
   has_many :admissions
+  has_many :prescriptions
   has_many :admnotes, :through => :admissions
   define_index do
     indexes [firstname, surname], :as => :patient_name #need to combine first and second names for indexing

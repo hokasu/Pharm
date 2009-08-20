@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  frequency: 1
+  quantity: 1
+
+two:
+  frequency: 1
+  quantity: 1

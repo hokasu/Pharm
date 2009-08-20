@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090811151404) do
+ActiveRecord::Schema.define(:version => 20090820171728) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -30,9 +30,40 @@ ActiveRecord::Schema.define(:version => 20090811151404) do
     t.integer  "admission_id"
   end
 
+  create_table "agents", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "strength"
+    t.string   "measure"
+    t.float    "factor"
+  end
+
   create_table "beds", :force => true do |t|
     t.integer  "bed_number"
     t.integer  "ward_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "doses", :force => true do |t|
+    t.integer  "frequency"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "period"
+  end
+
+  create_table "forms", :force => true do |t|
+    t.string   "form"
+    t.string   "route"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,6 +84,39 @@ ActiveRecord::Schema.define(:version => 20090811151404) do
     t.string   "firstname"
     t.string   "surname"
     t.string   "pager"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prescriptions", :force => true do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.text     "ancillary_instructions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "patient_id"
+    t.integer  "product_id"
+    t.integer  "dose_id"
+  end
+
+  create_table "product_agents", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "agent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "product_doses", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "dose_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "brand"
+    t.integer  "pack_size"
+    t.integer  "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
