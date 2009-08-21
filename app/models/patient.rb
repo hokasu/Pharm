@@ -1,7 +1,9 @@
 class Patient < ActiveRecord::Base
   has_many :admissions
   has_many :prescriptions
+  has_many :prodcuts, :through => :prescriptions
   has_many :admnotes, :through => :admissions
+
   define_index do
     indexes [firstname, surname], :as => :patient_name #need to combine first and second names for indexing
     indexes phn
@@ -50,5 +52,12 @@ class Patient < ActiveRecord::Base
     admissions.last.admnotes.size > 0
   end
 
+  def current_agents
+    prescriptions.current.each do |p|
+    p.product.agents.each do |a|
+    puts a.name
+    end
+    end
+    
 
 end

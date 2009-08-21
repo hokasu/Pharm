@@ -1,5 +1,5 @@
 <% title "New Prescription" %>
-
+<%= debug params %>
 <% form_for [@patient, @prescription] do |f| %>
 <%= render :partial => 'form', :locals => {:f => f} %>
 
