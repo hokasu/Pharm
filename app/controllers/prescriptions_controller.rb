@@ -8,13 +8,14 @@ class PrescriptionsController < ApplicationController
   end
   
   def new
-    @patient = Patient.find(params[:patient_id])
-    @product = Product.find(params[:product_id])
     @prescription = Prescription.new
+    @prescription.product = Product.find(params[:product_id])
   end
   
   def create
     @prescription = Prescription.new(params[:prescription])
+    @prescription.patient = Patient.find(params[:patient_id]) #remove?
+
     if @prescription.save
       flash[:notice] = "Successfully created prescription."
       redirect_to @prescription
