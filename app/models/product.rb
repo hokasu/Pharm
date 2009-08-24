@@ -10,7 +10,7 @@ class Product < ActiveRecord::Base
     indexes brand
   end
   
-  def agents_description
+  def description
     a=agents
     s = ""
     agents.each do |a|
@@ -19,22 +19,8 @@ class Product < ActiveRecord::Base
         s = s + "/"
       end
     end
+    s = s + " (" + brand + ") " +form.form + "s"
     return s
   end
-
-  def brand_description
-    a = agents
-    s = brand + " "
-    agents.each do |a|
-      s = s + a.strength.to_s + a.measure
-      unless a.id == agents.last.id
-        s = s + "/"
-      end
-    end
-    s = s + " " + form.form + "s"
-    return s
-  end
-
-
 
 end
