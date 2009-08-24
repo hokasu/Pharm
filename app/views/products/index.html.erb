@@ -1,10 +1,20 @@
 <% title "Products" %>
+<% unless @patient.nil? %>
+  <%= @patient.firstname %>
 <%= debug params %>
+<% form_tag patient_products_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+<% else %>
 <% form_tag products_path, :method => :get do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :name => nil %>
   </p>
+<% end %>
 <% end %>
 <table>
   <tr>
@@ -21,6 +31,10 @@
       <td><%=h product.form.form %></td>
       <td><%= link_to "Show", product %></td>
       <td><%= link_to "Edit", edit_product_path(product) %></td>
+      <% unless @patient.nil? %>
+        <td><%= link_to "Prescribe", :controller => 'prescriptions', :action => 'new', 
+          :patient_id => @patient.id, :product_id => product.id %></td>
+      <% end %>
       <td><%= link_to "Destroy", product, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>

@@ -58,6 +58,5 @@ class Patient < ActiveRecord::Base
     puts a.name
     end
     end
-    
-
+  end
 end

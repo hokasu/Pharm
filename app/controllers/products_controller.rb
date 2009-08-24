@@ -1,6 +1,9 @@
 class ProductsController < ApplicationController
+
+  before_filter :find_patient
+
   def index
-    @products = Product.search params[:search]
+      @products = Product.search params[:search]
   end
   
   def show
@@ -41,4 +44,13 @@ class ProductsController < ApplicationController
     flash[:notice] = "Successfully destroyed product."
     redirect_to products_url
   end
+
+  private
+
+  def find_patient
+    if params[:patient_id]
+      @patient = Patient.find(params[:patient_id])
+    end
+  end
+
 end
