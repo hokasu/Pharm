@@ -8,8 +8,9 @@ class PrescriptionsController < ApplicationController
   end
   
   def new
+    @patient = Patient.find(params[:patient_id])
+    @product = Product.find(params[:product_id])
     @prescription = Prescription.new
-    @products = []
   end
   
   def create

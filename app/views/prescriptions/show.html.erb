@@ -1,6 +1,10 @@
 <% title "Prescription" %>
 
 <p>
+  <strong>Product:</strong>
+  <%=h @prescription.product.full_description %>
+</p>
+<p>
   <strong>Start:</strong>
   <%=h @prescription.start %>
 </p>

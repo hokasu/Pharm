@@ -1,8 +1,11 @@
 <% title "New Prescription" %>
 <%= debug params %>
-<% form_for [@patient, @prescription] do |f| %>
+<% form_for @prescription do |f| %>
 <%= render :partial => 'form', :locals => {:f => f} %>
 
-  <p><%= f.submit "Create" %></p>
+<% @prescription.product_id = @product.id %>
+<% @prescription.patient_id = @patient.id %>
+<%= debug @prescription %>
+<p><%= f.submit "Create" %></p>
 <% end %>
 <p><%= link_to "Back to List", prescriptions_path %></p>
