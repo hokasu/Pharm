@@ -5,7 +5,7 @@
   </p>
   <p>
     <%= f.label :bed %><br />
-     <% if @admission.bed_id.size != 1 %>
+     <% if @admission.bed_id.nil? %>
     <%= f.select :bed_id, option_groups_from_collection_for_select(Ward.all, :beds, :name, :id, :bed_number, nil) %>
   <% else %>
     <%= f.select :bed_id, option_groups_from_collection_for_select(Ward.all, :beds, :name, :id, :bed_number, Bed.find(@admission.bed_id).id) %>

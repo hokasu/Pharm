@@ -1,7 +1,6 @@
 <% title "Products" %>
 <% unless @patient.nil? %>
   <%= @patient.firstname %>
-<%= debug params %>
 <% form_tag patient_products_path, :method => :get do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
