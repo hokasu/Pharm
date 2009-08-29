@@ -1,0 +1,2 @@
+class Dispensary < User
+end

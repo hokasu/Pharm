@@ -1,4 +1,4 @@
-class Pharmacist < ActiveRecord::Base
+class Pharmacist < User
   has_one :ward
   has_many :beds, :through => :ward
 

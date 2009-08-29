@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
   has_many :prescriptions
   has_many :agents, :through => :product_agents
   has_many :doses, :through => :product_doses
+  has_many :policies, :through => :product_policies
   define_index do
     indexes agents.name, :as => :agents_name
     indexes brand

@@ -1,5 +1,6 @@
 class Ward < ActiveRecord::Base
-  belongs_to :pharmacist
+  belongs_to :user
+  has_one :store
   has_many :beds
   has_many :admissions, :through => :beds
   #has_many :patients, :through => :admissions

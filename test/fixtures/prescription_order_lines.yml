@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  prescription_id: 1
+  prescription_order_id: 1
+  status_id: 1
+  packs: 1
+  units: 1
+  inpatient: false
+  priority: false
+
+two:
+  prescription_id: 1
+  prescription_order_id: 1
+  status_id: 1
+  packs: 1
+  units: 1
+  inpatient: false
+  priority: false

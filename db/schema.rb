@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090820171728) do
+ActiveRecord::Schema.define(:version => 20090829200441) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -20,14 +20,15 @@ ActiveRecord::Schema.define(:version => 20090820171728) do
     t.text     "clinicalsummary"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "team_id"
   end
 
   create_table "admnotes", :force => true do |t|
-    t.string   "username"
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "admission_id"
+    t.integer  "patient_id"
   end
 
   create_table "agents", :force => true do |t|
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20090820171728) do
     t.float    "strength"
     t.string   "measure"
     t.float    "factor"
+    t.integer  "category_id"
   end
 
   create_table "beds", :force => true do |t|
@@ -48,6 +50,16 @@ ActiveRecord::Schema.define(:version => 20090820171728) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "doctors", :force => true do |t|
+    t.string   "firstname"
+    t.string   "surname"
+    t.string   "position"
+    t.string   "page_number"
+    t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -80,10 +92,27 @@ ActiveRecord::Schema.define(:version => 20090820171728) do
     t.string   "phn"
   end
 
-  create_table "pharmacists", :force => true do |t|
-    t.string   "firstname"
-    t.string   "surname"
-    t.string   "pager"
+  create_table "policies", :force => true do |t|
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prescription_order_lines", :force => true do |t|
+    t.integer  "prescription_id"
+    t.integer  "prescription_order_id"
+    t.integer  "status_id"
+    t.integer  "packs"
+    t.integer  "units"
+    t.boolean  "inpatient"
+    t.boolean  "priority"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prescription_orders", :force => true do |t|
+    t.integer  "status_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -97,6 +126,8 @@ ActiveRecord::Schema.define(:version => 20090820171728) do
     t.integer  "patient_id"
     t.integer  "product_id"
     t.integer  "dose_id"
+    t.integer  "doctor_id"
+    t.integer  "user_id"
   end
 
   create_table "product_agents", :force => true do |t|
@@ -113,10 +144,57 @@ ActiveRecord::Schema.define(:version => 20090820171728) do
     t.datetime "updated_at"
   end
 
+  create_table "product_policies", :force => true do |t|
+    t.integer  "policy_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "product_stores", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "store_id"
+    t.integer  "level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", :force => true do |t|
     t.string   "brand"
     t.integer  "pack_size"
     t.integer  "form_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "statuses", :force => true do |t|
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_order_lines", :force => true do |t|
+    t.integer  "product_store_id"
+    t.integer  "store_order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_orders", :force => true do |t|
+    t.integer  "status_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stores", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "ext"
+    t.integer  "ward_id"
+  end
+
+  create_table "teams", :force => true do |t|
+    t.integer  "ward_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -128,16 +206,22 @@ ActiveRecord::Schema.define(:version => 20090820171728) do
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",             :default => false
+    t.string   "type"
+    t.string   "firstname"
+    t.string   "surname"
+    t.string   "pager"
+    t.string   "band"
   end
 
   create_table "wards", :force => true do |t|
     t.string   "name"
     t.string   "specialty"
-    t.string   "pharmacist_id"
     t.string   "nurse"
     t.text     "ward_notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
 end
