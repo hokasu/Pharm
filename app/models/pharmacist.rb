@@ -1,5 +1,5 @@
 class Pharmacist < User
-  has_one :ward
+  has_many :wards
   has_many :beds, :through => :ward
 
   def current_patients

@@ -1,10 +1,8 @@
 class Ward < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :pharmacist
   has_one :store
   has_many :beds
   has_many :admissions, :through => :beds
-  #has_many :patients, :through => :admissions
-
 
   def current_patients
     patients = Array.new

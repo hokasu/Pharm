@@ -1,4 +1,4 @@
 class ProductPolicy < ActiveRecord::Base
-  belongs_to :products
-  belongs_to :policies
+  belongs_to :product
+  belongs_to :policy
 end

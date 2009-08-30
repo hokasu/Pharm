@@ -2,8 +2,11 @@ class Product < ActiveRecord::Base
   belongs_to :form
   has_many :product_agents
   has_many :product_doses
+  has_many :product_policies
+  has_many :product_stores
   has_many :prescriptions
   has_many :agents, :through => :product_agents
+  has_many :stores, :through => :product_stores
   has_many :doses, :through => :product_doses
   has_many :policies, :through => :product_policies
   define_index do

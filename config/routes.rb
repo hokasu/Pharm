@@ -1,6 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :products, :has_many => :agents
   map.resources :products, :has_many => :doses
+  map.resources :products, :has_many => :policies
+  map.resources :policies, :has_many => :products
   map.resources :agents, :has_many => :products
 
   map.resources :prescriptions

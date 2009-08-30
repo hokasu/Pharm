@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090829200441) do
+ActiveRecord::Schema.define(:version => 20090829230304) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20090829200441) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "admission_id"
-    t.integer  "patient_id"
+    t.integer  "user_id"
   end
 
   create_table "agents", :force => true do |t|
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20090829200441) do
     t.integer  "store_order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "quantity",         :default => 0
   end
 
   create_table "store_orders", :force => true do |t|
@@ -221,7 +222,7 @@ ActiveRecord::Schema.define(:version => 20090829200441) do
     t.text     "ward_notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "pharmacist_id"
   end
 
 end

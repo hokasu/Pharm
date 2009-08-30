@@ -1,6 +1,6 @@
 class Admnote < ActiveRecord::Base
   belongs_to :admission
-  belongs_to :pharmacist
+  belongs_to :user
 
   def updated?
     updated_at!=created_at
