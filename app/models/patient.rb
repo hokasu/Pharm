@@ -16,9 +16,9 @@ class Patient < ActiveRecord::Base
   validates_presence_of  :firstname, :surname, :phn
 
   def check_allergies
-    reg = Regexp.new('[a-z]{5,}')
+    reg = Regexp.new('[a-z]{3,}')
     a = allergies.scan(reg)
-    result = a.to_set & current_agents #returns intersection of allergies and current agents
+    result = a.to_set & current_agents_categories_names #returns intersection of allergies and current agents
     if result.size == 0
       return nil
     else return result
@@ -63,11 +63,29 @@ class Patient < ActiveRecord::Base
     admissions.last.admnotes.size > 0
   end
 
+
+  def current_agents_names
+    agents = Set.new
+    current_agents.each do |c|
+      agents.add(c.name)
+    end
+    return agents
+  end
+
+  def current_agents_categories_names
+    agents = Set.new
+    current_agents.each do |c|
+      agents.add(c.category.name)
+      agents.add(c.name)
+    end
+    return agents
+  end
+
   def current_agents
     agents = Set.new
     prescriptions.current.each do |p|
       p.product.agents.each do |a|
-        agents.add(a.name)
+        agents.add(a)
       end
     end
     return agents
