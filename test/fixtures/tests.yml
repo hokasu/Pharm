@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  test: MyString
+  operator: MyString
+  value: MyString
+
+two:
+  test: MyString
+  operator: MyString
+  value: MyString

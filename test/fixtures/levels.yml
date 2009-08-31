@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  potassium: 1.5
+  creatinine: 1.5
+  inr: 1.5
+  ppt: 1.5
+  albumin: 1.5
+
+two:
+  potassium: 1.5
+  creatinine: 1.5
+  inr: 1.5
+  ppt: 1.5
+  albumin: 1.5

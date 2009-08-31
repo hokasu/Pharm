@@ -3,6 +3,7 @@ class Patient < ActiveRecord::Base
   has_many :prescriptions
   has_many :prodcuts, :through => :prescriptions
   has_many :admnotes, :through => :admissions
+  has_one :level
 
   define_index do
     indexes [firstname, surname], :as => :patient_name #need to combine first and second names for indexing
@@ -13,6 +14,16 @@ class Patient < ActiveRecord::Base
   end
 
   validates_presence_of  :firstname, :surname, :phn
+
+  def check_allergies
+    reg = Regexp.new('[a-z]{5,}')
+    a = allergies.scan(reg)
+    result = a.to_set & current_agents #returns intersection of allergies and current agents
+    if result.size == 0
+      return nil
+    else return result
+    end
+  end
 
   def fullname
     firstname + " " + middlename + " " + surname
@@ -53,10 +64,12 @@ class Patient < ActiveRecord::Base
   end
 
   def current_agents
+    agents = Set.new
     prescriptions.current.each do |p|
-    p.product.agents.each do |a|
-    puts a.name
+      p.product.agents.each do |a|
+        agents.add(a.name)
+      end
     end
-    end
+    return agents
   end
 end
