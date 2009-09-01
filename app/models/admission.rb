@@ -3,10 +3,9 @@ class Admission < ActiveRecord::Base
   belongs_to :bed
   belongs_to :team
   has_many :admnotes
-  #has_one :current_admission, :conditions =>  ["admdate <  NOW() AND depdate > NOW()"]
   belongs_to :bed
   has_one :ward, :through => :bed
-  named_scope :current, :conditions =>  ["admdate <  NOW() AND depdate > NOW()"] 
+  named_scope :current, :conditions =>  ["admdate <  NOW() AND depdate > NOW()"]
   validates_presence_of :patient_id
 
   #def admdate_formatted
