@@ -1,5 +1,5 @@
 class Policy < ActiveRecord::Base
-  has_many :product_policies
-  has_many :products, :through => :product_policies
+  has_many :policiable_policies
+  has_many :products, :through => :policiable_policies
   has_many :checks
 end

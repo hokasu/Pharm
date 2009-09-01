@@ -38,13 +38,10 @@ class Patient < ActiveRecord::Base
     sensitivities.size>0
   end
 
-  def current_admission
-    admissions.find(:all, :conditions => ["admdate <  NOW() AND depdate > NOW()"]).last
-  end
 
   def current_ward
-    if current_admission!=nil
-      then return current_admission.ward
+    if admissions.current!=nil
+      then return admission.current.ward
     else
       return nil
     end
@@ -52,7 +49,7 @@ class Patient < ActiveRecord::Base
 
 
   def inpatient?
-    return current_admission!=nil
+    return admissions.current!=nil
   end
 
   def has_admissions?

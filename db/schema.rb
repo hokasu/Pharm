@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090830233805) do
+ActiveRecord::Schema.define(:version => 20090901001308) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -114,10 +114,19 @@ ActiveRecord::Schema.define(:version => 20090830233805) do
     t.string   "phn"
   end
 
+  create_table "policiable_policies", :force => true do |t|
+    t.integer  "policy_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "policiable_id"
+    t.string   "policiable_type"
+  end
+
   create_table "policies", :force => true do |t|
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "policy_type"
   end
 
   create_table "prescription_order_lines", :force => true do |t|
@@ -162,13 +171,6 @@ ActiveRecord::Schema.define(:version => 20090830233805) do
   create_table "product_doses", :force => true do |t|
     t.integer  "product_id"
     t.integer  "dose_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "product_policies", :force => true do |t|
-    t.integer  "policy_id"
-    t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
