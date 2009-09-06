@@ -15,18 +15,7 @@ class Product < ActiveRecord::Base
     indexes agents.name, :as => :agents_name
     indexes brand
   end
-"  
-cks = []
-  for agent in Product.find(5).agents
-  for policy in agent.policies
-    for check in policy.checks
-      puts 'asdf'
-      cks.push(check)
-      #check.perform_check(Patient.first)
-    end
-  end
-end
-"
+
   def check_policies(patient)
     results = Set.new
     for policy in policies

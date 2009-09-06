@@ -5,8 +5,7 @@ class Agent < ActiveRecord::Base
   has_many :products, :through => :product_agents
   has_many :policiable_policies, :as => :policiable
   has_many :policies, :through => :policiable_policies
-belongs_to :category
-
+  belongs_to :category
 
   def check_policies(patient)
     results = Set.new
@@ -15,6 +14,7 @@ belongs_to :category
         results << check.perform_check(patient)
       end
     end
+     results.merge(category.check_policies(patient))
     return results
   end
 

@@ -3,12 +3,13 @@ class Category < ActiveRecord::Base
   has_many :policies, :through => :policiable_policies
   has_many :agents
 
-  def check_policies(p)
-    unless policies.empty?
-      puts name.capitalize
-      for policy in policies
-        puts policy.content
+  def check_policies(patient)
+    results = Set.new
+    for policy in policies
+      for check in policy.checks
+        results << check.perform_check(patient)
       end
     end
+    return results
   end
 end

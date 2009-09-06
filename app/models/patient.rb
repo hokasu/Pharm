@@ -17,7 +17,7 @@ class Patient < ActiveRecord::Base
   validates_presence_of  :firstname, :surname, :phn
 
 
-  def check_policies
+  def policy_results
     results = Set.new
     for product in current_products.to_a
       hash = { :product => product, :results => product.check_policies(self).to_a}
@@ -25,16 +25,44 @@ class Patient < ActiveRecord::Base
     end
     return results.to_a
   end
+  
+  def print_failed
+   for c in failed_policies
+     puts c[:product].description
+       for check in c[:checks]
+         puts check.description
+       end
+   end
+   return nil
+  end
 
-  def policy_results
+  def failed_policies
+    results = policy_results
+    failed = []
+    passed = false
+    for product in results
+      failures = { :product => product[:product], :checks => [] }
+      for result in product[:results]
+        if result[:result]==false
+          #puts result[:check].description + " failed"
+          failures[:checks].push(result[:check])
+        end
+      end
+      unless failures[:checks].empty?
+        failed << failures
+      end
+    end
+    return failed
+  end
+
+  def policy_results_description 
     array = []
-    for set in check_policies
+    for set in policy_results
       puts  set[:product].description
       for result in set[:results]
         array << result[:check].description.to_s + " " + result[:result].to_s
       end
     end
-    return array
   end
 
 

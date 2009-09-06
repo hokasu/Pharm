@@ -1,22 +1,22 @@
 class Check < ActiveRecord::Base
   belongs_to :policy
-  @@type_hash = { "agents" => ["current_agents_names"], "level" => ["levels", "last"], "specialist" => ["team", "specialist", "first"], "specialty" => ["team", "specialty"] }  
+  @@type_hash = { "categories" => ["current_agents_categories_names"], "agents" => ["current_agents_names"], "level" => ["levels", "last"], "specialist" => ["team", "specialist", "first"], "specialty" => ["team", "specialty"] }  
 
   @@check_hash = { "bp" => "dbp", "k" => "potassium", "surname" => "surname"}
-  @@operator_hash = { ">" => ">", "<" => "<" , "=" => "==", "has" => "include?"}
+  @@operator_hash = { ">" => ">", "<" => "<" , "=" => "==", "has" => "include?" }
   
 
 
   def perform_check(patient)
     operations = arrayit(check_type, operator, clean(value), check)
     operations.delete(nil)
-    result = { :check => self, :result => process(patient,operations)}
+    result = { :check => self, :result => (test == process(patient,operations))}
     return result
   end
 
   def description
     s = check_type
-    unless check.empty?
+    unless check.nil? or check.empty?
       s+= " " + check
     end
     s+= " " + operator + " " + value
