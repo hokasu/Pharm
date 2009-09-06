@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  indication_id: 1
+  indicationable_id: 1
+  indicationable_type: MyString
+
+two:
+  indication_id: 1
+  indicationable_id: 1
+  indicationable_type: MyString

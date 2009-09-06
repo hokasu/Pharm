@@ -1,0 +1,145 @@
+% Example #1
+% by LaTeX Rob
+
+\documentclass[letterpaper]{amsart}
+\usepackage{verbatim}
+\usepackage{amsmath, amsthm, graphicx, url, pdfsync}
+%\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}
+%\footnote[#1]{#2}\endgroup}
+\author{Robert Franken}
+\title{A hospital pharmacy patient information system}
+
+\begin{document}
+\maketitle
+\part{Abstract}
+\paragraph{} Hospital pharmacy operations primarily consist of the logistics of supply, budgeting and the provision of clinical services to wards, staff and patients. 
+The focus of this project will be on part of these operations, namely ward pharmacy supply and clinical services, otherwise referred to as medicines management. In most hospitals, all records of processes carried out on wards by pharmacy staff are handwritten. The procedures followed are fairly robust, but slow and susceptible to errors of various kinds, with the information gathered not easily available to other staff members.
+\part{Introduction}
+
+\part{Design}
+This section describes the requirements of the system and how the requirements were used to design the system. By following an object oriented design approach with each real world entity being represented as a class, the design of the system may closely reflect the structure of the real world objects.
+
+\section{Users} 
+\subsection{Pharmacists}
+The needs of clinical pharmacy ward staff are the primary considerations for the system.  The majority of these will be pharmacists.  When working from a ward, pharmacists need to record and screen current medications, medication history, allergies, primary indications or diagnoses, supply levels, lab results and brief medical history for each patient they see.
+When checking these details, consideration must be made of local policies with regard to recommended and available treatments.  The system should enable them to carry out create, read, update and delete (CRUD) operations on these properties:
+
+\begin{itemize}
+    \item a list of all wards registered on the system
+    \item a list of the patients on a specific ward
+    \item the details of each patient on the ward
+    \item the admissions associated with each patient
+    \item prescribed products for each patient
+    \item orders for supply to a patient
+    \item orders for a ward supply
+    \item details of a product
+    \item ward medical team
+\end{itemize}
+
+Other operations:
+The main function of a ward visit by a pharmacist that only a pharmacist may execute is checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
+\begin{itemize}
+    \item check prescribed treatments against medical condition
+    \item check prescribed treatments against one another
+\end{itemize}
+Both pharmacists and ward technicians may carry out supply checks:
+\begin{itemize}
+    \item check current stock levels in ward stores 
+    \item check patient medication supplies 
+    \item order medications when supplies reach a given level
+\end{itemize}
+
+\subsection{Technicians}
+
+\subsection{Dispensary}
+
+\section{Classes and objects}
+\paragraph{}
+\subsection{Patient}:
+\begin{itemize}
+    \item statutory details, including hospital identification
+    \item current and previous prescriptions - and by extension, current pharmaceutical agents
+    \item current and previous admissions
+    \item allergies
+    \item diagnoses and selected lab results 
+    \item current and previous results of blood tests and values of other medical variables used to make clinical judgements.  Static, or current, levels only do not provide nearly as much information as trends, so each patient must have a collection of levels
+\end{itemize}
+
+\subsection{Product}
+A product may be agent(drug) or combinations of agents, or other medical products such as dressings, delivery aids such as pill boxes or cutters.  
+A product has a manufacturer, a form, a strength and a variety of doses and frequencies that may be prescribed for it. 
+Product properties:
+\begin{itemize}
+    \item brand - a string representing the brand name of the product. 
+    \item agents - combination products have multiple agents in them.  Pharmacists are usually more concerned with prescribed agents than what a specific brand is.  Only occasionally different brands have differences significant enough for the brand to be important. Each agent belongs to a pharmaceutical class of drugs. Much like classes in other areas of science, agents in the same pharmaceutical class share common characteristics.  For example, a patient may be allergic to beta lactam antibiotics, of which one is penicillin.
+	Classes also share common side effects and clinical indications, and the prescribing of multiple agents of the same class may be a prescribing oversight.  As such, being able to query the classes of product agents would be useful.
+    \item form - a product may be have one of many forms, including several types of solid oral, liquid oral and topical preparations.  The dose of each form depends on this type - a liquid is dosed in volume, and a solid oral form is dosed in discrete units such as capsules.  To this end, a form has both a form type and a name to allow for calculations to be applied to them. 
+    \item doses - how much of a product a patient is treated with is described by several variables.  These are the strength of each agent, e.g. 20 milligrams per unit, the number of product units, e.g. two tablets, and the frequency, e.g. twice a day or every eight hours.
+    For a given strength, each product has a collection of valid quantity/frequency pairs associated with it.  A period of treatment must also be recorded.
+    \item policies - a significant aspect of the potential benefit of recording information digitally is the prospect for some level of automation.  Part of the challenge of updating policies in a large organisation is disseminating them and encouraging compliance.  To this end, each product may have several policies.  Each policy is essentially text, intended to describe special cases regarding the use of the product.  These usually include conditions, such as 'do not use when taking aspirin'.  To assist in automation of some of the checks that are carried out by pharmacy staff, each policy has a number of checks associated with it.  Each check is entered by the user and a type of conditional statement.  Executing a policy's checks should result in some output indication their results, either that all is fine or that something requires attention. 
+    \item stores - each product is associated with one or more stores.  There are ward stores and a main pharmacy store.  Having access to current levels of a product in the pharmacy store while on a ward assists in early warning of potential supply problems.  A common problem is occurs when ordering prescribed items from the pharmacy store for a patient who is soon to leave.  If a product is in stock then all goes smoothly.  However, if levels are low or supply is entirely exhausted, this will not become apparent until it is too late to arrange additional supplies from external suppliers.  If when making an order the current level may be checked the orderer may immediately take action to prevent a break in supply continuity.  
+\end{itemize}
+
+Product methods:\\ 
+\begin{itemize}
+    \item list all agents 
+    \item ? list all access and write for every class??
+\end{itemize}
+\subsection{Prescription}
+A prescription has the following properties or associations:
+\begin{itemize}
+    \item product 
+    \item dose 
+    \item patient 
+    \item prescriber 
+    \item treatment period 
+    \item ancillary instructions - text that gives additional dosing instructions beyond dosing instructions
+\end{itemize}<++>
+\subsection{Admission} An admission is the period between an admission and discharge of a patient, as well as the reason (indication) the patient has been admitted.  Usually a single medical team is responsible for the treatment of a patient at any one time.  During an admission, a patient may be transferred between teams, but the final team for an admission may be considered the primary team.  Having access to some basic information regarding previous admissions easily assists in finding pertinent information concerning the patient quickly for future admissions.   
+Properties of an admission:\\
+\begin{itemize}
+    \item date of admission 
+    \item ward admitted to 
+    \item discharge (departure) date - this is useful even for current admissions.  An expected departure date assists in discharge planning and ensuring sufficient supplies of medications are supplied in a timely fashion. 
+    \item primary indication (reason for admission) 
+    \item summary of clinical information regarding that admission 
+\end{itemize}
+
+\part{Implementation}
+The structure of rails applications closely mirror that of the underlying database, which allows for straight forward translation of classes and instances to and from the database by ActiveRecord, and mapping of classes to their CRUD operations.
+
+\section{Polymorphism and inheritance}
+Most of the polymorphism employed is part of the rails scaffolding with the rails base classes.  However, the store object could be a pharmacy store or a ward store and they needed to be differentiated.  Rather than have a separate attribute for each kind of association, the convention in rails at the database layer is to use two attributes to identify what kind of store it is, a single foreign key attribute that stores the primary key of all off the associations and a type attribute to indicate the class of the association.  Both are later used in the model layer to define associations for ActiveRecord.
+\section{Interface}
+Multiple layouts are required to cater for system administration from a desktop or standard screen and for mobile users.  The system chosen for defining the view detects the user agent reported by the client in the application controller and sets the format for the respond\_to methods in the various controllers.  If it is a mobile safari client the iPhone views are rendered with the iPhone layout.  
+\section{Users and session} 
+There are three types of sessions supported.  The primary user type is a standard user, usually a pharmacist or technician, who can create prescriptions and notes, add patients to wards and edit their own notes.  There needs to be an system administrator role, who can edit users and add policies, and an audit role enabling only viewing of the information recorded on the system, and some additional views for information such as all notes made by a particular user.
+Rails and the rails plug-in AuthLogic create a session cookie (user\_credentials) upon user login.  By this mechanism the current session and user is persisted.  Data associated with a session may be stored in the session hash but will be lost if the user logs out, closes the browser or clears their cookies.  As a result, storing data objects in a session is not advisable.  Doing so would also lead to stale data in the object or the database.\\
+As the system will have a limited number of users and roles, a simply access restriction pattern is appropriate.  In this case a boolean property, admin, is employed.  The model controllers check the property on instantiation so that both the controller and associated views have access to the admin attribute of the user.  In combination with a check of the current\_user and user associated with records, editing of notes and other records are restricted.
+
+\part{Improvements}
+\section{Testing} 
+Given the intended realm of use for the system, issues of security speed and adherence to the multitudinous local and national policies, guidelines, regulations and laws specifying the appropriate handling of personal medical information would need careful consideration.  As it stands, the security of the system would be relatively assured if the network used for access to the patient data were provided over encrypted wireless networks and local policies prescribed sensible behaviours for its users.
+\section{Authentication}
+
+\section{Integration}
+Data duplication is a already existing problem in most hospital data, so a new system such as this would be of little use unless it was integrated into existing systems.  As most are almost entirely proprietary integration would likely require cooperation from the suppliers of existing systems and present some technical challenge.
+\section{Interface}
+It is likely that a variety of mobile devices capable of using the system would be available.  The design allows for multiple views and layouts.  Its possible that simply rendering existing views with a different layout may suffice in these cases, in which case all that would be needed would be an additional layout file.
+\section{Refactoring}
+\subsection{Third party libraries}
+A third party library for rendering elements of the iPhone interface was employed.  While capable, it has not been maintained and suffers performance problems.  It is sufficient for prototype development, but if the system were to be adopted the iPhone interface styling and associated javascript would probably need to be improved.
+\section{Constraints and validation}
+The system is to be used by its owners, and for the sake of flexibility there are few contraints employed as to the nature of the data that may be entered.  
+\subsection{Checking product policies during prescribing process}
+One of the more significant potential uses of a system such as this would be the ability for local policies to be implemented with some level of automation.  Given the MVC architecture and model associations employed the system may be customized to allow for checking against policies on prescription entry.  An example may be if a product is prescribed that has an alternative preferred brand a check against local policies would generate a message to prompt the pharmacist reviewing the patient to query the prescription.  Policies may also be associated with specialties or medical teams, as is often the case in hospitals.  A product may not be available, except for a specific indication under a specific team/specialty/ward.
+\section{Native application}
+There are drawbacks in implementing the system as a web application.  While it increases the speed of development and improves accessibility to a variety of platforms, the browser is not as powerful or as fast as a local application.  It is likely that the web application implementation would be used as a prototype of the system and interface, and once tested and fine tuned, would act as a template for the implementation of a native application for the relevant platforms
+\section{Separate system administration interface}
+As it stands the system's administration is part of the standard interface, which is unnecessary.  A number of creation and update functions are not relevant in the day to day workings of a pharmacist on a ward.  For example, adding a new product or user administration would be best served by a different view, as would auditing functions, such as viewing all notes by all pharmacists.
+\section{Performance}
+Some of the information held in separate relations, such as in the status relation, could have been held as hashes instead.  However, doing so would have required changing the code to add new status types, whereas with a relation an administrator for the system can maintain status types.
+\section{Logic}
+The system is a structure into logic may be inserted, thanks largely to the MVC nature of rails applications.  Though some logic has been implemented, the specifics rely largely on the workings of a specific site.  Some sites would probably like the restrict dosing for a specific product to approved doses, while others may find that approach overly limiting.  The benefit of the restriction is that simply by not finding an odd dose would prompt the user to query the necessity for a non-standard regimen.
+Due to the structure of the application, adding new logic is relatively straight forward - new methods can be defined in the model or controller and ActiveRecord. 
+\end{document}

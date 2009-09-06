@@ -2,6 +2,8 @@ class Product < ActiveRecord::Base
   belongs_to :form
   has_many :product_agents
   has_many :product_doses
+  has_many :indicationable_indications, :as => :indicationable
+  has_many :indications, :through => :indicationable_indications
   has_many :policiable_policies, :as => :policiable
   has_many :policies, :through => :policiable_policies
   has_many :product_stores
@@ -13,7 +15,43 @@ class Product < ActiveRecord::Base
     indexes agents.name, :as => :agents_name
     indexes brand
   end
-  
+"  
+cks = []
+  for agent in Product.find(5).agents
+  for policy in agent.policies
+    for check in policy.checks
+      puts 'asdf'
+      cks.push(check)
+      #check.perform_check(Patient.first)
+    end
+  end
+end
+"
+  def check_policies(patient)
+    results = Set.new
+    for policy in policies
+      for check in policy.checks
+        results << check.perform_check(patient)
+      end
+    end
+    for agent in agents
+      results.merge(agent.check_policies(patient))
+    end
+    return results
+  end
+
+   def list_policies(p)
+    puts description
+    for policy in policies
+      puts policy.content
+    end
+    for agent in agents
+      puts agent.name
+      agent.check_policies(p)
+    end
+  end
+
+
   def description
     a=agents
     s = ""
@@ -25,6 +63,14 @@ class Product < ActiveRecord::Base
     end
     s = s + " (" + brand + ") " +form.form + "s"
     return s
+  end
+
+  def all_indications
+    inds = indications
+    for agent in agents
+      inds += agent.indications
+    end
+    return inds 
   end
 
   def agents_description

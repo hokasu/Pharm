@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090901001308) do
+ActiveRecord::Schema.define(:version => 20090903182639) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20090901001308) do
     t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "specialty"
   end
 
   create_table "doses", :force => true do |t|
@@ -90,6 +91,20 @@ ActiveRecord::Schema.define(:version => 20090901001308) do
     t.datetime "updated_at"
   end
 
+  create_table "indicationable_indications", :force => true do |t|
+    t.integer  "indication_id"
+    t.integer  "indicationable_id"
+    t.string   "indicationable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "indications", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "levels", :force => true do |t|
     t.float    "potassium"
     t.float    "creatinine"
@@ -100,6 +115,14 @@ ActiveRecord::Schema.define(:version => 20090901001308) do
     t.datetime "updated_at"
     t.integer  "patient_id"
     t.integer  "dbp"
+    t.datetime "collected"
+  end
+
+  create_table "patient_indications", :force => true do |t|
+    t.integer  "indication_id"
+    t.integer  "patient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "patients", :force => true do |t|

@@ -3,8 +3,9 @@ class Patient < ActiveRecord::Base
   has_many :prescriptions
   has_many :prodcuts, :through => :prescriptions
   has_many :admnotes, :through => :admissions
-  has_one :level
-
+  has_many :levels
+  has_many :indicationable_indications, :as => :indicationable
+  has_many :indications, :through => :indicationable_indications
   define_index do
     indexes [firstname, surname], :as => :patient_name #need to combine first and second names for indexing
     indexes phn
@@ -14,6 +15,32 @@ class Patient < ActiveRecord::Base
   end
 
   validates_presence_of  :firstname, :surname, :phn
+
+
+  def check_policies
+    results = Set.new
+    for product in current_products.to_a
+      hash = { :product => product, :results => product.check_policies(self).to_a}
+      results << hash
+    end
+    return results.to_a
+  end
+
+  def policy_results
+    array = []
+    for set in check_policies
+      puts  set[:product].description
+      for result in set[:results]
+        array << result[:check].description.to_s + " " + result[:result].to_s
+      end
+    end
+    return array
+  end
+
+
+  def team
+    admissions.current.first.team
+  end
 
   def check_allergies
     reg = Regexp.new('[a-z]{3,}')
@@ -69,6 +96,10 @@ class Patient < ActiveRecord::Base
     return agents
   end
 
+  def current_level
+    levels.last
+  end
+
   def current_agents_categories_names
     agents = Set.new
     current_agents.each do |c|
@@ -76,6 +107,16 @@ class Patient < ActiveRecord::Base
       agents.add(c.name)
     end
     return agents
+  end
+
+
+
+  def current_products
+    products = Set.new
+    prescriptions.current.each do |p|
+      products.add(p.product)
+    end
+    return products
   end
 
   def current_agents
