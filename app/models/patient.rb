@@ -25,7 +25,6 @@ class Patient < ActiveRecord::Base
     end
     return results.to_a
   end
-  
   def print_failed
    for c in failed_policies
      puts c[:product].description
@@ -35,7 +34,6 @@ class Patient < ActiveRecord::Base
    end
    return nil
   end
-
   def failed_policies
     results = policy_results
     failed = []
@@ -54,7 +52,6 @@ class Patient < ActiveRecord::Base
     end
     return failed
   end
-
   def policy_results_description 
     array = []
     for set in policy_results
@@ -65,11 +62,9 @@ class Patient < ActiveRecord::Base
     end
   end
 
-
   def team
     admissions.current.first.team
   end
-
   def check_allergies
     reg = Regexp.new('[a-z]{3,}')
     a = allergies.scan(reg)
@@ -83,16 +78,12 @@ class Patient < ActiveRecord::Base
   def fullname
     firstname + " " + middlename + " " + surname
   end
-
   def has_allergies?
     allergies.size>0
   end
-  
-
   def has_sensitivities?
     sensitivities.size>0
   end
-
 
   def current_ward
     if admissions.current!=nil
@@ -101,20 +92,15 @@ class Patient < ActiveRecord::Base
       return nil
     end
   end
-
-
   def inpatient?
     return admissions.current!=nil
   end
-
   def has_admissions?
     admissions.size > 0 
   end
-  
   def has_currentnotes?
-    admissions.last.admnotes.size > 0
+    !admissions.current.first.nil? && admissions.current.first.admnotes.size > 0
   end
-
 
   def current_agents_names
     agents = Set.new
@@ -123,11 +109,9 @@ class Patient < ActiveRecord::Base
     end
     return agents
   end
-
   def current_level
     levels.last
   end
-
   def current_agents_categories_names
     agents = Set.new
     current_agents.each do |c|
@@ -137,8 +121,6 @@ class Patient < ActiveRecord::Base
     return agents
   end
 
-
-
   def current_products
     products = Set.new
     prescriptions.current.each do |p|
@@ -146,7 +128,6 @@ class Patient < ActiveRecord::Base
     end
     return products
   end
-
   def current_agents
     agents = Set.new
     prescriptions.current.each do |p|

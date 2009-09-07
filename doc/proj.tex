@@ -56,6 +56,7 @@ Both pharmacists and ward technicians may carry out supply checks:
 \section{Classes and objects}
 \paragraph{}
 \subsection{Patient}:
+Properties:
 \begin{itemize}
     \item statutory details, including hospital identification
     \item current and previous prescriptions - and by extension, current pharmaceutical agents
@@ -64,7 +65,15 @@ Both pharmacists and ward technicians may carry out supply checks:
     \item diagnoses and selected lab results 
     \item current and previous results of blood tests and values of other medical variables used to make clinical judgements.  Static, or current, levels only do not provide nearly as much information as trends, so each patient must have a collection of levels
 \end{itemize}
-
+Methods:
+\begin{itemize}
+    \item current\_products - returns the products the patient is currently prescribed. 
+    \item current\_agents  - each product may consist of more than one agent, and the agents are what clinical staff are most concerned with.
+    \item current\_agents\_names - returns a collection of strings representing current agents.  Allows for simpler listing of current agents. 
+    \item current\_agents\_categories\_names - returns a collection of strings representing the categories, or pharmaceutical classes, of the agents that the patient is currently prescribed.  This information is useful in performing checks on the current treatment of the patient, as some pharmaceutical classes are contraindicated (should not be prescribed) in some situations. 
+    \item current\_level - returns the last set of results for a patient.  Most are lab results, but may be others, such as diastolic blood pressure, weight or water input/output balance. 
+    \item 
+\end{itemize}<++>
 \subsection{Product}
 A product may be agent(drug) or combinations of agents, or other medical products such as dressings, delivery aids such as pill boxes or cutters.  
 A product has a manufacturer, a form, a strength and a variety of doses and frequencies that may be prescribed for it. 
@@ -76,7 +85,7 @@ Product properties:
     \item form - a product may be have one of many forms, including several types of solid oral, liquid oral and topical preparations.  The dose of each form depends on this type - a liquid is dosed in volume, and a solid oral form is dosed in discrete units such as capsules.  To this end, a form has both a form type and a name to allow for calculations to be applied to them. 
     \item doses - how much of a product a patient is treated with is described by several variables.  These are the strength of each agent, e.g. 20 milligrams per unit, the number of product units, e.g. two tablets, and the frequency, e.g. twice a day or every eight hours.
     For a given strength, each product has a collection of valid quantity/frequency pairs associated with it.  A period of treatment must also be recorded.
-    \item policies - a significant aspect of the potential benefit of recording information digitally is the prospect for some level of automation.  Part of the challenge of updating policies in a large organisation is disseminating them and encouraging compliance.  To this end, each product may have several policies.  Each policy is essentially text, intended to describe special cases regarding the use of the product.  These usually include conditions, such as 'do not use when taking aspirin'.  To assist in automation of some of the checks that are carried out by pharmacy staff, each policy has a number of checks associated with it.  Each check is entered by the user and a type of conditional statement.  Executing a policy's checks should result in some output indication their results, either that all is fine or that something requires attention. 
+    \item policies - a significant aspect of the potential benefit of recording information digitally is the prospect for some level of automation.  Part of the challenge of updating policies in a large organisation is disseminating them and encouraging compliance.  To this end, each product may have several policies.  Each policy is essentially text, intended to describe special cases regarding the use of the product.  These usually include conditions, such as 'do not use when taking aspirin'.  To assist in automation of some of the checks that are carried out by pharmacy staff, each policy has a number of checks associated with it.  Checks are entered by the user as a type of conditional statement.  Executing a policy's checks should result in some output indicating their results, either that all is fine or that something requires attention. 
     \item stores - each product is associated with one or more stores.  There are ward stores and a main pharmacy store.  Having access to current levels of a product in the pharmacy store while on a ward assists in early warning of potential supply problems.  A common problem is occurs when ordering prescribed items from the pharmacy store for a patient who is soon to leave.  If a product is in stock then all goes smoothly.  However, if levels are low or supply is entirely exhausted, this will not become apparent until it is too late to arrange additional supplies from external suppliers.  If when making an order the current level may be checked the orderer may immediately take action to prevent a break in supply continuity.  
 \end{itemize}
 
@@ -94,7 +103,47 @@ A prescription has the following properties or associations:
     \item prescriber 
     \item treatment period 
     \item ancillary instructions - text that gives additional dosing instructions beyond dosing instructions
-\end{itemize}<++>
+\end{itemize}
+\subsection{Ward}
+\begin{itemize}
+    \item Name 
+    \item Type - most wards care for patients admitted for specific problems, such as respiratory disease. 
+    \item Pharmacist - a ward will have a single pharmacist who is responsible for pharmacy services to that ward 
+    \item other information - there is a variety of information about a ward and its workings a user may want to store to help other staff members who are charged with responsibility for the ward.  An example may be the times that are best to visit the ward, which beds hold the most critical patients, or who to speak to about a specific recurring issue. 
+    \item Beds - a ward has several beds which may or may not be occupied.
+\end{itemize}
+\subsection{Team}
+A team, or more specifically a medical team, is a group of doctors. 
+\begin{itemize}
+    \item Ward - the activity of a team typically centres on a single ward, though commonly cares for patients in more than one ward. 
+    \item Patients - teams naturally have a collection of patients for whom they are responsible.
+\end{itemize}
+\subsection{Doctor}
+\begin{itemize}
+    \item Name 
+    \item position - a doctor may have one of three positions, intern, registrar or specialist.  Withing those positions are grades, but for this system, those three roles are all that is relevant to pharmacy staff. 
+    \item page number - the need to communicate with prescribers means that page numbers are required. 
+\end{itemize}
+\subsection{Store}
+A store is associated with many products and with a single ward or with the pharmacy department.  Each store has a current store level for each product and an order for each product.  This means that connecting models are required that are more complex than those for the other many-to-many relationships in this system.
+\begin{itemize} 
+    \item store order - each store has multiple store orders, each of which is a collection of store order lines.
+\end{itemize}
+\subsection{Order}
+An order is a list of requests to supply a specific product or prescription, a collection of the former being a store order and of the of the latter a prescription order.  These two main types of order are of concern to pharmacists and other ward pharmacy staff.
+\begin{itemize}
+    \item has many store order lines, each of which belongs to a specific product in a specific store, a product-store line.
+\end{itemize}
+\subsection{Level}
+Most patients when admitted to hospital will have multiple tests carried out during their admission.  Most of these will be from blood samples, and a majority of those will be repeated for every sample received.  This results in something similar to a set of collections of the tests for each patient, each collection having a time of collection or measurement.  A 'level' in the system represents a collection of results of tests for a given time.  Each patient has a collection of levels.
+\subsection{Policy}
+As described earlier, a policy reflects some of the checks carried out by pharmacy staff.  Most of the checks pharmacy staff carry out are standard throughout the profession, but there are local policies in each hospital that are very specific and not obvious.  An example of a local policy may be a product that may only be prescribed by members of a specific medical team, or a brand of drug that is peculiar to a specific indication.
+\begin{itemize}
+    \item Content - this is plain text that is intended to be used to describe the policy. 
+    \item Checks - a policy may have many checks associated with it.  These checks are conditional statements that may be executed for a patient.
+\end{itemize}
+\subsection{Check}
+A check is a collection of conditional statement elements which are added to a policy by a user used to generate executable checks against a given patient.  What is entered by the user is not code, but something that may be used to create to necessary code for the checks.
 \subsection{Admission} An admission is the period between an admission and discharge of a patient, as well as the reason (indication) the patient has been admitted.  Usually a single medical team is responsible for the treatment of a patient at any one time.  During an admission, a patient may be transferred between teams, but the final team for an admission may be considered the primary team.  Having access to some basic information regarding previous admissions easily assists in finding pertinent information concerning the patient quickly for future admissions.   
 Properties of an admission:\\
 \begin{itemize}
@@ -105,6 +154,7 @@ Properties of an admission:\\
     \item summary of clinical information regarding that admission 
 \end{itemize}
 
+\section{User interface}
 \part{Implementation}
 The structure of rails applications closely mirror that of the underlying database, which allows for straight forward translation of classes and instances to and from the database by ActiveRecord, and mapping of classes to their CRUD operations.
 
