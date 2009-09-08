@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ward_id: 1
+  team_id: 1
+
+two:
+  ward_id: 1
+  team_id: 1

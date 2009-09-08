@@ -1,6 +1,8 @@
 class Ward < ActiveRecord::Base
   belongs_to :pharmacist
   has_one :store
+  has_many :team_wards
+  has_many :teams, :through => :team_wards
   has_many :beds
   has_many :admissions, :through => :beds
 
@@ -11,6 +13,8 @@ class Ward < ActiveRecord::Base
     end
     return patients
   end
+
+
 
   def patients
     admissions.map {|admission| admission.patient}

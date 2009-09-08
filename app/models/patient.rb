@@ -17,7 +17,7 @@ class Patient < ActiveRecord::Base
   validates_presence_of  :firstname, :surname, :phn
 
 
-  def policy_results
+  def policy_results #returns an array of hashes, each hash containing a product and an array of check results
     results = Set.new
     for product in current_products.to_a
       hash = { :product => product, :results => product.check_policies(self).to_a}
@@ -86,8 +86,8 @@ class Patient < ActiveRecord::Base
   end
 
   def current_ward
-    if admissions.current!=nil
-      then return admission.current.ward
+    unless admissions.current.empty?
+      return admissions.current.first.ward
     else
       return nil
     end

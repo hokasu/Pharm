@@ -17,7 +17,7 @@ The focus of this project will be on part of these operations, namely ward pharm
 \part{Introduction}
 
 \part{Design}
-This section describes the requirements of the system and how the requirements were used to design the system. By following an object oriented design approach with each real world entity being represented as a class, the design of the system may closely reflect the structure of the real world objects.
+This section describes the requirements of the system and how the requirements were used to design the system. By following an object oriented design approach with each real world entity being represented as a class, the design of the system may closely reflect the structure of the real world objects and the information expert gang of four pattern.
 
 \section{Users} 
 \subsection{Pharmacists}
@@ -56,6 +56,7 @@ Both pharmacists and ward technicians may carry out supply checks:
 \section{Classes and objects}
 \paragraph{}
 \subsection{Patient}:
+The patients recorded in this system are the focus of the system.  Most functions are performed on a patient or its associated entities.
 Properties:
 \begin{itemize}
     \item statutory details, including hospital identification
@@ -65,15 +66,24 @@ Properties:
     \item diagnoses and selected lab results 
     \item current and previous results of blood tests and values of other medical variables used to make clinical judgements.  Static, or current, levels only do not provide nearly as much information as trends, so each patient must have a collection of levels
 \end{itemize}
-Methods:
+Model methods:
 \begin{itemize}
     \item current\_products - returns the products the patient is currently prescribed. 
     \item current\_agents  - each product may consist of more than one agent, and the agents are what clinical staff are most concerned with.
     \item current\_agents\_names - returns a collection of strings representing current agents.  Allows for simpler listing of current agents. 
     \item current\_agents\_categories\_names - returns a collection of strings representing the categories, or pharmaceutical classes, of the agents that the patient is currently prescribed.  This information is useful in performing checks on the current treatment of the patient, as some pharmaceutical classes are contraindicated (should not be prescribed) in some situations. 
     \item current\_level - returns the last set of results for a patient.  Most are lab results, but may be others, such as diastolic blood pressure, weight or water input/output balance. 
-    \item 
-\end{itemize}<++>
+    \item has\_currentnotes? - returns boolean indicating whether the current admission for this patient has notes associated with it. 
+    \item inpatient? - returns boolean indicating whether the patient is currently admitted or not. 
+    \item current\_ward - if currently admitted returns an instance of ward representing ward the patient is currently admitted to, otherwise returns nil. 
+    \item fullname - returns a string representing the full name of the patient.  Used in views. 
+    \item check\_allergies - returns a set of strings resulting from the intersection of a set of agents representing the patient's allergies and a set of currently prescribed agents.
+    \item team - returns instance of team that represents the medical team currently responsible for the patient's care. 
+    \item policy\_results - returns an array of hashes, each hash containing a product and an array of check results. 
+    \item failed\_policies - returns an array of hashes, each hash containing a product and an array of the checks that failed to pass. 
+    \item print\_failed - prints a description of failed checks 
+    \item CRUD methods
+\end{itemize}
 \subsection{Product}
 A product may be agent(drug) or combinations of agents, or other medical products such as dressings, delivery aids such as pill boxes or cutters.  
 A product has a manufacturer, a form, a strength and a variety of doses and frequencies that may be prescribed for it. 
@@ -154,19 +164,59 @@ Properties of an admission:\\
     \item summary of clinical information regarding that admission 
 \end{itemize}
 
+
 \section{User interface}
 \part{Implementation}
 The structure of rails applications closely mirror that of the underlying database, which allows for straight forward translation of classes and instances to and from the database by ActiveRecord, and mapping of classes to their CRUD operations.
-
+The Rails framework convention provides CRUD methods for objects and some associations when objects and their associations are created.  For example, when creating a new model with the Rails model generation script, methods for finding all patients, editing patients, creating new patients and deleting patients are provided, along with views for these actions.  The views provide basic forms with which to update.  These provide the basis for extending to show and manipulate the data of instances of multiple associated models, and providing tailored views. 
 \section{Polymorphism and inheritance}
 Most of the polymorphism employed is part of the rails scaffolding with the rails base classes.  However, the store object could be a pharmacy store or a ward store and they needed to be differentiated.  Rather than have a separate attribute for each kind of association, the convention in rails at the database layer is to use two attributes to identify what kind of store it is, a single foreign key attribute that stores the primary key of all off the associations and a type attribute to indicate the class of the association.  Both are later used in the model layer to define associations for ActiveRecord.
 \section{Interface}
 Multiple layouts are required to cater for system administration from a desktop or standard screen and for mobile users.  The system chosen for defining the view detects the user agent reported by the client in the application controller and sets the format for the respond\_to methods in the various controllers.  If it is a mobile safari client the iPhone views are rendered with the iPhone layout.  
-\section{Users and session} 
+\section{Classes and methods}
+\subsection{Users and session} 
 There are three types of sessions supported.  The primary user type is a standard user, usually a pharmacist or technician, who can create prescriptions and notes, add patients to wards and edit their own notes.  There needs to be an system administrator role, who can edit users and add policies, and an audit role enabling only viewing of the information recorded on the system, and some additional views for information such as all notes made by a particular user.
 Rails and the rails plug-in AuthLogic create a session cookie (user\_credentials) upon user login.  By this mechanism the current session and user is persisted.  Data associated with a session may be stored in the session hash but will be lost if the user logs out, closes the browser or clears their cookies.  As a result, storing data objects in a session is not advisable.  Doing so would also lead to stale data in the object or the database.\\
 As the system will have a limited number of users and roles, a simply access restriction pattern is appropriate.  In this case a boolean property, admin, is employed.  The model controllers check the property on instantiation so that both the controller and associated views have access to the admin attribute of the user.  In combination with a check of the current\_user and user associated with records, editing of notes and other records are restricted.
 
+\subsection{Check}
+In order to interpret the checks entered by a user a three hashes are used to map the user choices, which are made available by a menu, to actual method calls.  The structure of implementation means that in order to add additional potential conditional tests all that is required is to enter the appropriate values in the hash.  The matching values are method calls that are called on the patient object, for example:\\
+\begin{verbatim}
+    @@type_hash = { "categories" => ["current_agents_categories_names"], 
+	    "agents" => ["current_agents_names"], "level" => ["levels", "last"], 
+	    "specialist" => ["team", "specialist", "first"], 
+	    "specialty" => ["team", "specialty"] }  
+
+    @@check_hash = { "bp" => "dbp", "k" => "potassium", "surname" => 
+	    "surname"}
+
+    @@operator_hash = { ">" => ">", "<" => "<" , "=" => "==", "has" => 
+	    "include?" }
+
+    @patient.send (@@type_hash["level"].send(@@check_hash["bp"]
+	    .send(@@operator_hash[">"], value)
+
+\end{verbatim}
+would result in, where value is 90:\\
+\begin{verbatim}
+    @patient.levels.last.dbp.>(90) #=> boolean
+
+\end{verbatim}
+The actual code is slightly more complex, but this example illustrates the mechanics.  The methods called in the result are all generated when the models are created.  This arrangement allows for checks that have not been defined in the code itself.  Allowing the user to execute code directly is potentially dangerous, but using a hash to define the conditions prevents access to methods other than those deemed appropriate.
+
+Attributes:
+\begin{itemize}
+    \item check\_type - essentially the first function to call on the patient instance.
+    \item check - second function, may be nil as some potential checks may only require a single method call, for example \texttt{@patient.surname == 'Smith'} only needs \texttt{check\_type}
+    \item operator - indicates the final method, which is passed the value with the ruby method \texttt{send(String method, value)}.
+    \item value - a string, integer or float that is passed to the 'operator'.
+\end{itemize}
+
+Methods:
+\begin{itemize}
+    \item perform\_check(patient) - passes check attributes to private function (arrayit) which returns an array of function calls, which is then passed to a second private function (process) that recursively calls each element of the array, calling the last with the value to be passed.  The result, which is returned, is returned as a hash containing the check itself and the boolean result of the check. 
+    \item description - returns a string representing the check.
+\end{itemize}
 \part{Improvements}
 \section{Testing} 
 Given the intended realm of use for the system, issues of security speed and adherence to the multitudinous local and national policies, guidelines, regulations and laws specifying the appropriate handling of personal medical information would need careful consideration.  As it stands, the security of the system would be relatively assured if the network used for access to the patient data were provided over encrypted wireless networks and local policies prescribed sensible behaviours for its users.
@@ -180,7 +230,7 @@ It is likely that a variety of mobile devices capable of using the system would 
 \subsection{Third party libraries}
 A third party library for rendering elements of the iPhone interface was employed.  While capable, it has not been maintained and suffers performance problems.  It is sufficient for prototype development, but if the system were to be adopted the iPhone interface styling and associated javascript would probably need to be improved.
 \section{Constraints and validation}
-The system is to be used by its owners, and for the sake of flexibility there are few contraints employed as to the nature of the data that may be entered.  
+The system is to be used by its owners, and for the sake of flexibility there are few constraints employed as to the nature of the data that may be entered.  
 \subsection{Checking product policies during prescribing process}
 One of the more significant potential uses of a system such as this would be the ability for local policies to be implemented with some level of automation.  Given the MVC architecture and model associations employed the system may be customized to allow for checking against policies on prescription entry.  An example may be if a product is prescribed that has an alternative preferred brand a check against local policies would generate a message to prompt the pharmacist reviewing the patient to query the prescription.  Policies may also be associated with specialties or medical teams, as is often the case in hospitals.  A product may not be available, except for a specific indication under a specific team/specialty/ward.
 \section{Native application}
