@@ -2,15 +2,21 @@
 
 <table>
   <tr>
+    <th>Product</th>
+    <th>Dose</th>
     <th>Start</th>
     <th>End</th>
     <th>Ancillary Instructions</th>
+    <th>Prescriber</th>
   </tr>
   <% for prescription in @prescriptions %>
     <tr>
+      <td><%=h prescription.product.description %></td>
+      <td><%=h prescription.dose.frequency_description %></td>
       <td><%=h prescription.start %></td>
       <td><%=h prescription.end %></td>
       <td><%=h prescription.ancillary_instructions %></td>
+      <td><%=h prescription.doctor.fullname %></td>
       <td><%= link_to "Show", prescription %></td>
       <td><%= link_to "Edit", edit_prescription_path(prescription) %></td>
       <td><%= link_to "Destroy", prescription, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -18,4 +24,4 @@
   <% end %>
 </table>
 
-<p><%= link_to "New Prescription", new_prescription_path %></p>
+<p><%#= link_to "New Prescription", new_prescription_path %></p>

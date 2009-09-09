@@ -1,7 +1,7 @@
 class AdmissionsController < ApplicationController
   def index
-    @patient = Patient.find(params[:patient_id])
-    @admissions = @patient.admissions.all
+      @patient = Patient.find(params[:patient_id])
+      @admissions = @patient.admissions.all
   end
 
   def show

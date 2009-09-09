@@ -9,6 +9,7 @@
     <th>Dob</th>
     <th>Allergies</th>
     <th>Sensitivities</th>
+    <th>Admitted</th>
   </tr>
 
 <% @patients.each do |patient| %>
@@ -25,7 +26,12 @@
     <td><%=h patient.dob %></td>
     <td><%=h patient.allergies %></td>
     <td><%=h patient.sensitivities %></td>
-    <td><%= link_to 'Show', patient %></td>
+    <td><% if patient.current_ward %>
+      <%= patient.admissions.current.first.admdate %>
+    <% else %>
+      <%= "n/a" %>
+    <% end %></td>
+<td><%= link_to 'Show', patient %></td>
   </tr>
 <% end %>
 </table>

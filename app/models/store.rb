@@ -5,11 +5,11 @@ class Store < ActiveRecord::Base
   belongs_to :ward
 
   def orders
-    so = Set.new []
+    so = Set.new
     store_order_lines.each do |s|
       so.add(s.store_order)
     end
-    return so
+    return so.to_a
   end
     
 end

@@ -19,44 +19,59 @@ The focus of this project will be on part of these operations, namely ward pharm
 \part{Design}
 This section describes the requirements of the system and how the requirements were used to design the system. By following an object oriented design approach with each real world entity being represented as a class, the design of the system may closely reflect the structure of the real world objects and the information expert gang of four pattern.
 
-\section{Users} 
-\subsection{Pharmacists}
+\section{Use cases} 
+\subsection{Pharmacists and technicians}
+Pharmacists and pharmacy technicians have different roles, but the line between them continue to blur in the duties they execute.  The extend of this blurring depends on the site.  On traditional sites, technicians are only concerned with supply, where as other hospitals have pharmacy technicians who carry out preliminary clinical checks and take drug histories from patients.
+While in this system their roles are essentially identical in this system, a mechanism for changing access to functionality in the site will be made available, partially by making pharmacists and technicians different types of user.
 The needs of clinical pharmacy ward staff are the primary considerations for the system.  The majority of these will be pharmacists.  When working from a ward, pharmacists need to record and screen current medications, medication history, allergies, primary indications or diagnoses, supply levels, lab results and brief medical history for each patient they see.
-When checking these details, consideration must be made of local policies with regard to recommended and available treatments.  The system should enable them to carry out create, read, update and delete (CRUD) operations on these properties:
+When checking these details, consideration must be made of local policies with regard to recommended and available treatments.  
 
 \begin{itemize}
     \item a list of all wards registered on the system
     \item a list of the patients on a specific ward
     \item the details of each patient on the ward
     \item the admissions associated with each patient
-    \item prescribed products for each patient
+    \item currently and previously prescribed products for each patient
     \item orders for supply to a patient
     \item orders for a ward supply
     \item details of a product
-    \item ward medical team
+    \item ward medical team 
+    \item search for patients or products
 \end{itemize}
 
 Other operations:
-The main function of a ward visit by a pharmacist that only a pharmacist may execute is checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
+The main function of a ward visit by a pharmacist is checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
 \begin{itemize}
     \item check prescribed treatments against medical condition
     \item check prescribed treatments against one another
-\end{itemize}
-Both pharmacists and ward technicians may carry out supply checks:
-\begin{itemize}
     \item check current stock levels in ward stores 
     \item check patient medication supplies 
     \item order medications when supplies reach a given level
 \end{itemize}
 
-\subsection{Technicians}
 
 \subsection{Dispensary}
+Dispensary users need to interract with the ward and patients concerning supply issues.  As such, dispensary pharmacy staff need to be able to view following:
+\begin{itemize} 
+    \item patient discharge date 
+    \item patient current prescriptions
+    \item patient supply orders 
+    \item store orders 
+    \item ward details 
+    \item 
+\end{itemize}<++>
+
+\subsection{Administrator}
+An adminstrator will need to administer users, wards and products.  To this end, user with administrator privelages will need to perform CRUD operations of the following:
+\begin{itemize}
+    \item products 
+    \item wards 
+    \item users
+\end{itemize}
 
 \section{Classes and objects}
 \paragraph{}
-\subsection{Patient}:
-The patients recorded in this system are the focus of the system.  Most functions are performed on a patient or its associated entities.
+\subsection{Patient}: The patients recorded in this system are the focus of the system.  Most functions are performed on a patient or its associated entities.
 Properties:
 \begin{itemize}
     \item statutory details, including hospital identification
@@ -167,12 +182,12 @@ Properties of an admission:\\
 
 \section{User interface}
 \part{Implementation}
-The structure of rails applications closely mirror that of the underlying database, which allows for straight forward translation of classes and instances to and from the database by ActiveRecord, and mapping of classes to their CRUD operations.
-The Rails framework convention provides CRUD methods for objects and some associations when objects and their associations are created.  For example, when creating a new model with the Rails model generation script, methods for finding all patients, editing patients, creating new patients and deleting patients are provided, along with views for these actions.  The views provide basic forms with which to update.  These provide the basis for extending to show and manipulate the data of instances of multiple associated models, and providing tailored views. 
+The structure of rails applications closely mirror that of the underlying database which allows for straight forward translation of classes and instances to and from the database by ActiveRecord, and mapping of classes to their CRUD operations.   This structure
+The Rails framework convention provides CRUD methods for objects and some associations when objects and their associations are created.  For example, when creating a new model with the Rails model generation script, a standard Rails class is represented in the database by a single table witch is named the plural of the class name.  In the case of the Patient class, the associated table is called 'patients'.  The existing class objects' attributes are represented by a row in their class' table.  With this standard structure, methods for finding all patients, editing patients, creating new patients and deleting patients are provided, along with views for these actions.  The views provide basic forms with which to update.  These provide the basis for extension to show and manipulate the data of instances of multiple associated models, and providing tailored views. 
 \section{Polymorphism and inheritance}
 Most of the polymorphism employed is part of the rails scaffolding with the rails base classes.  However, the store object could be a pharmacy store or a ward store and they needed to be differentiated.  Rather than have a separate attribute for each kind of association, the convention in rails at the database layer is to use two attributes to identify what kind of store it is, a single foreign key attribute that stores the primary key of all off the associations and a type attribute to indicate the class of the association.  Both are later used in the model layer to define associations for ActiveRecord.
 \section{Interface}
-Multiple layouts are required to cater for system administration from a desktop or standard screen and for mobile users.  The system chosen for defining the view detects the user agent reported by the client in the application controller and sets the format for the respond\_to methods in the various controllers.  If it is a mobile safari client the iPhone views are rendered with the iPhone layout.  
+Multiple layouts are required to cater for system administration from a desktop or standard screen and for mobile users.  The system chosen for defining the view uses the user agent reported by the client in the application controller and sets the format for the respond\_to methods in the various controllers.  If it is a mobile safari client the iPhone views are rendered with the iPhone layout.  
 \section{Classes and methods}
 \subsection{Users and session} 
 There are three types of sessions supported.  The primary user type is a standard user, usually a pharmacist or technician, who can create prescriptions and notes, add patients to wards and edit their own notes.  There needs to be an system administrator role, who can edit users and add policies, and an audit role enabling only viewing of the information recorded on the system, and some additional views for information such as all notes made by a particular user.

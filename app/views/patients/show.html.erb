@@ -48,8 +48,23 @@
 <%= link_to 'Ward', ward_patients_path(@ward) %> |
 <% end %>
 
-  <%= link_to 'New prescription', patient_products_path(@patient) %> 
-  <%= link_to 'Products', products_path(@patient) %> 
+  <%= link_to 'New prescription', patient_products_path(@patient) %> |
+  <%= link_to 'Prescriptions', patient_prescriptions_path(@patient) %> 
+  <%  unless @patient.failed_policies.empty?  %>
+    <p>
+    <strong>Failed policy checks </strong>
+    <%  for policy in @patient.failed_policies  %>
+      <br> <%= policy[:product].description %>:</br>
+      <% for check in policy[:checks]  %>
+        <br>
+        <%= check.description  %>
+        </br>
+      <%  end  %>
+    <%  end  %>
+  <%  end  %>
+  </p>
+    
+  <%#= link_to 'Prescriptions', :controller => 'prescriptions', :action => 'index', :patient_id => @patient.id %> 
 <%#= link_to 'All patients', patients_path %>
 
     <%#= link_to 'All notes', admnotes_path(@patient) %>

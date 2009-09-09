@@ -1,6 +1,11 @@
 class PrescriptionsController < ApplicationController
   def index
-    @prescriptions = Prescription.all
+    if params[:patient_id]  
+      @patient = Patient.find(params[:patient_id])
+      @prescriptions = @patient.prescriptions.all
+    else
+      @prescriptions = Prescription.all
+    end
   end
   
   def show
