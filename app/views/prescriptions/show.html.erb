@@ -20,5 +20,7 @@
 <p>
   <%= link_to "Edit", edit_prescription_path(@prescription) %> |
   <%= link_to "Destroy", @prescription, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", prescriptions_path %>
+  <%= link_to 'Prescriptions', patient_prescriptions_path(@patient) %> | 
+
+  <%= link_to 'New prescription', patient_products_path(Patient.find(@prescription.patient_id)) %> |
 </p>

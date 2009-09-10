@@ -6,14 +6,18 @@ class Team < ActiveRecord::Base
   belongs_to :ward
 
   def specialist
-    Doctor.find(:all, :conditions => [ "position = 'specialist' AND team_id=?", id])
+    Doctor.find(:all, :conditions => [ "position = 'specialist' AND team_id=?", id]).first
   end
 
+  def registrar
+    Doctor.find(:all, :conditions => [ "position = 'registrar' AND team_id=?", id]).first
+  end
+  
   def interns
     Doctor.find(:all, :conditions => [ "position = 'intern' AND team_id=?", id])
   end
 
   def specialty
-    specialist.first.specialty
+    specialist.specialty
   end
 end

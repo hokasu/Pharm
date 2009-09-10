@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090908132214) do
+ActiveRecord::Schema.define(:version => 20090909171118) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -183,6 +183,8 @@ ActiveRecord::Schema.define(:version => 20090908132214) do
     t.integer  "dose_id"
     t.integer  "doctor_id"
     t.integer  "user_id"
+    t.float    "units_supplied"
+    t.integer  "packs_supplied"
   end
 
   create_table "product_agents", :force => true do |t|

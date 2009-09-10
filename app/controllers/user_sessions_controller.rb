@@ -10,7 +10,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Successfully logged in."
+      flash[:notice] = "Successfully logged in. You are a " + current_user.class.title
       redirect_to(wards_url)
     else
       #respond_to do |format| 

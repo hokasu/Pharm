@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  patient_id: 1
+  prescription_id: 1
+  level: 1.5
+
+two:
+  patient_id: 1
+  prescription_id: 1
+  level: 1.5

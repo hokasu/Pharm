@@ -19,59 +19,27 @@ The focus of this project will be on part of these operations, namely ward pharm
 \part{Design}
 This section describes the requirements of the system and how the requirements were used to design the system. By following an object oriented design approach with each real world entity being represented as a class, the design of the system may closely reflect the structure of the real world objects and the information expert gang of four pattern.
 
-\section{Use cases} 
-\subsection{Pharmacists and technicians}
-Pharmacists and pharmacy technicians have different roles, but the line between them continue to blur in the duties they execute.  The extend of this blurring depends on the site.  On traditional sites, technicians are only concerned with supply, where as other hospitals have pharmacy technicians who carry out preliminary clinical checks and take drug histories from patients.
-While in this system their roles are essentially identical in this system, a mechanism for changing access to functionality in the site will be made available, partially by making pharmacists and technicians different types of user.
-The needs of clinical pharmacy ward staff are the primary considerations for the system.  The majority of these will be pharmacists.  When working from a ward, pharmacists need to record and screen current medications, medication history, allergies, primary indications or diagnoses, supply levels, lab results and brief medical history for each patient they see.
-When checking these details, consideration must be made of local policies with regard to recommended and available treatments.  
+\section{Context} 
+The focus of this system is the ward pharmacy staff.  Ward pharmacy staff work with information concerning wards, patients, doctors, prescriptions, products, orders, lab results, stores, and local policies.  The details of the these entities and how the information concerning them is used is detailed in this section.
+\subsection{Ward pharmacy staff}
+Each member of the ward pharmacy staff is either a pharmacist or ward technician.  Pharmacists and technicians have different roles, but the line between them continue to blur in the duties they execute.  The extent of this blurring depends on the site.  On traditional sites, technicians are only concerned with supply, whereas at increasingly more numerous sites pharmacy technicians carry out preliminary clinical checks and take drug histories from patients in addition to their supply functions.
+While their roles are essentially identical in this system, a mechanism for changing access to functionality in the site will be made available, partially by making pharmacists and technicians different types of user.
 
+\subsection{Ward}
+Wards are where patients stay for the majority of their admission.  Each ward has a team of nurses and one or more regular medical teams associated with it.  All wards are assigned a patient group based on their current care requirements.
+
+The following properties are relevant ward pharmacy staff:
 \begin{itemize}
-    \item a list of all wards registered on the system
-    \item a list of the patients on a specific ward
-    \item the details of each patient on the ward
-    \item the admissions associated with each patient
-    \item currently and previously prescribed products for each patient
-    \item orders for supply to a patient
-    \item orders for a ward supply
-    \item details of a product
-    \item ward medical team 
-    \item search for patients or products
+    \item Name - used to identify the ward
+    \item Type - most wards care for patients admitted for specific problems, such as respiratory disease. 
+    \item Pharmacist - a ward will have a single pharmacist who is responsible for pharmacy services to that ward 
+    \item Ward notes - there is a variety of information about a ward and its workings a user may want to store to help other staff members who are charged with responsibility for the ward.  An example may be the times that are best to visit the ward, which beds hold the most critical patients, or who to speak to about a specific recurring issue. 
+    \item Beds - a ward has several beds which may or may not be occupied. 
+    \item Orders - wards have their own small stocks of medications that are supplied by the pharmacy department.  Ward staff assist in managing stock levels.
 \end{itemize}
+Ward pharmacy staff need to be able to list, edit and update ward orders, ward patients and ward notes. 
 
-Other operations:
-The main function of a ward visit by a pharmacist is checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
-\begin{itemize}
-    \item check prescribed treatments against medical condition
-    \item check prescribed treatments against one another
-    \item check current stock levels in ward stores 
-    \item check patient medication supplies 
-    \item order medications when supplies reach a given level
-\end{itemize}
-
-
-\subsection{Dispensary}
-Dispensary users need to interract with the ward and patients concerning supply issues.  As such, dispensary pharmacy staff need to be able to view following:
-\begin{itemize} 
-    \item patient discharge date 
-    \item patient current prescriptions
-    \item patient supply orders 
-    \item store orders 
-    \item ward details 
-    \item 
-\end{itemize}<++>
-
-\subsection{Administrator}
-An adminstrator will need to administer users, wards and products.  To this end, user with administrator privelages will need to perform CRUD operations of the following:
-\begin{itemize}
-    \item products 
-    \item wards 
-    \item users
-\end{itemize}
-
-\section{Classes and objects}
-\paragraph{}
-\subsection{Patient}: The patients recorded in this system are the focus of the system.  Most functions are performed on a patient or its associated entities.
+\subsection{Patient}: The patients recorded in this system are the focus of the system.  Most ward pharmacy functions centre on individual patients.  When working from a ward, pharmacy staff need to record and screen current medications, medication history, allergies, primary indications or diagnoses, supply levels, lab results and brief medical history for each patient they see.
 Properties:
 \begin{itemize}
     \item statutory details, including hospital identification
@@ -79,33 +47,19 @@ Properties:
     \item current and previous admissions
     \item allergies
     \item diagnoses and selected lab results 
-    \item current and previous results of blood tests and values of other medical variables used to make clinical judgements.  Static, or current, levels only do not provide nearly as much information as trends, so each patient must have a collection of levels
+    \item current and previous results of blood tests and values of other medical variables used to make clinical judgements. 
+    \item notes other ward pharmacy staff have made about the patient 
+    \item probably discharge date
 \end{itemize}
-Model methods:
-\begin{itemize}
-    \item current\_products - returns the products the patient is currently prescribed. 
-    \item current\_agents  - each product may consist of more than one agent, and the agents are what clinical staff are most concerned with.
-    \item current\_agents\_names - returns a collection of strings representing current agents.  Allows for simpler listing of current agents. 
-    \item current\_agents\_categories\_names - returns a collection of strings representing the categories, or pharmaceutical classes, of the agents that the patient is currently prescribed.  This information is useful in performing checks on the current treatment of the patient, as some pharmaceutical classes are contraindicated (should not be prescribed) in some situations. 
-    \item current\_level - returns the last set of results for a patient.  Most are lab results, but may be others, such as diastolic blood pressure, weight or water input/output balance. 
-    \item has\_currentnotes? - returns boolean indicating whether the current admission for this patient has notes associated with it. 
-    \item inpatient? - returns boolean indicating whether the patient is currently admitted or not. 
-    \item current\_ward - if currently admitted returns an instance of ward representing ward the patient is currently admitted to, otherwise returns nil. 
-    \item fullname - returns a string representing the full name of the patient.  Used in views. 
-    \item check\_allergies - returns a set of strings resulting from the intersection of a set of agents representing the patient's allergies and a set of currently prescribed agents.
-    \item team - returns instance of team that represents the medical team currently responsible for the patient's care. 
-    \item policy\_results - returns an array of hashes, each hash containing a product and an array of check results. 
-    \item failed\_policies - returns an array of hashes, each hash containing a product and an array of the checks that failed to pass. 
-    \item print\_failed - prints a description of failed checks 
-    \item CRUD methods
-\end{itemize}
+Ward pharmacy staff need to view, list, update and add to these properties.
+
 \subsection{Product}
 A product may be agent(drug) or combinations of agents, or other medical products such as dressings, delivery aids such as pill boxes or cutters.  
-A product has a manufacturer, a form, a strength and a variety of doses and frequencies that may be prescribed for it. 
+A product has a form, a strength and a variety of doses and frequencies that may be prescribed for it. 
 Product properties:
 \begin{itemize}
     \item brand - a string representing the brand name of the product. 
-    \item agents - combination products have multiple agents in them.  Pharmacists are usually more concerned with prescribed agents than what a specific brand is.  Only occasionally different brands have differences significant enough for the brand to be important. Each agent belongs to a pharmaceutical class of drugs. Much like classes in other areas of science, agents in the same pharmaceutical class share common characteristics.  For example, a patient may be allergic to beta lactam antibiotics, of which one is penicillin.
+    \item agents - combination products have multiple agents in them.  Pharmacists are usually more concerned with prescribed agents than what a specific brand is.  Only occasionally different brands have differences significant enough for the brand to be important. Each agent belongs to a pharmaceutical class of drugs. Much like classes in other areas of science, agents in the same pharmaceutical class share common characteristics.  For example, a patient may be allergic to beta-lactam antibiotics, of which one is penicillin.
 	Classes also share common side effects and clinical indications, and the prescribing of multiple agents of the same class may be a prescribing oversight.  As such, being able to query the classes of product agents would be useful.
     \item form - a product may be have one of many forms, including several types of solid oral, liquid oral and topical preparations.  The dose of each form depends on this type - a liquid is dosed in volume, and a solid oral form is dosed in discrete units such as capsules.  To this end, a form has both a form type and a name to allow for calculations to be applied to them. 
     \item doses - how much of a product a patient is treated with is described by several variables.  These are the strength of each agent, e.g. 20 milligrams per unit, the number of product units, e.g. two tablets, and the frequency, e.g. twice a day or every eight hours.
@@ -114,31 +68,33 @@ Product properties:
     \item stores - each product is associated with one or more stores.  There are ward stores and a main pharmacy store.  Having access to current levels of a product in the pharmacy store while on a ward assists in early warning of potential supply problems.  A common problem is occurs when ordering prescribed items from the pharmacy store for a patient who is soon to leave.  If a product is in stock then all goes smoothly.  However, if levels are low or supply is entirely exhausted, this will not become apparent until it is too late to arrange additional supplies from external suppliers.  If when making an order the current level may be checked the orderer may immediately take action to prevent a break in supply continuity.  
 \end{itemize}
 
-Product methods:\\ 
+Ward pharmacy staff need search products, view the details of products and prescribe products.  A product must be able to be compared with the patient to whom it is prescribed in order to identify potential problems.  Other details include stock level on the ward and in the pharmacy store.
+\subsection{Prescription order}
+Each prescription has multiple supplies made for it.  In existing systems, orders consist of orders for multiple prescriptions, or prescription order lines, each of which has the product and prescription details, but also instructions to the dispensary, such as priority for supply and whether or not instructions are required.
 \begin{itemize}
-    \item list all agents 
-    \item ? list all access and write for every class??
+    \item Packs - indicates how many full packs of the product are to be supplied. 
+    \item Units - indicates how many individual units are requested. 
+    \item IP - a boolean indicating if the patient is to have 'inpatient' labelling.  Inpatient labelling does not include instructions on the label, as the dose may be changed and then the label would need adjustment, and also because instructions are already specified on the patient's drug chart. 
+    \item Priority - this is a boolean indicating to the dispensary staff if the supply needs to be completed within 24 hours or the standard 3 days is sufficient. 
+    \item Process delivered orders - a function to add delivered orders to the recorded supply level for the associated prescription.  In this way patient supply levels will be updated.  The function will also reflect this in the order status.
 \end{itemize}
+
 \subsection{Prescription}
-A prescription has the following properties or associations:
+The recording of a prescription is this system will not be made by its prescriber but by ward pharmacy staff.  A prescription has the following properties or associations:
 \begin{itemize}
-    \item product 
-    \item dose 
-    \item patient 
-    \item prescriber 
-    \item treatment period 
-    \item ancillary instructions - text that gives additional dosing instructions beyond dosing instructions
+    \item product - each prescription is for a single product object
+    \item dose - may be chosen from the available doses for a specific product
+    \item patient - a one to many relationship.
+    \item prescriber - a one to many relationship, one doctor may have many prescriptions.
+    \item treatment period - a start and end date is recorded, as is necessary with all prescriptions in hospitals, even if it is to be repeated indefinitely.
+    \item ancillary instructions - text that gives additional dosing instructions beyond dosing instructions. 
+    \item orders - for a given prescription there are usually multiple supplies in a hospital setting, often as the period of treatment may continue for some time.
+    \item amount supplied - by recording the amount supplied following the completion of an order on the prescription, it will be possible to check where supplies are running low.  The quantities are recorded with two fields, packs and units.  The total may be inferred from this information, as the pack size will be recorded.  It is often useful to distinguish between a supply of one pack of 28 tablets and a supply of 16 tablets and 14 tablets.
 \end{itemize}
-\subsection{Ward}
-\begin{itemize}
-    \item Name 
-    \item Type - most wards care for patients admitted for specific problems, such as respiratory disease. 
-    \item Pharmacist - a ward will have a single pharmacist who is responsible for pharmacy services to that ward 
-    \item other information - there is a variety of information about a ward and its workings a user may want to store to help other staff members who are charged with responsibility for the ward.  An example may be the times that are best to visit the ward, which beds hold the most critical patients, or who to speak to about a specific recurring issue. 
-    \item Beds - a ward has several beds which may or may not be occupied.
-\end{itemize}
+
+Users will be able to create, update and view prescriptions for a specific patient, and create new orders for supply of the prescription.
 \subsection{Team}
-A team, or more specifically a medical team, is a group of doctors. 
+A team, or more specifically a medical team, is a group of doctors.  Each team typically has two interns, a registrar and a specialist. 
 \begin{itemize}
     \item Ward - the activity of a team typically centres on a single ward, though commonly cares for patients in more than one ward. 
     \item Patients - teams naturally have a collection of patients for whom they are responsible.
@@ -146,17 +102,22 @@ A team, or more specifically a medical team, is a group of doctors.
 \subsection{Doctor}
 \begin{itemize}
     \item Name 
-    \item position - a doctor may have one of three positions, intern, registrar or specialist.  Withing those positions are grades, but for this system, those three roles are all that is relevant to pharmacy staff. 
+    \item position - a doctor may have one of three positions, intern, registrar or specialist.  Within those positions are grades, but for this system, those three roles are all that is relevant to pharmacy staff. 
     \item page number - the need to communicate with prescribers means that page numbers are required. 
+    \item interns, registrar and specialist - functions to return doctors with specific roles.
+    \item specialty - a team is defined by its leader, the doctor with the 'specialist' role.  So, a team's speciality will be found by querying its specialist's specialty.
 \end{itemize}
 \subsection{Store}
-A store is associated with many products and with a single ward or with the pharmacy department.  Each store has a current store level for each product and an order for each product.  This means that connecting models are required that are more complex than those for the other many-to-many relationships in this system.
+A store is associated with many products and with a single ward or with the pharmacy department.  For the purposes of this system, pharmacy stores are identical to ward stores, except the value in the ward foreign key will be nil.  It would be possible to use a polymorphic relationship, similar to that used for policies, but this would introduce complexity without utility.  Each store has a current store level for each product and an order for each product.  This means that connecting models are required that are more complex than those for the other many-to-many relationships in this system.
 \begin{itemize} 
-    \item store order - each store has multiple store orders, each of which is a collection of store order lines.
+    \item shelf - conceptually, each shelf is in a specific store, holds a specific product and has a current level.  In this system, conceptual shelves are represented by records in product\_stores.  Stores and products have a many-to-many relationship via product\_stores, each product\_stores record contains its foreign keys for both store and product, and a stock level for that product.
+    \item store orders - each store has multiple store orders.
 \end{itemize}
-\subsection{Order}
-An order is a list of requests to supply a specific product or prescription, a collection of the former being a store order and of the of the latter a prescription order.  These two main types of order are of concern to pharmacists and other ward pharmacy staff.
+\subsection{Store order}
+A store order is an order to the pharmacy for a top up of the ward's stock.
 \begin{itemize}
+    \item store - each store order is associated with a single store.
+    \item store order line - product\_stores share a many-to-many relationship with store\_orders via store\_order\_lines.
     \item has many store order lines, each of which belongs to a specific product in a specific store, a product-store line.
 \end{itemize}
 \subsection{Level}
@@ -177,10 +138,58 @@ Properties of an admission:\\
     \item discharge (departure) date - this is useful even for current admissions.  An expected departure date assists in discharge planning and ensuring sufficient supplies of medications are supplied in a timely fashion. 
     \item primary indication (reason for admission) 
     \item summary of clinical information regarding that admission 
+    \item a function to find all patients being discharged in range of days.
 \end{itemize}
 
 
 \section{User interface}
+
+
+The following functions need to be part of the system:
+\begin{itemize}
+    \item view all wards -a list of all wards registered on the system with ability to navigate to a more detailed view of the system
+    \item view details of a  ward
+    \item a list of the patients on a specific ward
+    \item the details of each patient on the ward
+    \item the admissions associated with each patient
+    \item currently and previously prescribed products for each patient
+    \item orders for supply of a prescription
+    \item orders for a ward supply
+    \item details of a product
+    \item ward medical team 
+    \item search for patients or products
+\end{itemize}
+
+Other operations:
+The main function of a ward visit by a pharmacist is checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
+\begin{itemize}
+    \item check prescribed treatments against medical condition
+    \item check prescribed treatments against one another
+    \item check current stock levels in ward stores 
+    \item check patient medication supplies 
+    \item order medications when supplies reach a given level
+\end{itemize}
+
+
+\subsection{Dispensary}
+Dispensary users need to interact with the ward and patients concerning supply issues.  As such, dispensary pharmacy staff need to be able to view following:
+\begin{itemize} 
+    \item patient discharge date 
+    \item patient current prescriptions
+    \item patient supply orders 
+    \item store orders 
+    \item ward details 
+\end{itemize}
+
+\subsection{Administrator}
+An administrator will need to administer users, wards and products.  To this end, user with administrator privileges will need to perform CRUD operations of the following:
+\begin{itemize}
+    \item products - adding new products and updating or removing existing products.
+    \item wards - adding new wards.
+    \item users - creating new users and updating existing ones.
+    \item policies and checks.
+\end{itemize}
+
 \part{Implementation}
 The structure of rails applications closely mirror that of the underlying database which allows for straight forward translation of classes and instances to and from the database by ActiveRecord, and mapping of classes to their CRUD operations.   This structure
 The Rails framework convention provides CRUD methods for objects and some associations when objects and their associations are created.  For example, when creating a new model with the Rails model generation script, a standard Rails class is represented in the database by a single table witch is named the plural of the class name.  In the case of the Patient class, the associated table is called 'patients'.  The existing class objects' attributes are represented by a row in their class' table.  With this standard structure, methods for finding all patients, editing patients, creating new patients and deleting patients are provided, along with views for these actions.  The views provide basic forms with which to update.  These provide the basis for extension to show and manipulate the data of instances of multiple associated models, and providing tailored views. 
@@ -232,6 +241,27 @@ Methods:
     \item perform\_check(patient) - passes check attributes to private function (arrayit) which returns an array of function calls, which is then passed to a second private function (process) that recursively calls each element of the array, calling the last with the value to be passed.  The result, which is returned, is returned as a hash containing the check itself and the boolean result of the check. 
     \item description - returns a string representing the check.
 \end{itemize}
+
+Patient methods:
+
+\begin{itemize}
+    \item current\_products - returns the products the patient is currently prescribed. 
+    \item current\_agents  - each product may consist of more than one agent, and the agents are what clinical staff are most concerned with.
+    \item current\_agents\_names - returns a collection of strings representing current agents.  Allows for simpler listing of current agents. 
+    \item current\_agents\_categories\_names - returns a collection of strings representing the categories, or pharmaceutical classes, of the agents that the patient is currently prescribed.  This information is useful in performing checks on the current treatment of the patient, as some pharmaceutical classes are contraindicated (should not be prescribed) in some situations. 
+    \item current\_level - returns the last set of results for a patient.  Most are lab results, but may be others, such as diastolic blood pressure, weight or water input/output balance. 
+    \item has\_currentnotes? - returns boolean indicating whether the current admission for this patient has notes associated with it. 
+    \item inpatient? - returns boolean indicating whether the patient is currently admitted or not. 
+    \item current\_ward - if currently admitted returns an instance of ward representing ward the patient is currently admitted to, otherwise returns nil. 
+    \item fullname - returns a string representing the full name of the patient.  Used in views. 
+    \item check\_allergies - returns a set of strings resulting from the intersection of a set of agents representing the patient's allergies and a set of currently prescribed agents.
+    \item team - returns instance of team that represents the medical team currently responsible for the patient's care. 
+    \item policy\_results - returns an array of hashes, each hash containing a product and an array of check results. 
+    \item failed\_policies - returns an array of hashes, each hash containing a product and an array of the checks that failed to pass. 
+    \item print\_failed - prints a description of failed checks 
+    \item CRUD methods
+\end{itemize}
+
 \part{Improvements}
 \section{Testing} 
 Given the intended realm of use for the system, issues of security speed and adherence to the multitudinous local and national policies, guidelines, regulations and laws specifying the appropriate handling of personal medical information would need careful consideration.  As it stands, the security of the system would be relatively assured if the network used for access to the patient data were provided over encrypted wireless networks and local policies prescribed sensible behaviours for its users.

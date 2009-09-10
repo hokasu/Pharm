@@ -4,4 +4,4 @@
 <%= render :partial => 'form', :locals => {:f => f} %>
 <p><%= f.submit "Create" %></p>
 <% end %>
-<p><%= link_to "Back to List", prescriptions_path %></p>
+<p><%= link_to "Back to List", prescriptions_path %></p><%= link_to 'New prescription', patient_products_path(@patient) %>

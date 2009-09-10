@@ -2,6 +2,10 @@ class Pharmacist < User
   has_many :wards
   has_many :beds, :through => :ward
 
+  def self.title
+    "pharmacist"
+  end
+
   def current_patients
     patients = Array.new
     ward.beds.each do |b|

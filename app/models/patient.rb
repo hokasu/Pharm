@@ -17,6 +17,7 @@ class Patient < ActiveRecord::Base
   validates_presence_of  :firstname, :surname, :phn
 
 
+
   def policy_results #returns an array of hashes, each hash containing a product and an array of check results
     results = Set.new
     for product in current_products.to_a
@@ -137,4 +138,5 @@ class Patient < ActiveRecord::Base
     end
     return agents
   end
+
 end
