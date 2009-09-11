@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :agents, :has_many => :products
 
   map.resources :prescriptions
+  map.resources :discharges
 
   map.login "login", :controller => "user_sessions", :action => "new"
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
