@@ -1,5 +1,8 @@
 class UserSessionsController < ApplicationController
   def new
+    if current_user
+      redirect_to(wards_url) and return
+    end
     @user_session = UserSession.new
     respond_to do |format| 
       format.html 
@@ -11,7 +14,12 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Successfully logged in. You are a " + current_user.class.title
-      if redirect_to(wards_url)
+      if current_user.class.to_s == "Pharmacist"
+        redirect_to(wards_url)
+      end
+      if current_user.class.to_s == "Dispensary"
+        redirect_to(discharges_path)
+      end
     else
       #respond_to do |format| 
       #  format.html # index.html.erb 

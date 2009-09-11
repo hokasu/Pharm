@@ -1,6 +1,6 @@
 class Check < ActiveRecord::Base
   belongs_to :policy
-  @@type_hash = { "categories" => ["current_agents_categories_names"], "agents" => ["current_agents_names"], "level" => ["levels", "last"], "specialist" => ["team", "specialist", "first"], "specialty" => ["team", "specialty"] }  
+  @@type_hash = { "categories" => ["current_agents_categories_names"], "agents" => ["current_agents_names"], "level" => ["levels", "last"], "specialist" => ["team", "specialist"], "specialty" => ["team", "specialty"] }  
 
   @@check_hash = { "bp" => "dbp", "k" => "potassium", "surname" => "surname"}
   @@operator_hash = { ">" => ">", "<" => "<" , "=" => "==", "has" => "include?" }

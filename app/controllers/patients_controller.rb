@@ -1,5 +1,7 @@
 class PatientsController < ApplicationController
 
+  before_filter :login_required
+
   def index
     if params[:ward_id]
       then 

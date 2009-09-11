@@ -1,4 +1,5 @@
 class PrescriptionsController < ApplicationController
+  before_filter :login_required
   def index
     if params[:patient_id]  
       @patient = Patient.find(params[:patient_id])

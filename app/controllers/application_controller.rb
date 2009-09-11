@@ -8,7 +8,20 @@ class ApplicationController < ActionController::Base
 
   before_filter :adjust_format_for_iphone 
   helper_method :iphone_user_agent? 
-  
+
+ def login_required
+    unless current_user
+      flash[:notice] = "You must first log in before accessing this page."
+      redirect_to login_url
+    end
+  end 
+
+ def admin_required
+   unless current_user.admin?
+     flash[:notice] = "You need to be an administrator to access this page."
+     redirect_to wards_url
+   end
+ end
 
   protected 
   def adjust_format_for_iphone
@@ -19,6 +32,7 @@ class ApplicationController < ActionController::Base
     request.env["HTTP_USER_AGENT"] && 
     request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/] 
   end 
+
 
   helper_method :current_user
 
