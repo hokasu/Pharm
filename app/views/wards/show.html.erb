@@ -24,9 +24,14 @@
   <%=h @ward.ward_notes %>
 </p>
 
-
+<%  unless @ward.store.orders.empty?  %>
+  <p> <strong>Recent ward orders </strong>
+<%= render :partial => "store_orders/order", :collection => @ward.store.orders %>
+<%  end  %>
+</p>
 <%= link_to 'Patients', ward_patients_path(@ward) %> |
 <%#= link_to 'Patients', ward_patients_path(@ward) %> |
 <%# want to use @ward.admissions.current(:include => :patients) to render index somehow?%>
 <%= link_to 'Edit', edit_ward_path(@ward) %> |
 <%= link_to 'Back', wards_path %>
+
