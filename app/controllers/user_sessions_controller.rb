@@ -18,7 +18,7 @@ class UserSessionsController < ApplicationController
         redirect_to(wards_url)
       end
       if current_user.class.to_s == "Dispensary"
-        redirect_to(discharges_path)
+        redirect_to(discharges_url)
       end
     else
       #respond_to do |format| 

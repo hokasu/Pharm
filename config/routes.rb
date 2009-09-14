@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
 
   map.resources :pharmacists, :has_many => :wards
+  map.resources :dispensaries
 
   map.resources :wards, :has_many => :patients
 
