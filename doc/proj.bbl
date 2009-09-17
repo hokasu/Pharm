@@ -1,0 +1,42 @@
+\begin{thebibliography}{1}
+
+\bibitem{iphoneaction}
+Christopher Allen and Shannon Appelcline.
+\newblock {\em iPhone in Action: Introduction to Web and SDK Development}.
+\newblock Manning Publications, December 2008.
+
+\bibitem{tomcat}
+Martin Bond and Debbie Law.
+\newblock {\em Tomcat Kick Start}.
+\newblock Sams, November 2002.
+
+\bibitem{refac}
+Trotter Cashion.
+\newblock {\em Rails Refactoring to Resources: Using CRUD and REST in Your
+  Rails Application}.
+\newblock Addison-Wesley Professional, April 2007.
+
+\bibitem{turborapid}
+Mark Ramm, Kevin Dangoor, and Gigi Sayfan.
+\newblock {\em Rapid Web Applications with TurboGears: Using Python to Create
+  Ajax-Powered Sites}.
+\newblock Prentice Hall, November 2006.
+
+\bibitem{ibmsphere}
+Juan~R. Rodriguez, Jerome Curlier, Werner Frei, Denise Hatzidakis, Juergen
+  Moetzel, Nancy Ting, and Shawn VanRaay.
+\newblock {\em BM WebSphere Portal V4 Developer's Handbook}.
+\newblock IBM Redbooks, March 2003.
+
+\bibitem{unobajax}
+Jesse Skinner.
+\newblock {\em Unobtrusive Ajax}.
+\newblock O'Reilly Media, Inc., July 2007.
+
+\bibitem{rubesvid}
+Kevin Skoglund.
+\newblock Ruby on rails essential training.
+\newblock Instructional video, January 2007.
+\newblock Available from: \url{Lynda.com}.
+
+\end{thebibliography}

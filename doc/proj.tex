@@ -30,20 +30,17 @@ Proposed in 1979 by Trygve Reenskaug when designing GUI systems at Xerox and wid
 \paragraph{ }
 The encapsulation of elements of a system in this way provides several benefits over the 2-tier alternative.  By executing much of the processing of the data on a server before transmission, network activity is reduced.  Executing business logic on the server also allows for caching and reuse of results by multiple clients leading to greater overall efficiency.  Offloading processing from clients is of particular importance where mobile or lower power clients will be accessing the system.  The primary advantage of the MVC architecture is the benefit to design, development and maintenance that encapsulation provides.  By allowing for views to be managed separately from logic, different views for different clients may use results from the same logic, and by keeping related code together the points of interaction are kept to a minimum and as a result changes in each component are possible without affecting the others.\cite{unobajax}
 \paragraph{ }  Within Rails applications there are further levels of encapsulation.  The classes representing each object in the model layer interact with the database via a compatibility layer provided by Rails called ActiveRecord.  ActiveRecord provides methods for database data manipulation and is database independent.  This allows for business logic code to function if the underlaying database system is changed, for example from MySQL to PostgreSQL.  Another example of further encapsulation in Rails applications is on the view side, with html views referencing calling partial views and then being passed to a layout, which calls CSS (cascading style sheets) and JavaScript libraries.
-
 \section{Rails and REST}
 Analogous to OOP and first proposed by one of the principle authors of the HTTP specification, Roy Fielding\cite{refac}, REST(representational state transfer) is the use of URLs to represent unique conceptual resources that are available to users in hypermedia systems.    An example of a REST resource may be \texttt{/patients/1} or \texttt{/discharges} - the former will always point to the patient with an id of 1, and that patient will never change, and the second will always point to patients who are being discharged.  The base routes follow the \texttt{:controller/:action/:id} format. The path \texttt{/patients/edit/1} passes the \texttt{:id =>1} to the edit action of the patients controller.  The representation of a resource may change but its underlying concept doesn't. \\
 For each view required for a particular resource, for example for Patient, there is an associated model and action in the model's controller.  The system will define a views to index, new, show and edit patients and the patients controller will have an action for each of those, and there will be a separate ruby html file for each view.\\
-The design of the system will follow the REST approach.
-\section{Context} 
-The focus of this system is the ward pharmacy staff.  Ward pharmacy staff work with information concerning wards, patients, doctors, prescriptions, products, orders, lab results, stores, and local policies.  The details of the these entities and how the information concerning them is used is detailed in this section.
+The design of the system will follow the REST approach, focusing on conceptual resources.  
+\section{Context and resources} 
+The focus of this system is on the requirements of ward pharmacy staff.  Ward pharmacy staff work with information concerning wards, patients, doctors, prescriptions, products, orders, lab results, stores, and local policies.  These represent the REST resources that will guide the design.  The details of the these entities and how the information concerning them is detailed in this section.
 \subsection{Ward pharmacy staff}
 Each member of the ward pharmacy staff is either a pharmacist or ward technician.  Pharmacists and technicians have different roles, but the line between them continue to blur in the duties they execute.  The extent of this blurring depends on the site.  On traditional sites, technicians are only concerned with supply, whereas at increasingly more numerous sites pharmacy technicians carry out preliminary clinical checks and take drug histories from patients in addition to their supply functions.
 While their roles are essentially identical in this system, a mechanism for changing access to functionality in the site will be made available, partially by making pharmacists and technicians different types of user.
-
 \subsection{Ward}
-Wards are where patients stay for the majority of their admission.  Each ward has a team of nurses and one or more regular medical teams associated with it.  All wards are assigned a patient group based on their current care requirements.
-
+Wards are where patients stay for the majority period of each admission.  Each ward has a team of nurses and one or more regular medical teams associated with it.  All wards are assigned a patient group based on their current care requirements.
 The following properties are relevant ward pharmacy staff:
 \begin{itemize}
     \item Name - used to identify the ward
@@ -54,9 +51,8 @@ The following properties are relevant ward pharmacy staff:
     \item Orders - wards have their own small stocks of medications that are supplied by the pharmacy department.  Ward staff assist in managing stock levels.
 \end{itemize}
 Ward pharmacy staff need to be able to list, edit and update ward orders, ward patients and ward notes. 
-
-\subsection{Patient}: The patients recorded in this system are the focus of the system.  Most ward pharmacy functions centre on individual patients.  When working from a ward, pharmacy staff need to record and screen current medications, medication history, allergies, primary indications or diagnoses, supply levels, lab results and brief medical history for each patient they see.
-Properties:
+\subsection{Patient} The patients recorded in this system will be the focus of the system.  Most ward pharmacy functions centre on individual patients.  When working from a ward, pharmacy staff need to record and screen current medications, medication history, allergies, primary indications or diagnoses, supply levels, lab results and a brief medical history for each patient they see.
+\subsubsection{Properties}
 \begin{itemize}
     \item statutory details, including hospital identification
     \item current and previous prescriptions - and by extension, current pharmaceutical agents
@@ -65,16 +61,16 @@ Properties:
     \item diagnoses and selected lab results 
     \item current and previous results of blood tests and values of other medical variables used to make clinical judgements. 
     \item notes other ward pharmacy staff have made about the patient 
-    \item probably discharge date
+    \item probable discharge date
 \end{itemize}
 Ward pharmacy staff need to view, list, update and add to these properties.
 
 \subsection{Product}
-A product may be agent(drug) or combinations of agents, or other medical products such as dressings, delivery aids such as pill boxes or cutters.  
+A product may be an agent(drug) or combinations of agents, or other medical products such as dressings, delivery aids such as pill boxes or cutters.  
 A product has a form, a strength and a variety of doses and frequencies that may be prescribed for it. 
-Product properties:
+\subsubsection{Product properties}
 \begin{itemize}
-    \item brand - a string representing the brand name of the product. 
+    \item brand - the brand name of the product. 
     \item agents - combination products have multiple agents in them.  Pharmacists are usually more concerned with prescribed agents than what a specific brand is.  Only occasionally different brands have differences significant enough for the brand to be important. Each agent belongs to a pharmaceutical class of drugs. Much like classes in other areas of science, agents in the same pharmaceutical class share common characteristics.  For example, a patient may be allergic to beta-lactam antibiotics, of which one is penicillin.
 	Classes also share common side effects and clinical indications, and the prescribing of multiple agents of the same class may be a prescribing oversight.  As such, being able to query the classes of product agents would be useful.
     \item form - a product may be have one of many forms, including several types of solid oral, liquid oral and topical preparations.  The dose of each form depends on this type - a liquid is dosed in volume, and a solid oral form is dosed in discrete units such as capsules.  To this end, a form has both a form type and a name to allow for calculations to be applied to them. 
@@ -83,32 +79,29 @@ Product properties:
     \item policies - a significant aspect of the potential benefit of recording information digitally is the prospect for some level of automation.  Part of the challenge of updating policies in a large organisation is disseminating them and encouraging compliance.  To this end, each product may have several policies.  Each policy is essentially text, intended to describe special cases regarding the use of the product.  These usually include conditions, such as 'do not use when taking aspirin'.  To assist in automation of some of the checks that are carried out by pharmacy staff, each policy has a number of checks associated with it.  Checks are entered by the user as a type of conditional statement.  Executing a policy's checks should result in some output indicating their results, either that all is fine or that something requires attention. 
     \item stores - each product is associated with one or more stores.  There are ward stores and a main pharmacy store.  Having access to current levels of a product in the pharmacy store while on a ward assists in early warning of potential supply problems.  A common problem is occurs when ordering prescribed items from the pharmacy store for a patient who is soon to leave.  If a product is in stock then all goes smoothly.  However, if levels are low or supply is entirely exhausted, this will not become apparent until it is too late to arrange additional supplies from external suppliers.  If when making an order the current level may be checked the orderer may immediately take action to prevent a break in supply continuity.  
 \end{itemize}
-
 Ward pharmacy staff need search products, view the details of products and prescribe products.  A product must be able to be compared with the patient to whom it is prescribed in order to identify potential problems.  Other details include stock level on the ward and in the pharmacy store.
-\subsection{Prescription order}
-Each prescription has multiple supplies made for it.  In existing systems, orders consist of orders for multiple prescriptions, or prescription order lines, each of which has the product and prescription details, but also instructions to the dispensary, such as priority for supply and whether or not instructions are required.
-\begin{itemize}
-    \item Packs - indicates how many full packs of the product are to be supplied. 
-    \item Units - indicates how many individual units are requested. 
-    \item IP - a boolean indicating if the patient is to have 'inpatient' labelling.  Inpatient labelling does not include instructions on the label, as the dose may be changed and then the label would need adjustment, and also because instructions are already specified on the patient's drug chart. 
-    \item Priority - this is a boolean indicating to the dispensary staff if the supply needs to be completed within 24 hours or the standard 3 days is sufficient. 
-    \item Process delivered orders - a function to add delivered orders to the recorded supply level for the associated prescription.  In this way patient supply levels will be updated.  The function will also reflect this in the order status.
-\end{itemize}
-
 \subsection{Prescription}
 The recording of a prescription is this system will not be made by its prescriber but by ward pharmacy staff.  A prescription has the following properties or associations:
 \begin{itemize}
-    \item product - each prescription is for a single product object
-    \item dose - may be chosen from the available doses for a specific product
-    \item patient - a one to many relationship.
-    \item prescriber - a one to many relationship, one doctor may have many prescriptions.
+    \item product - each prescription is for a single product object.
+    \item dose - may be chosen from the available doses for a specific product.
+    \item patient - a one-to-many relationship.
+    \item prescriber - a one-to-many relationship, one doctor may have many prescriptions.
     \item treatment period - a start and end date is recorded, as is necessary with all prescriptions in hospitals, even if it is to be repeated indefinitely.
     \item ancillary instructions - text that gives additional dosing instructions beyond dosing instructions. 
     \item orders - for a given prescription there are usually multiple supplies in a hospital setting, often as the period of treatment may continue for some time.
     \item amount supplied - by recording the amount supplied following the completion of an order on the prescription, it will be possible to check where supplies are running low.  The quantities are recorded with two fields, packs and units.  The total may be inferred from this information, as the pack size will be recorded.  It is often useful to distinguish between a supply of one pack of 28 tablets and a supply of 16 tablets and 14 tablets.
 \end{itemize}
-
 Users will be able to create, update and view prescriptions for a specific patient, and create new orders for supply of the prescription.
+\subsection{Prescription order}
+Each prescription has multiple supplies made for it.  In existing systems, orders consist of orders for multiple prescriptions, or prescription order lines, each of which has the product and prescription details, but also instructions to the dispensary, such as priority for supply and whether or not instructions are required.
+\begin{itemize}
+    \item Packs - indicates how many full packs of the product are to be supplied. 
+    \item Units - indicates how many individual units are requested. 
+    \item IP - a boolean indicating if the patient is to have 'inpatient' labelling.  Inpatient labelling does not include instructions on the label, as the dose may be changed multiple times during admission which would require a change to the label. As dosing instructions are specified on the patient's drug chart, potentially conflicting instructions are not included on the label.
+    \item Priority - this is a boolean indicating to the dispensary staff if the supply needs to be completed within 24 hours or the standard 3 days is sufficient. 
+    \item Process delivered orders - a function to add delivered orders to the recorded supply level for the associated prescription.  In this way patient supply levels will be updated.  The function will also reflect this in the order status.
+\end{itemize}
 \subsection{Team}
 A team, or more specifically a medical team, is a group of doctors.  Each team typically has two interns, a registrar and a specialist. 
 \begin{itemize}
@@ -133,7 +126,7 @@ A store is associated with many products and with a single ward or with the phar
 A store order is an order to the pharmacy for a top up of the ward's stock.
 \begin{itemize}
     \item store - each store order is associated with a single store.
-    \item store order line - product\_stores share a many-to-many relationship with store\_orders via store\_order\_lines.
+    \item store order line - product\_stores share a many-to-many relationship with store\_orders through store\_order\_lines.
     \item has many store order lines, each of which belongs to a specific product in a specific store, a product-store line.
 \end{itemize}
 \subsection{Level}
@@ -142,10 +135,10 @@ Most patients when admitted to hospital will have multiple tests carried out dur
 As described earlier, a policy reflects some of the checks carried out by pharmacy staff.  Most of the checks pharmacy staff carry out are standard throughout the profession, but there are local policies in each hospital that are very specific and not obvious.  An example of a local policy may be a product that may only be prescribed by members of a specific medical team, or a brand of drug that is peculiar to a specific indication.
 \begin{itemize}
     \item Content - this is plain text that is intended to be used to describe the policy. 
-    \item Checks - a policy may have many checks associated with it.  These checks are conditional statements that may be executed for a patient.
+    \item Checks - a policy may have many checks associated with it.  These checks are conditional statements that may be executed entered by an administrator and executed against a patient.
 \end{itemize}
 \subsection{Check}
-A check is a collection of conditional statement elements which are added to a policy by a user used to generate executable checks against a given patient.  What is entered by the user is not code, but something that may be used to create to necessary code for the checks.
+A check is a collection of conditional statement elements which are added to a policy by an administrator used to generate executable checks against a given patient.  What is entered by the user is not code, but something that may be used to create to necessary code for the checks.  The entries will represent the main elements of the generated conditional statement.
 \subsection{Admission} An admission is the period between an admission and discharge of a patient, as well as the reason (indication) the patient has been admitted.  Usually a single medical team is responsible for the treatment of a patient at any one time.  During an admission, a patient may be transferred between teams, but the final team for an admission may be considered the primary team.  Having access to some basic information regarding previous admissions easily assists in finding pertinent information concerning the patient quickly for future admissions.   
 Properties of an admission:\\
 \begin{itemize}
@@ -159,8 +152,6 @@ Properties of an admission:\\
 
 
 \section{User interface}
-
-
 The following functions need to be part of the system:
 \begin{itemize}
     \item view all wards -a list of all wards registered on the system with ability to navigate to a more detailed view of the system
@@ -185,8 +176,6 @@ The main function of a ward visit by a pharmacist is checking each patient's med
     \item check patient medication supplies 
     \item order medications when supplies reach a given level
 \end{itemize}
-
-
 \subsection{Dispensary}
 Dispensary users need to interact with the ward and patients concerning supply issues.  As such, dispensary pharmacy staff need to be able to view following:
 \begin{itemize} 
@@ -205,14 +194,20 @@ An administrator will need to administer users, wards and products.  To this end
     \item users - creating new users and updating existing ones.
     \item policies and checks.
 \end{itemize}
-
 \part{Implementation}
 The structure of rails applications closely mirror that of the underlying database which allows for straight forward translation of classes and instances to and from the database by ActiveRecord, and mapping of classes to their CRUD operations.   This structure
 The Rails framework convention provides CRUD methods for objects and some associations when objects and their associations are created.  For example, when creating a new model with the Rails model generation script, a standard Rails class is represented in the database by a single table witch is named the plural of the class name.  In the case of the Patient class, the associated table is called 'patients'.  The existing class objects' attributes are represented by a row in their class' table.  With this standard structure, methods for finding all patients, editing patients, creating new patients and deleting patients are provided, along with views for these actions.  The views provide basic forms with which to update.  These provide the basis for extension to show and manipulate the data of instances of multiple associated models, and providing tailored views. 
 \section{Ruby on Rails features}
 \subsection{ActiveRecord}
+ActiveRecord is a Rails library which provides an ORM (object relational mapping) layer to database interaction.  This allows for a convergence of the database and the business logic into a single entity.  For example, \texttt{Admission.leaving(1)} to retrieve a collection of patients that are being discharged between now and tomorrow with the static method \texttt{leaving(arg, *arg)}, and for all patients, rather than writing an SQL query, a static method may be called - \texttt{Patient.all} - which generates the required SQL. Similar ActiveRecord methods are Patient.first, Patient.last.  These may be added to with named scopes, allowing for calls like Patient.first.admissions.current.  The named scope is defined in the Admission model \texttt{named\_scope :current, :conditions =>  ["admdate <  NOW() AND depdate > NOW()"]}.  In addition to implementing the ORM patter, ActiveRecord also implements single table inheritance and associations, allowing for potentially potentially complex SQL queries to be generated in ways that are straight forward to read, for example \texttt{Ward.find(3).patients} would return a collection of patients for the ward with and \texttt{id} of 3.\\ \texttt{Patient.first.admissions.last.ward.pharmacist} would return a Pharmacist object for the pharmacist who was responsible for the first patient during their last admission.  The pharmacist is a type of user, but may be called directly due to STI (single table inheritance), where the class of the User is recorded in a 'type' attribute of the Users table.  Where ActiveRecord fails to provide what is desired, it is possible to write methods that return the collection you may want and then call a standard ActiveRecord method on the result.\\ for example \texttt{Patient.first.policy\_results.first[:product].description} uses a combination of standard ActiveRecord and custom instance methods in a readable and concise syntax.
 \subsection{External libraries}
+There are many Rails plugins of varying standard generated by the Rails community.  I have utilised two, thinking-sphinx to generate search results when searching for products or patients, and iUI for the iPhone user interface. Thinking-sphinx is a very popular pluggin and may be considered a capable and stable product, whereas iUI was written two years ago as a personal project and has had little maintenance since. iUI essentially consists of CSS and JavaScript which respond to tags in the HTML.  This works but is difficult to implement when there are multiple views required for the same page, as tags that are required for the iPhone rendering with iUI may not be appropriate in the standard web view.
 \subsection{Generator scripts}
+Rails provides generation scripts allowing for the creation of new models, controllers, scaffolding or a new project with a single line at the command line.  To create this application, the first generation script used was rails:\\
+\texttt{rails pharm}, then a scaffold was created:\\ \texttt{ruby script/generate scaffold patient FirstName:string MiddleName:string Surname:string dob:date allergies:text sensitivities:text}. \\
+A scaffold generation results in the generation of a controller with default actions defined, an empty model, views for edit, index, view and show actions, and a database migration that when run creates a table in the database specified in the database.yml configuration file.   
+Alterations to an existing model are most easily executed with the migration generation script.  Migrations are timestamped and when executed, alter database schema configuration file and the database itself.  Migrations are stored to facilitate application migration - if migrations are written correctly then is possible to implement all of them in a new environment with a single command, and to go back to a previous state.
+The migrations used most frequently in this project were to add, remove or rename attributes in models.  
 \subsection{Routing and REST}
 A central tenet of Rails applications is the that they should be 'RESTful'.  REST organisation is enforced by the scripted scaffolding and default routing.
 One of the ways in which Rails leverages a REST architecture is in routes.  The routes file enables the nomination of controllers as REST resources with associated paths.  An example of this is the route \texttt{/discharges}.  The route is defined in the routes.rb file with \texttt{map.resources :discharges} which references the \texttt{discharges\_controller.rb} controller.  In the controller, the only action defined is \texttt{index} where the collection of patients to be indexed is defined, in this case with a function \texttt{leaving(1)}.  Routes also assist in defining nested associations, such as \texttt{map.resources :products, :has\_many => :agents}.  Assuming the correct associations are defined in the relevant models for Product and Agent, and there is a connecting model in the case of a many-to-many relationship, this route maps the \texttt{product/:product\_id/agents} providing a meaningful path.
@@ -221,6 +216,8 @@ One of the ways in which Rails leverages a REST architecture is in routes.  The 
 Most of the polymorphism employed is part of the rails scaffolding with the rails base classes.  However, the store object could be a pharmacy store or a ward store and they needed to be differentiated.  Rather than have a separate attribute for each kind of association, the convention in rails at the database layer is to use two attributes to identify what kind of store it is, a single foreign key attribute that stores the primary key of all off the associations and a type attribute to indicate the class of the association.  Both are later used in the model layer to define associations for ActiveRecord.
 \section{Interface}
 Multiple layouts are required to cater for system administration from a desktop or standard screen and for mobile users.  The system chosen for defining the view uses the user agent reported by the client in the application controller and sets the format for the respond\_to methods in the various controllers.  If it is a mobile safari client the iPhone views are rendered with the iPhone layout.  
+\subsection{Standard web interface}
+\subsection{iPhone interface}
 \section{Classes and methods}
 \subsection{Users and session} 
 There are three types of sessions supported.  The primary user type is a standard user, usually a pharmacist or technician, who can create prescriptions and notes, add patients to wards and edit their own notes.  There needs to be an system administrator role, who can edit users and add policies, and an audit role enabling only viewing of the information recorded on the system, and some additional views for information such as all notes made by a particular user.
@@ -252,7 +249,7 @@ would result in, where value is 90:\\
 \end{verbatim}
 The actual code is slightly more complex, but this example illustrates the mechanics.  The methods called in the result are all generated when the models are created.  This arrangement allows for checks that have not been defined in the code itself.  Allowing the user to execute code directly is potentially dangerous, but using a hash to define the conditions prevents access to methods other than those deemed appropriate.
 
-Attributes:
+\subsubsection{Attributes}
 \begin{itemize}
     \item check\_type - essentially the first function to call on the patient instance.
     \item check - second function, may be nil as some potential checks may only require a single method call, for example \texttt{@patient.surname == 'Smith'} only needs \texttt{check\_type}
@@ -260,14 +257,17 @@ Attributes:
     \item value - a string, integer or float that is passed to the 'operator'.
 \end{itemize}
 
-Methods:
+\subsubsection{Methods}
 \begin{itemize}
     \item perform\_check(patient) - passes check attributes to private function (arrayit) which returns an array of function calls, which is then passed to a second private function (process) that recursively calls each element of the array, calling the last with the value to be passed.  The result, which is returned, is returned as a hash containing the check itself and the boolean result of the check. 
     \item description - returns a string representing the check.
 \end{itemize}
 
-Patient methods:
+\subsubsection{Table description}
+Check(id: integer, policy\_id: integer, check\_type: string, check: string, operator: string, value: string, created\_at: datetime, updated\_at: datetime, test: boolean)
 
+\subsection{Patient}
+\subsubsection{Patient methods}
 \begin{itemize}
     \item current\_products - returns the products the patient is currently prescribed. 
     \item current\_agents  - each product may consist of more than one agent, and the agents are what clinical staff are most concerned with.
@@ -285,6 +285,10 @@ Patient methods:
     \item print\_failed - prints a description of failed checks 
     \item CRUD methods
 \end{itemize}
+\subsection{Level}
+Each individual level type, such as potassium or creatinine (kidney function), is represented as a column in the levels table.  In order to add tests, a rails migration would be required.  All that would be required to add magnesium to the tests would be: \texttt{script/generate migration Add\_Magnesium\_To\_Levels magnesium:float}.
+\subsubsection{Table description}
+\texttt{Level(id: integer, potassium: float, creatinine: float, inr: float, ppt: float, albumin: float, created\_at: datetime, updated\_at: datetime, patient\_id: integer (foreign key), dbp: integer, collected: datetime)}
 
 \part{Improvements}
 \section{Testing} 
@@ -314,4 +318,9 @@ Due to the structure of the application, adding new logic is relatively straight
 \bibliographystyle{plainurl}	% (uses file "plain.bst")
 \bibliography{/Users/robert/Documents/Uni/Tex/myrefs}		% expects file "myrefs.bib"
 
+\begin{comment}
+    Appendices:
+    Example of model code generation for pigyard
+
+\end{comment}
 \end{document}

@@ -1,4 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :store_orders
+
+  map.resources :store_order_lines
+  map.resources :stores, :has_many => :store_orders
+
+  map.resources :store_orders, :has_many => :store_order_lines
+  map.resources :product_stores
+
+
   map.resources :products, :has_many => :agents
   map.resources :products, :has_many => :doses
   map.resources :products, :has_many => :policies
@@ -20,6 +29,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :dispensaries
 
   map.resources :wards, :has_many => :patients
+  map.resources :wards, :has_one => :store
 
   map.resources :patients, :has_many => :admissions
   map.resources :patients, :has_many => :prescriptions

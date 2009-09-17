@@ -1,0 +1,8 @@
+    <tr>
+      <td><%=h store_order_line.product_store.product.description %></td>
+      <td><%=h store_order_line.quantity %></td>
+      <td><%= link_to "Show", store_order_line %></td>
+      <td><%= link_to "Edit", edit_store_order_line_path(store_order_line) %></td>
+      <td><%= link_to "Destroy", store_order_line, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+

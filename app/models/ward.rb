@@ -14,8 +14,6 @@ class Ward < ActiveRecord::Base
     return patients
   end
 
-
-
   def patients
     admissions.map {|admission| admission.patient}
   end

@@ -1,0 +1,13 @@
+    <tr>
+      <td><%=h product_store.product.description%></td>
+      <td><%=h product_store.level %></td>
+      <td><%=h product_store.order_quantity %></td>
+      <td><%=h product_store.order_level %></td>
+      <td><%=h product_store.on_order %></td>
+      <td><%#= link_to "Decrement",  %></td>
+      <td><% form_for product_store do |f| %>
+          <%= f.text_field :level %></td>
+      <td><%= f.submit "update level" %><%end%></td>
+      <td><%= link_to "Show", product_store %></td>
+    </tr>
+

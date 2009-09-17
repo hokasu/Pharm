@@ -1,0 +1,12 @@
+<% title "Store Order Line" %>
+<p>
+<strong>Product: </strong>
+<%=h @store_order_line.description %>
+</p>
+
+
+<p>
+  <%= link_to "Edit", edit_store_order_line_path(@store_order_line) %> |
+  <%= link_to "Destroy", @store_order_line, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", store_order_lines_path %>
+</p>

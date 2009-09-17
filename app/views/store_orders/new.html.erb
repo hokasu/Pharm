@@ -1,0 +1,6 @@
+<% title "New Store Order" %>
+<%#= debug params  %>
+
+<%= render :partial => 'form' %>
+<%= render :partial => "store_order_lines/store_order_line", :collection => @store_order.store_order_lines %>
+<p><%= link_to "Back to List", store_orders_path %></p>

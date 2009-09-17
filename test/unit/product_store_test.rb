@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class ProductStoreTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  def test_should_be_valid
+    assert ProductStore.new.valid?
   end
 end

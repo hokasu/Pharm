@@ -1,0 +1,7 @@
+<p>
+<%= "Created: " + store_order.created_at.to_s + " " + "Status: " + store_order.status.status %>
+<table>
+  <tr>
+<%= render :partial => "store_orders/store_order_line", :collection => store_order.store_order_lines %>
+</table>
+</p>

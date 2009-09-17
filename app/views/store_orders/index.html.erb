@@ -1,0 +1,18 @@
+<% title "Store Orders" %>
+<%= debug params %>
+<table>
+  <tr>
+    <th>Created</th>
+    <th>Status</th>
+  </tr>
+  <% for store_order in @store_orders %>
+    <tr>
+      <td><%=h store_order.created_at %></td>
+      <td><%=h store_order.status.status %></td>
+      <td><%= link_to "Show", store_order %></td>
+      <td><%= link_to "Edit", edit_store_order_path(store_order) %></td>
+      <td><%= link_to "Destroy", store_order, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+

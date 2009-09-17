@@ -10,8 +10,6 @@ class PharmacistsController < ApplicationController
     end
   end
 
-  # GET /pharmacists/1
-  # GET /pharmacists/1.xml
   def show
     @pharmacist = Pharmacist.find(params[:id])
 

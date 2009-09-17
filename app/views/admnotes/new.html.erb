@@ -9,9 +9,9 @@
     <%= f.text_area :text %>
   </p>
   <p>
-  <%#  f.user_id = current_user.id  %>
+  <%# @admnote.user = current_user %>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
 
-<%= link_to 'Admission notes', admission_admnotes_path (@admission) %> |
+<%= link_to 'Admission notes', admission_admnotes_path(@admission) %> |

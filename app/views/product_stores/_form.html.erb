@@ -1,0 +1,28 @@
+<% form_for @product_store do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :product_id %><br />
+    <%= f.text_field :product_id %>
+  </p>
+  <p>
+    <%= f.label :store_id %><br />
+    <%= f.text_field :store_id %>
+  </p>
+  <p>
+    <%= f.label :level %><br />
+    <%= f.text_field :level %>
+  </p>
+  <p>
+    <%= f.label :order_quantity %><br />
+    <%= f.text_field :order_quantity %>
+  </p>
+  <p>
+    <%= f.label :order_level %><br />
+    <%= f.text_field :order_level %>
+  </p>
+  <p>
+    <%= f.label :on_order %><br />
+    <%= f.check_box :on_order %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

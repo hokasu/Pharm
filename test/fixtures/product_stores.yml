@@ -1,13 +1,15 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 one:
   product_id: 1
   store_id: 1
   level: 1
-  on_order: 1
+  order_quantity: 1
+  order_level: 1
+  on_order: false
 
 two:
   product_id: 1
   store_id: 1
   level: 1
-  on_order: 1
+  order_quantity: 1
+  order_level: 1
+  on_order: false

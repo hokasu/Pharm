@@ -1,0 +1,15 @@
+<% title "Product Stores" %>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Level</th>
+    <th>Order Quantity</th>
+    <th>Order Level</th>
+    <th>On Order</th>
+    <th>New level</th>
+  </tr>
+    <%= render :partial => "product_stores/product_store", :collection => @product_stores %>
+</table>
+
+<p><%= link_to "New Product Store", new_product_store_path %></p>

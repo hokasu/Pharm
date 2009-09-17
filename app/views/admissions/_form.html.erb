@@ -11,7 +11,7 @@
     <%= f.select :bed_id, option_groups_from_collection_for_select(Ward.all, :beds, :name, :id, :bed_number, Bed.find(@admission.bed_id).id) %>
   <% end %>
  </p>
-  <p> Todo: set depdate to admdate
+  <p> 
     <%= f.label :depdate %><br />
     <%= f.datetime_select :depdate, :start_year => (Date.today.year - 1), :end_year => (Date.today.year + 3)  %>
   </p>

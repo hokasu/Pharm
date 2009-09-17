@@ -1,0 +1,32 @@
+<% title "Product Store" %>
+
+<p>
+  <strong>Product:</strong>
+  <%=h @product_store.product_id %>
+</p>
+<p>
+  <strong>Store:</strong>
+  <%=h @product_store.store_id %>
+</p>
+<p>
+  <strong>Level:</strong>
+  <%=h @product_store.level %>
+</p>
+<p>
+  <strong>Order Quantity:</strong>
+  <%=h @product_store.order_quantity %>
+</p>
+<p>
+  <strong>Order Level:</strong>
+  <%=h @product_store.order_level %>
+</p>
+<p>
+  <strong>On Order:</strong>
+  <%=h @product_store.on_order %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_product_store_path(@product_store) %> |
+  <%= link_to "Destroy", @product_store, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", product_stores_path %>
+</p>

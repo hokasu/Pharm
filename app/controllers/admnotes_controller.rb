@@ -7,6 +7,8 @@ class AdmnotesController < ApplicationController
   def new
     @admission = Admission.find(params[:admission_id]) #rf
     @admnote = @admission.admnotes.new
+    @admnote.user = current_user
+    @admnote.save
   end
 
   def edit
@@ -22,8 +24,6 @@ class AdmnotesController < ApplicationController
   def create
     @admnote = Admnote.new(params[:admnote])
     @admnote.admission = Admission.find(params[:admission_id]) #setting foreign key
-   
-
       if @admnote.save
         flash[:notice] = 'Admission was successfully created.'
         redirect_to admission_admnotes_path(@admnote.admission)
@@ -37,9 +37,9 @@ class AdmnotesController < ApplicationController
 
       if @admnote.update_attributes(params[:admnote])
         flash[:notice] = 'Admission note was successfully updated.'
-        redirect_to(@admnote) 
+        redirect_to admission_admnotes_path(@admnote.admission)
       else
-        #???
+        redirect_to
       end
   end
 

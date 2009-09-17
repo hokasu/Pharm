@@ -1,0 +1,11 @@
+<p>
+<%= @store_order_line.product_store.product.description %>
+</p>
+<% form_for @store_order_line do |f| %>
+  <%= f.error_messages %>
+   <p>
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

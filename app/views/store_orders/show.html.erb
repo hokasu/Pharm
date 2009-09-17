@@ -1,0 +1,19 @@
+<% title "Store Order" %>
+
+<p>
+  <strong>Status:</strong>
+  <%=h @store_order.status.status %>
+</p> 
+<p>
+  <strong>Created by:</strong>
+  <%=h initials_name(@store_order.user) %> at 
+  <%=h @store_order.created_at.to_s %>
+</p> 
+  <table>
+    <%= render :partial => "store_order_lines/store_order_line", :collection => @store_order.store_order_lines %>
+  </table>
+<p>
+  <%= link_to "Edit", edit_store_order_path(@store_order) %> |
+  <%= link_to "Destroy", @store_order, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", store_orders_path %>
+</p>

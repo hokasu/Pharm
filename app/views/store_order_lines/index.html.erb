@@ -1,0 +1,13 @@
+<% title "Store Order Lines" %>
+
+<table>
+  <tr>
+    <th>Product</th>
+  </tr>
+  <tr>
+    <th>Quatity</th>
+  </tr>
+  <%= render :partial => "store_order_lines/store_order_line", :collection => @store_order_lines %>
+</table>
+
+<p><%= link_to "New Store Order Line", new_store_order_line_path %></p>
