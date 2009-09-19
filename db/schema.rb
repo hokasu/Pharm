@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090916222037) do
+ActiveRecord::Schema.define(:version => 20090917172518) do
 
   create_table "admissions", :force => true do |t|
     t.integer  "patient_id"
@@ -117,13 +117,6 @@ ActiveRecord::Schema.define(:version => 20090916222037) do
     t.integer  "patient_id"
     t.integer  "dbp"
     t.datetime "collected"
-  end
-
-  create_table "patient_indications", :force => true do |t|
-    t.integer  "indication_id"
-    t.integer  "patient_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "patients", :force => true do |t|
@@ -246,6 +239,7 @@ ActiveRecord::Schema.define(:version => 20090916222037) do
     t.datetime "updated_at"
     t.integer  "ext"
     t.integer  "ward_id"
+    t.string   "type"
   end
 
   create_table "team_wards", :force => true do |t|

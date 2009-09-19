@@ -15,13 +15,59 @@
 \paragraph{} Hospital pharmacy operations primarily consist of the logistics of supply, budgeting and the provision of clinical services to wards, staff and patients. 
 The focus of this project will be on part of these operations, namely ward pharmacy supply and clinical services, otherwise referred to as medicines management. In most hospitals, all records of processes carried out on wards by pharmacy staff are handwritten. The procedures followed are fairly robust, but slow and susceptible to errors of various kinds, with the information gathered not easily available to other staff members.
 \part{Introduction}
+\paragraph{}The system will enable pharmacy staff to use networked mobile devices and desktop terminals to document their ward activities. The system would be used to enter the details of patients, including their current ward, medication history and current medications, allergies, doctors, current levels of supply, planned date of discharge and potential clinical issues.  The entries would be immediately submitted to a central database that could be queried by pharmacy staff in other areas of the hospital and would be available to ward staff on subsequent ward visits.  In this way, some of the inefficiencies and risks inherent in the paper based recording system should be reduced.
+The system will be implemented as a web application with web framework called Ruby on Rails.
+\section{Background}
+\paragraph{}Despite being extensive users of electronic information systems most hospitals still operate primarily with paper based recording and storing of clinical information.  The evidence for the improvements in patient care where electronic systems have been implemented is extensive.  Not only is there evidence of the predictable improvements in speed and reliability of storage and processing of information, but significant reductions in morbidity and mortality as well\cite{Amarasingham:2009xy}. 
+\paragraph{}
+Since the inauguration of the NHS Connecting for Health initiative in April 2005, the push to use technology in hospitals has increased and is a high priority for not only the United States, but also the NHS in the UK and worldwide.
+%%%
+An area identified by the Department of Health and the Audit Commission as being a priority for further development is Medicines Management - a broad term which refers to all aspects of the use of and logistics involved with medicines in hospitals and the community.\cite{spsugar} The term is also used within hospital pharmacy to refer to the part of the process that is carried out by pharmacy staff on wards.  This is where the focus of the project will be.
+\section{Problem}
+A technician or pharmacist typically visits a given ward daily and sees each patient on the ward to assess their pharmaceutical care and ensure that the patient and ward has sufficient supply of medications. During the visit, information about the patient is recorded on paper; one form to order medication supplies if required and another to record clinical information for reference by pharmacists (figure \ref{workflow}).  The medication order and clinical information is duplicated in an abbreviated form in a small section on a medication chart (a chart at the end of the patient's bed) in order to communicate with other pharmacy staff who may refer to the chart in the future.  On subsequent visits, the information is updated on both the patient's chart and in the pharmacy records.
+Generally the system works well, however there are instances where there could be a time consuming duplication of effort when previously recorded information is not immediately available.  
+
+\paragraph{ }A significant bottle-neck is the use of the patient's medication chart for communication with other pharmacy staff.  A medication chart records information about the patient's current and recent pharmaceutical treatment. When there are changes to the patient's treatment or space for further records is no longer available a new chart is written.  Any information regarding supplies or clinical information previously recorded on the original chart by pharmacy staff is filed away and not on the new chart.  Most ward pharmacy protocols require transcription of pharmacy information from the old chart to the new chart by pharmacy staff. This is a tedious and time-consuming process for which frequently there is not time and transcription errors can occur when it is done.  \\The result of this likely inavailability of information, information duplication, reliance on hand-written notes and time pressures is a relatively inefficient and unreliable and error-prone system. 
+In other areas of public healthcare, simple errors in repetitive manual information tasks are responsible for a large proportion of errors leading to morbidity or mortality. There is evidence that supports the hypothesis that electronic recording and decision support systems reduce the rates of errors and improve patient outcomes.
+\begin{figure}[]
+    \centering
+    \includegraphics[scale=0.25]{wardflow.bmp}
+    \caption{An abstract view of a visit to a patient by pharmacy ward staff}
+    \label{workflow}
+\end{figure}
+\section{Solution}
+Problems with the current systems used in ward pharmacy medicines management relate to the lack of a single access point for medicines management information.  The aim of the project is to develop an application that may be used to record and access patient information and medication orders from a mobile platform as well as a standard desktop system.
+
+\paragraph{}
+\subsection{Requirements}
+\subsubsection{Users} The users of the system will be pharmacy technicians, pharmacists that work on the ward, staff in the dispensary and nurses.  
+\paragraph{ } Individual staff play several roles; pharmacists work on wards to resolve clinical and supply issues, as do some technicians. Nursing staff work closely with pharmacy staff to coordinate patient care, so giving nursing staff access to the system would facilitate asynchronous communication between the departments.  
+\subsubsection{Data security} The primary concern for any information system project for a hospital is the confidentiality for patients.  This means compliance with the Data Protection Act 1998 and the recommendations of the Caldicot Report 1997.\cite{Caldicott}  Both of these reports state that the use of patient identifying information should be managed appropriately and that patient information should only be accessed where required. It can only be made available to individuals with a need for it and authority to access it. The Caldicott report and the World Health Organisation call for `best practices' to be observed in the development of health information systems\cite{whosec}.
+\subsubsection{Medical records and law } All handwritten documents pertaining to patient care are required to be authenticated with a signature and are legal documents.  An electronic system will need to implement secure user authentication.  Consent to disclosure is usually obtained from a patient on admission to hospital. Given the greater accessibility of information stored in this system, a review of the disclosure agreement may be required.
+\subsubsection{Interface} As the system is intended to replace parts of a existing functional system used by practiced users, speed, reliability and a clear logistic benefit are required.  In  figure \ref{workflow} there is a simplified model of the process that is followed for a visit to a patient in a ward.  What it does not indicate is that frequently the user may be required to execute the process for several patients in parallel.  The reasons for this are many, but are usually the result of a temporary unavailability of some element of the process.  This may be the patients themselves, or their medications may not be available at the time, or they have yet to be seen by the medical team.  The consequence is that when the resource does become available, the user needs to revisit an entry to complete the required information.  Time is often a factor as well, because the missing element may only be available for a short time (for example, a patient may have an appointment, or a doctor may present an opportunity by walking past the user).  Considering these examples, the system must allow input and access to data and processes in a direct and efficient manner. As users are likely to be interrupted frequently when inputting data and will frequently need to interrupt input in order to access other data, sessions must be able to retain data for immediate resumption. It is a requirement that partially completed data can be completed at a later stage.\\
+\paragraph{ } The system needs to be usable by its target audience, but in the case of pharmacy staff, users who are typically highly technology literate, this aspect of the system will not require a high level of abstraction. Users are very likely to request additional functionality over time so the system needs to be as extensible and maintainable as possible. The system will also need an administration interface available to senior staff for managing users.  
+
+\subsubsection{Hardware} Many hospital staff have in the last 5 years been equipped with HP windows PDA devices and before that PalmOS reigned supreme among technologically engaged medical staff.  These older devices are unlikely to be suitable for the job at hand, but they do indicate a trend that is likely to continue, as evidenced by the recent enthusiastic adoption of the Apple iPhone among medical staff\cite{skyscapeiphone}. 
+
+\subsubsection{Scale} The scale of the system need not be great in terms of numbers of users.  It is unlikely that more than ten users will be using the system at any one time although this may change with additional features such as integration with laboratory results reporting or integration with the main pharmacy patient information database.
+
+\subsection{Implementation}
+There are a variety of capable mobile devices likely to be available to medical staff in the future.  It has been decided that the system should be as accessible as possible by implementing it as web application optimized for the iPhone, given its rate of adoption, capabilities and its availability for testing.
+In order to satisfy data security and audit requirements, all persistent data should be stored on site and have authentication of users using the service and operations need to take place over an encrypted network.
+As scale is not going to be an issue, the application could be run on a single server within the hospital's secure network.
+From an operational point of view, medications management practices are thoroughly and consistently defined, so any electronic system that adheres to the practices already in place will meet the operational requirements for the system and not fall foul of data security problems. 
 
 \part{Design}
 This section describes the requirements of the system and how the requirements were used to design the system. By following an object oriented design approach with each real world entity being represented as a class, the design of the system may closely reflect the structure of the real world objects and the information expert gang of four pattern.
 \section{Rails and MVC}
 Except for small, simple web application projects, the MVC (Model View Controller) design approach should be used when developing web applications.\cite{tomcat}  The MVC model is used in place of a 2-tier, client/server model.  In the 2-tier model a majority or all of the business logic processing occurs on the client with the server providing the database.  This structure ties views and logic together on remote clients.  
 Proposed in 1979 by Trygve Reenskaug when designing GUI systems at Xerox and widely used in OOP frameworks including that of the iPhone\cite{iphoneaction}. The MVC approach describes the `separation of concerns' within a system.  Related to the three-tier, or $n$-tier model, it breaks a system into several independent encapsulated modules\cite{rubesvid}.
-\\\includegraphics[scale=0.5]{mvc_rubsvid.jpg}
+\begin{figure}[]
+    \centering
+   \includegraphics[scale=0.5]{mvc_rubsvid.jpg}
+    \caption{MVC structure}
+\end{figure}
+
 \paragraph{ }The MVC approach makes a system more modular and thereby more robust and amenable to maintenance and change.\cite{turborapid}
 \\
 \paragraph{ }The Model represents the problem domain of the system - the data and elements of the business logic (data validation for example)\cite{ibmsphere}. It is independent from the other parts of the system, using generic data formats for communication. Models may be considered observers of controller.  In the Rails approach, the model consists of the class representing an object and the database record holding its attributes. 
@@ -36,9 +82,24 @@ For each view required for a particular resource, for example for Patient, there
 The design of the system will follow the REST approach, focusing on conceptual resources.  
 \section{Context and resources} 
 The focus of this system is on the requirements of ward pharmacy staff.  Ward pharmacy staff work with information concerning wards, patients, doctors, prescriptions, products, orders, lab results, stores, and local policies.  These represent the REST resources that will guide the design.  The details of the these entities and how the information concerning them is detailed in this section.
-\subsection{Ward pharmacy staff}
-Each member of the ward pharmacy staff is either a pharmacist or ward technician.  Pharmacists and technicians have different roles, but the line between them continue to blur in the duties they execute.  The extent of this blurring depends on the site.  On traditional sites, technicians are only concerned with supply, whereas at increasingly more numerous sites pharmacy technicians carry out preliminary clinical checks and take drug histories from patients in addition to their supply functions.
-While their roles are essentially identical in this system, a mechanism for changing access to functionality in the site will be made available, partially by making pharmacists and technicians different types of user.
+\begin{figure}[]
+    \centering
+    \includegraphics[scale=0.5]{erd.jpg}
+    \caption{Entity relationship diagram.  In the interests of clarity, models that do no more than facilitate a many-to-many relationship have been omitted}
+    \label{fig 1}
+\end{figure}
+\subsection{Users}
+There are three classes of user intended for this system.  Ward pharmacy staff, dispensary staff and ward nursing staff.  Each member of the ward pharmacy staff is either a pharmacist or ward technician.  Pharmacists and technicians have different roles, but the line between them continue to blur in the duties they execute.  The extent of this blurring depends on the site.  On traditional sites, technicians are only concerned with supply, whereas at increasingly more numerous sites pharmacy technicians carry out preliminary clinical checks and take drug histories from patients in addition to their supply functions.  While their roles are essentially identical in this system, a mechanism for changing access to functionality in the site will be made available.  Dispensary staff will simply use the system to view which patients are where, and who is being discharged during that day.  They will also require full access to orders generated for the wards and patients.  Ward nurses will hopefully use the ward store view to keep records of current stock levels in the ward store up to date allowing for timely ordering of low or depleted stock items.\\ 
+Pharmacist, Dispensary, Technician and Nurse classes will all inherit from the User class. The design of this system will not differentiate in any functional way between pharmacist and technician users, but to do so in the future will be possible with this design.\\
+The users model will also manage authentication control, in conjunction with user\_sessions and AuthLogic (discussed in implementation).\\
+Attributes:
+\begin{itemize}
+    \item Username, encrypted password and persistence token - used for authorisation and session management.
+    \item Firstname 
+    \item Surname 
+    \item Pager - used for contacting staff within the hospital.
+    \item Band - band is a term used by NHS human resources indicating the seniority of the position, and is used within departments to assign responsibilities.  This attribute may be used to define authorisation for access to functionality in the future, for example setting all band 8b pharmacists to be have automatic administrative privileges. 
+\end{itemize}
 \subsection{Ward}
 Wards are where patients stay for the majority period of each admission.  Each ward has a team of nurses and one or more regular medical teams associated with it.  All wards are assigned a patient group based on their current care requirements.
 The following properties are relevant ward pharmacy staff:
@@ -149,51 +210,58 @@ Properties of an admission:\\
     \item summary of clinical information regarding that admission 
     \item a function to find all patients being discharged in range of days.
 \end{itemize}
-
-
 \section{User interface}
-The following functions need to be part of the system:
+The user interface for mobile devices and for terminals will follow the same RESTful structure, focused on the conceptual resources of the system.  Rather than display a large amount of information on a single page or screen, the interface will consist of a greater number of simple pages with a clear navigation scheme in a tree-like structure.  An example of the result of a REST driven interface is the navigation path followed to find a patient's current medications.  Once logged in, a ward pharmacy staff user will be directed to a list of wards with some navigation links at the bottom of the view.  One of these links will be to all patients.  Following this link will display a list of all patients registered in the system with the option to filter the list with a search option.  Each entry of Patient will list relevant patient attributes, with navigation links for each patient.  Following the link to display a specific patient leads to the display of that patient's details including current admission details and the results of policy checks.  It is from this view that lists of admissions notes, admissions and prescriptions may be retrieved, as well as creation of new prescriptions and navigation back to the ward.  There will be some exceptions to this as dictated by some use cases, such as a link to a list of patients being discharged on the current day from the first page after login, and inclusion of most recent admission information in a patient view, or most recently delivered orders for a ward's store in the ward view.\\
+\begin{figure}[]
+    \centering
+   \includegraphics[scale=0.5]{uiflow.jpg}
+   \caption{A simplified navigation tree.  For pharmacists the starting point after login would be a list of wards(Ward), for dispensary staff, a list of patients being discharged (Patient).}\label{uiflow}
+\end{figure}
+The pattern of navigation described will be consistent for each resource recorded in the system.  The process followed create, view, edit and delete products will be similar to that for patients or prescriptions.  The variation will come with the decisions to either render a collection of associated objects in a separate view, or as part of the view for its 'owner', such as with agents of a product, or admissions of a patient.  By constructing the user interface in this way it is the hope that it will be painless for users to understand and navigate.\\
+\section{Users}
+\subsection{Pharmacists}
 \begin{itemize}
-    \item view all wards -a list of all wards registered on the system with ability to navigate to a more detailed view of the system
-    \item view details of a  ward
-    \item a list of the patients on a specific ward
-    \item the details of each patient on the ward
-    \item the admissions associated with each patient
-    \item currently and previously prescribed products for each patient
-    \item orders for supply of a prescription
-    \item orders for a ward supply
-    \item details of a product
-    \item ward medical team 
-    \item search for patients or products
+    \item view all wards -a list of all wards registered on the system with ability to navigate to a more detailed view of the system.
+    \item view details of a  ward.
+    \item a list of the patients on a specific ward.
+    \item the details of each patient on the ward.
+    \item the admissions associated with each patient.
+    \item currently and previously prescribed products for each patient.
+    \item orders for supply of a prescription.
+    \item orders for a ward supply.
+    \item details of a product.
+    \item ward medical team.
+    \item search for patients or products. 
+\end{itemize}
+Other operations:
+The main function of a ward visit by a pharmacist is recording and checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
+\begin{itemize}
+    \item Check prescribed treatments against medical condition.
+    \item Check prescribed treatments against one another.
+    \item Check current stock levels in ward stores.
+    \item Check patient medication supplies.
+    \item Order medications when supplies reach a given level.
 \end{itemize}
 
-Other operations:
-The main function of a ward visit by a pharmacist is checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
-\begin{itemize}
-    \item check prescribed treatments against medical condition
-    \item check prescribed treatments against one another
-    \item check current stock levels in ward stores 
-    \item check patient medication supplies 
-    \item order medications when supplies reach a given level
-\end{itemize}
-\subsection{Dispensary}
+\subsection{Dispensary staff}
 Dispensary users need to interact with the ward and patients concerning supply issues.  As such, dispensary pharmacy staff need to be able to view following:
 \begin{itemize} 
-    \item patient discharge date 
-    \item patient current prescriptions
-    \item patient supply orders 
-    \item store orders 
-    \item ward details 
+    \item Patient discharge date.
+    \item Patient current prescriptions.
+    \item Patient supply orders.
+    \item Store orders.
+    \item Ward details. 
 \end{itemize}
 
 \subsection{Administrator}
 An administrator will need to administer users, wards and products.  To this end, user with administrator privileges will need to perform CRUD operations of the following:
 \begin{itemize}
-    \item products - adding new products and updating or removing existing products.
-    \item wards - adding new wards.
-    \item users - creating new users and updating existing ones.
-    \item policies and checks.
+    \item Products - adding new products and updating or removing existing products.
+    \item Wards - adding new wards.
+    \item Users - creating new users and updating existing ones.
+    \item Policies and checks.
 \end{itemize}
+
 \part{Implementation}
 The structure of rails applications closely mirror that of the underlying database which allows for straight forward translation of classes and instances to and from the database by ActiveRecord, and mapping of classes to their CRUD operations.   This structure
 The Rails framework convention provides CRUD methods for objects and some associations when objects and their associations are created.  For example, when creating a new model with the Rails model generation script, a standard Rails class is represented in the database by a single table witch is named the plural of the class name.  In the case of the Patient class, the associated table is called 'patients'.  The existing class objects' attributes are represented by a row in their class' table.  With this standard structure, methods for finding all patients, editing patients, creating new patients and deleting patients are provided, along with views for these actions.  The views provide basic forms with which to update.  These provide the basis for extension to show and manipulate the data of instances of multiple associated models, and providing tailored views. 
@@ -201,7 +269,7 @@ The Rails framework convention provides CRUD methods for objects and some associ
 \subsection{ActiveRecord}
 ActiveRecord is a Rails library which provides an ORM (object relational mapping) layer to database interaction.  This allows for a convergence of the database and the business logic into a single entity.  For example, \texttt{Admission.leaving(1)} to retrieve a collection of patients that are being discharged between now and tomorrow with the static method \texttt{leaving(arg, *arg)}, and for all patients, rather than writing an SQL query, a static method may be called - \texttt{Patient.all} - which generates the required SQL. Similar ActiveRecord methods are Patient.first, Patient.last.  These may be added to with named scopes, allowing for calls like Patient.first.admissions.current.  The named scope is defined in the Admission model \texttt{named\_scope :current, :conditions =>  ["admdate <  NOW() AND depdate > NOW()"]}.  In addition to implementing the ORM patter, ActiveRecord also implements single table inheritance and associations, allowing for potentially potentially complex SQL queries to be generated in ways that are straight forward to read, for example \texttt{Ward.find(3).patients} would return a collection of patients for the ward with and \texttt{id} of 3.\\ \texttt{Patient.first.admissions.last.ward.pharmacist} would return a Pharmacist object for the pharmacist who was responsible for the first patient during their last admission.  The pharmacist is a type of user, but may be called directly due to STI (single table inheritance), where the class of the User is recorded in a 'type' attribute of the Users table.  Where ActiveRecord fails to provide what is desired, it is possible to write methods that return the collection you may want and then call a standard ActiveRecord method on the result.\\ for example \texttt{Patient.first.policy\_results.first[:product].description} uses a combination of standard ActiveRecord and custom instance methods in a readable and concise syntax.
 \subsection{External libraries}
-There are many Rails plugins of varying standard generated by the Rails community.  I have utilised two, thinking-sphinx to generate search results when searching for products or patients, and iUI for the iPhone user interface. Thinking-sphinx is a very popular pluggin and may be considered a capable and stable product, whereas iUI was written two years ago as a personal project and has had little maintenance since. iUI essentially consists of CSS and JavaScript which respond to tags in the HTML.  This works but is difficult to implement when there are multiple views required for the same page, as tags that are required for the iPhone rendering with iUI may not be appropriate in the standard web view.
+There are many Rails plugins of varying standard generated by the Rails community.  I have utilised three, AuthLogic for user authentication, thinking-sphinx to generate search results when searching for products or patients, and iUI for the iPhone user interface. Thinking-sphinx is a very popular plugin and may be considered a capable and stable product, whereas iUI was written two years ago as a personal project and has had little maintenance since. iUI essentially consists of CSS and JavaScript which respond to tags in the HTML.  This works but is difficult to implement when there are multiple views required for the same page, as tags that are required for the iPhone rendering with iUI may not be appropriate in the standard web view.
 \subsection{Generator scripts}
 Rails provides generation scripts allowing for the creation of new models, controllers, scaffolding or a new project with a single line at the command line.  To create this application, the first generation script used was rails:\\
 \texttt{rails pharm}, then a scaffold was created:\\ \texttt{ruby script/generate scaffold patient FirstName:string MiddleName:string Surname:string dob:date allergies:text sensitivities:text}. \\
@@ -213,13 +281,17 @@ A central tenet of Rails applications is the that they should be 'RESTful'.  RES
 One of the ways in which Rails leverages a REST architecture is in routes.  The routes file enables the nomination of controllers as REST resources with associated paths.  An example of this is the route \texttt{/discharges}.  The route is defined in the routes.rb file with \texttt{map.resources :discharges} which references the \texttt{discharges\_controller.rb} controller.  In the controller, the only action defined is \texttt{index} where the collection of patients to be indexed is defined, in this case with a function \texttt{leaving(1)}.  Routes also assist in defining nested associations, such as \texttt{map.resources :products, :has\_many => :agents}.  Assuming the correct associations are defined in the relevant models for Product and Agent, and there is a connecting model in the case of a many-to-many relationship, this route maps the \texttt{product/:product\_id/agents} providing a meaningful path.
   
 \section{Polymorphism and inheritance}
-Most of the polymorphism employed is part of the rails scaffolding with the rails base classes.  However, the store object could be a pharmacy store or a ward store and they needed to be differentiated.  Rather than have a separate attribute for each kind of association, the convention in rails at the database layer is to use two attributes to identify what kind of store it is, a single foreign key attribute that stores the primary key of all off the associations and a type attribute to indicate the class of the association.  Both are later used in the model layer to define associations for ActiveRecord.
+Much of the polymorphism employed is provided by the rails scaffolding in the rails base classes.  However, the store object could be a pharmacy store or a ward store and they needed to be differentiated.  Rather than have a separate attribute for each kind of association, the convention in rails at the database layer is to use two attributes to identify what kind of store it is, a single foreign key attribute that stores the primary key of all off the associations and a type attribute to indicate the class of the association.  Both are later used in the model layer to define associations for ActiveRecord.
+%TODO discuss indicationable structure for agents, products and classes
+
+
 \section{Interface}
 Multiple layouts are required to cater for system administration from a desktop or standard screen and for mobile users.  The system chosen for defining the view uses the user agent reported by the client in the application controller and sets the format for the respond\_to methods in the various controllers.  If it is a mobile safari client the iPhone views are rendered with the iPhone layout.  
 \subsection{Standard web interface}
+The interface intended for use on terminals with standard size displays - that is, greater than the 480 x 320 pixel\cite{iphonespecs} of an iPhone or similar device.  
 \subsection{iPhone interface}
 \section{Classes and methods}
-\subsection{Users and session} 
+\subsection{Users and sessions} 
 There are three types of sessions supported.  The primary user type is a standard user, usually a pharmacist or technician, who can create prescriptions and notes, add patients to wards and edit their own notes.  There needs to be an system administrator role, who can edit users and add policies, and an audit role enabling only viewing of the information recorded on the system, and some additional views for information such as all notes made by a particular user.
 Rails and the rails plug-in AuthLogic create a session cookie (user\_credentials) upon user login.  By this mechanism the current session and user is persisted.  Data associated with a session may be stored in the session hash but will be lost if the user logs out, closes the browser or clears their cookies.  As a result, storing data objects in a session is not advisable.  Doing so would also lead to stale data in the object or the database.\\
 As the system will have a limited number of users and roles, a simply access restriction pattern is appropriate.  In this case a boolean property, admin, is employed.  The model controllers check the property on instantiation so that both the controller and associated views have access to the admin attribute of the user.  In combination with a check of the current\_user and user associated with records, editing of notes and other records are restricted.
@@ -290,29 +362,33 @@ Each individual level type, such as potassium or creatinine (kidney function), i
 \subsubsection{Table description}
 \texttt{Level(id: integer, potassium: float, creatinine: float, inr: float, ppt: float, albumin: float, created\_at: datetime, updated\_at: datetime, patient\_id: integer (foreign key), dbp: integer, collected: datetime)}
 
-\part{Improvements}
-\section{Testing} 
+\part{Discussion}
+\section{Outcome}
+\section{Experience}
+\section{Improvements}
+\subsection{Testing} 
 Given the intended realm of use for the system, issues of security speed and adherence to the multitudinous local and national policies, guidelines, regulations and laws specifying the appropriate handling of personal medical information would need careful consideration.  As it stands, the security of the system would be relatively assured if the network used for access to the patient data were provided over encrypted wireless networks and local policies prescribed sensible behaviours for its users.
-\section{Authentication}
+\subsection{Authentication}
 
-\section{Integration}
+\subsection{Integration}
 Data duplication is a already existing problem in most hospital data, so a new system such as this would be of little use unless it was integrated into existing systems.  As most are almost entirely proprietary integration would likely require cooperation from the suppliers of existing systems and present some technical challenge.
-\section{Interface}
-It is likely that a variety of mobile devices capable of using the system would be available.  The design allows for multiple views and layouts.  Its possible that simply rendering existing views with a different layout may suffice in these cases, in which case all that would be needed would be an additional layout file.
-\section{Refactoring}
-\subsection{Third party libraries}
+\subsection{Interface}
+There are many possible variations with regards to the finer points of the implementation of the interface.  Many of the decisions are based on a specific work flow - something that can vary from site to site.  The views currently provided are on the most part simple lists or collections centred on the resources recorded.  If the system were to be deployed on a site, part of the testing and integration would likely involve user requests for changes or customisations in navigation or views, such as a more detailed search facility or links to custom views from specific points.  Changes and refinements of that nature would be relatively painless to implement due to the structured implementation of the application.\\
+It is likely that a variety of mobile devices capable of using the system would be available.  The design allows for multiple views and layouts.  Its possible that simply rendering existing views with a different layout may suffice in these cases, in which case all that would be needed would be an additional layout file.  The interface as it stands is functional, but rudimentary.  Judicious use of AJAX technologies in rendering and editing collections, which is a large part of the functionality of the system, would provide a more responsive system despite the increase in complexity.
+\subsection{Refactoring}
+\subsubsection{Third party libraries}
 A third party library for rendering elements of the iPhone interface was employed.  While capable, it has not been maintained and suffers performance problems.  It is sufficient for prototype development, but if the system were to be adopted the iPhone interface styling and associated javascript would probably need to be improved.
-\section{Constraints and validation}
+\subsection{Constraints and validation}
 The system is to be used by its owners, and for the sake of flexibility there are few constraints employed as to the nature of the data that may be entered.  
-\subsection{Checking product policies during prescribing process}
-One of the more significant potential uses of a system such as this would be the ability for local policies to be implemented with some level of automation.  Given the MVC architecture and model associations employed the system may be customized to allow for checking against policies on prescription entry.  An example may be if a product is prescribed that has an alternative preferred brand a check against local policies would generate a message to prompt the pharmacist reviewing the patient to query the prescription.  Policies may also be associated with specialties or medical teams, as is often the case in hospitals.  A product may not be available, except for a specific indication under a specific team/specialty/ward.
-\section{Native application}
+\subsubsection{Checking product policies during prescribing process}
+One of the more significant potential uses of a system such as this, and a distinct advantage over paper-based equivalents, is the ability for local policies to be implemented with some level of automation.  As implemented this functionality is rudimentary.  Administrators are limited to pre-defined operations, whereas in order to obtain the maximum possible leverage over recorded information the set of possible conditional rules would need to be larger.
+\subsection{Native application}
 There are drawbacks in implementing the system as a web application.  While it increases the speed of development and improves accessibility to a variety of platforms, the browser is not as powerful or as fast as a local application.  It is likely that the web application implementation would be used as a prototype of the system and interface, and once tested and fine tuned, would act as a template for the implementation of a native application for the relevant platforms
-\section{Separate system administration interface}
+\subsection{Separate system administration interface}
 As it stands the system's administration is part of the standard interface, which is unnecessary.  A number of creation and update functions are not relevant in the day to day workings of a pharmacist on a ward.  For example, adding a new product or user administration would be best served by a different view, as would auditing functions, such as viewing all notes by all pharmacists.
-\section{Performance}
+\subsection{Performance}
 Some of the information held in separate relations, such as in the status relation, could have been held as hashes instead.  However, doing so would have required changing the code to add new status types, whereas with a relation an administrator for the system can maintain status types.
-\section{Logic}
+\subsection{Logic}
 The system is a structure into logic may be inserted, thanks largely to the MVC nature of rails applications.  Though some logic has been implemented, the specifics rely largely on the workings of a specific site.  Some sites would probably like the restrict dosing for a specific product to approved doses, while others may find that approach overly limiting.  The benefit of the restriction is that simply by not finding an odd dose would prompt the user to query the necessity for a non-standard regimen.
 Due to the structure of the application, adding new logic is relatively straight forward - new methods can be defined in the model or controller and ActiveRecord. 
 \bibliographystyle{plainurl}	% (uses file "plain.bst")

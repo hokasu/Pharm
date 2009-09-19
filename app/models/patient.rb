@@ -92,7 +92,7 @@ class Patient < ActiveRecord::Base
     end
   end
   def inpatient?
-    return admissions.current!=nil
+    return !admissions.current.empty?
   end
   def has_admissions?
     admissions.size > 0 
@@ -135,6 +135,10 @@ class Patient < ActiveRecord::Base
       end
     end
     return agents
+  end
+
+  def bed
+    admissions.current.first.bed
   end
 
 end

@@ -1,7 +1,8 @@
 <%#= debug params %>
 <table>
   <tr>
-    <th>Ward</th>
+      <th>Ward</th>
+      <th>Bed</th>
     <th>PHN</th>
     <th>Firstname</th>
     <th>Middlename</th>
@@ -17,8 +18,13 @@
     <td><% if patient.current_ward %>
       <%= patient.current_ward.name %>
     <% else %>
-      <%= "n/a" %>
+      <%= "" %>
     <% end %></td>
+    <td><% if patient.inpatient? %>
+      <%=h patient.bed.bed_number %>
+      <% else %>
+        <%=h "n/a"  %></td>
+    <%  end  %>
     <td><%=h patient.phn %></td>
     <td><%=h patient.firstname %></td>
     <td><%=h patient.middlename %></td>

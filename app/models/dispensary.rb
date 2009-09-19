@@ -1,5 +1,5 @@
 class Dispensary < User
   def self.title
-    "dispensary technician"
+    "ward technician"
   end
 end
