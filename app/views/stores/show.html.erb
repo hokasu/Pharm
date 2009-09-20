@@ -16,7 +16,9 @@
   <strong>Ext:</strong>
   <%=h @store.ext %>
 <p>
+      <%  if current_user.admin?  %>
   <%= link_to "Edit", edit_store_path(@store) %> |
+<%  end  %>
   <%#= link_to "Destroy", @store, :confirm => 'Are you sure?', :method => :delete %> 
   <%= link_to "New Store Order", new_store_order_path(:store_id =>@store.id) %> |
   <%= link_to "Orders", store_store_orders_path(@store) %> |

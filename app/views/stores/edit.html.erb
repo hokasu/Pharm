@@ -1,8 +1,7 @@
 <% title "Edit Store" %>
 
-<%= render :partial => 'form' %>
-
+  <%= render :partial => 'form', :locals => {:f => f} %>
 <p>
   <%= link_to "Show", @store %> |
-  <%= link_to "View All", stores_path %>
+    <%= link_to 'Destroy', @store, :confirm => 'Are you sure?', :method => :delete %> |
 </p>

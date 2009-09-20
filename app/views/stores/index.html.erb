@@ -10,10 +10,14 @@
       <td><%=h store.ext %></td>
       <td><%=h store.ward_id %></td>
       <td><%= link_to "Show", store %></td>
+      <%  if current_user.admin?  %>
       <td><%= link_to "Edit", edit_store_path(store) %></td>
       <td><%= link_to "Destroy", store, :confirm => 'Are you sure?', :method => :delete %></td>
+      <%  end  %>
     </tr>
   <% end %>
 </table>
 
+      <%  if current_user.admin?  %>
 <p><%= link_to "New Store", new_store_path %></p>
+<%  end  %>

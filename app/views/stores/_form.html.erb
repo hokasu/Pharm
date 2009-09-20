@@ -1,3 +1,4 @@
+
 <% form_for @store do |f| %>
   <%= f.error_messages %>
   <p>
@@ -6,7 +7,14 @@
   </p>
   <p>
     <%= f.label :ward_id %><br />
-    <%= f.text_field :ward_id %>
+    <% if @store.ward.to_s != "" %>
+    <%= f.collection_select(:ward_id, Ward.all, :id, :name, { :selected => @store.ward.id })%>
+  <% else %>
+    <%= f.collection_select(:ward_id, Ward.all, :id, :name)%>
+  <% end %>
+    </p>
+  <p>
+    <%= f.submit 'Update' %>
   </p>
-  <p><%= f.submit "Submit" %></p>
-<% end %>
+<%   end  %>
+

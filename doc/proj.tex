@@ -40,7 +40,7 @@ Problems with the current systems used in ward pharmacy medicines management rel
 
 \paragraph{}
 \subsection{Requirements}
-\subsubsection{Users} The users of the system will be pharmacy technicians, pharmacists that work on the ward, staff in the dispensary and nurses.  
+\subsubsection{Users} The users of the system will be pharmacy technicians, pharmacists that work on the ward, staff in the dispensary.  
 \paragraph{ } Individual staff play several roles; pharmacists work on wards to resolve clinical and supply issues, as do some technicians. Nursing staff work closely with pharmacy staff to coordinate patient care, so giving nursing staff access to the system would facilitate asynchronous communication between the departments.  
 \subsubsection{Data security} The primary concern for any information system project for a hospital is the confidentiality for patients.  This means compliance with the Data Protection Act 1998 and the recommendations of the Caldicot Report 1997.\cite{Caldicott}  Both of these reports state that the use of patient identifying information should be managed appropriately and that patient information should only be accessed where required. It can only be made available to individuals with a need for it and authority to access it. The Caldicott report and the World Health Organisation call for `best practices' to be observed in the development of health information systems\cite{whosec}.
 \subsubsection{Medical records and law } All handwritten documents pertaining to patient care are required to be authenticated with a signature and are legal documents.  An electronic system will need to implement secure user authentication.  Consent to disclosure is usually obtained from a patient on admission to hospital. Given the greater accessibility of information stored in this system, a review of the disclosure agreement may be required.
@@ -89,8 +89,8 @@ The focus of this system is on the requirements of ward pharmacy staff.  Ward ph
     \label{fig 1}
 \end{figure}
 \subsection{Users}
-There are three classes of user intended for this system.  Ward pharmacy staff, dispensary staff and ward nursing staff.  Each member of the ward pharmacy staff is either a pharmacist or ward technician.  Pharmacists and technicians have different roles, but the line between them continue to blur in the duties they execute.  The extent of this blurring depends on the site.  On traditional sites, technicians are only concerned with supply, whereas at increasingly more numerous sites pharmacy technicians carry out preliminary clinical checks and take drug histories from patients in addition to their supply functions.  While their roles are essentially identical in this system, a mechanism for changing access to functionality in the site will be made available.  Dispensary staff will simply use the system to view which patients are where, and who is being discharged during that day.  They will also require full access to orders generated for the wards and patients.  Ward nurses will hopefully use the ward store view to keep records of current stock levels in the ward store up to date allowing for timely ordering of low or depleted stock items.\\ 
-Pharmacist, Dispensary, Technician and Nurse classes will all inherit from the User class. The design of this system will not differentiate in any functional way between pharmacist and technician users, but to do so in the future will be possible with this design.\\
+There are three classes of user intended for this system.  Ward pharmacy staff, dispensary staff and ward nursing staff.  Each member of the ward pharmacy staff is either a pharmacist or ward technician.  Pharmacists and technicians have different roles, but the line between them continue to blur in the duties they execute.  The extent of this blurring depends on the site.  On traditional sites, technicians are only concerned with supply, whereas at increasingly more numerous sites pharmacy technicians carry out preliminary clinical checks and take drug histories from patients in addition to their supply functions.  While their roles are essentially identical in this system, a mechanism for changing access to functionality in the site will be made available.  Dispensary staff will simply use the system to view which patients are where, and who is being discharged during that day.  They will also require full access to orders generated for the wards and patients. \\ 
+Pharmacist, Dispensary and Technician classes will all inherit from the User class. The design of this system will not differentiate in any functional way between pharmacist and technician users, but to do so in the future will be possible with this design.\\
 The users model will also manage authentication control, in conjunction with user\_sessions and AuthLogic (discussed in implementation).\\
 Attributes:
 \begin{itemize}
@@ -219,6 +219,12 @@ The user interface for mobile devices and for terminals will follow the same RES
 \end{figure}
 The pattern of navigation described will be consistent for each resource recorded in the system.  The process followed create, view, edit and delete products will be similar to that for patients or prescriptions.  The variation will come with the decisions to either render a collection of associated objects in a separate view, or as part of the view for its 'owner', such as with agents of a product, or admissions of a patient.  By constructing the user interface in this way it is the hope that it will be painless for users to understand and navigate.\\
 \section{Users}
+\begin{figure}[]
+    \centering
+   \includegraphics[scale=0.5]{usecase.jpg}
+   \caption{Use case diagram for three classes of user.  CRUD (Create, Read, Update and Delete) actions have been grouped in aid of clarity.  In this system, pharmacist and technician roles are treated as equivalent. }\label{usecase}
+\end{figure}
+
 \subsection{Pharmacists}
 \begin{itemize}
     \item view all wards -a list of all wards registered on the system with ability to navigate to a more detailed view of the system.
@@ -234,7 +240,7 @@ The pattern of navigation described will be consistent for each resource recorde
     \item search for patients or products. 
 \end{itemize}
 Other operations:
-The main function of a ward visit by a pharmacist is recording and checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
+The main function of a ward visit by a pharmacist, and to a lesser extend a ward technician, is recording and checking each patient's medical condition and treatments.  Checks are made in reference to professional knowledge, and to local policies, such as availability of a given brand of a medication.
 \begin{itemize}
     \item Check prescribed treatments against medical condition.
     \item Check prescribed treatments against one another.
@@ -246,7 +252,7 @@ The main function of a ward visit by a pharmacist is recording and checking each
 \subsection{Dispensary staff}
 Dispensary users need to interact with the ward and patients concerning supply issues.  As such, dispensary pharmacy staff need to be able to view following:
 \begin{itemize} 
-    \item Patient discharge date.
+    \item Discharges.
     \item Patient current prescriptions.
     \item Patient supply orders.
     \item Store orders.
@@ -256,9 +262,10 @@ Dispensary users need to interact with the ward and patients concerning supply i
 \subsection{Administrator}
 An administrator will need to administer users, wards and products.  To this end, user with administrator privileges will need to perform CRUD operations of the following:
 \begin{itemize}
-    \item Products - adding new products and updating or removing existing products.
-    \item Wards - adding new wards.
-    \item Users - creating new users and updating existing ones.
+    \item Products, agents and doses.
+    \item Wards, including stores and product stores.
+    \item Doctors and teams.
+    \item Users
     \item Policies and checks.
 \end{itemize}
 
@@ -288,14 +295,20 @@ Much of the polymorphism employed is provided by the rails scaffolding in the ra
 \section{Interface}
 Multiple layouts are required to cater for system administration from a desktop or standard screen and for mobile users.  The system chosen for defining the view uses the user agent reported by the client in the application controller and sets the format for the respond\_to methods in the various controllers.  If it is a mobile safari client the iPhone views are rendered with the iPhone layout.  
 \subsection{Standard web interface}
-The interface intended for use on terminals with standard size displays - that is, greater than the 480 x 320 pixel\cite{iphonespecs} of an iPhone or similar device.  
-\subsection{iPhone interface}
+The interface intended for use on terminals with standard size displays - that is, greater than the 480 x 320 pixel\cite{iphonespecs} of an iPhone or similar device. Most wards have at least one terminal available, and it is likely that inputing larger quantities of information will be easier from a terminal.  Terminals will also be used by dispensary and nursing staff.
+\subsection{Mobile interface}
+The mobile interface for the system does not deviate to any significant degree from the standard interface in terms of navigational flow.  The primary difference is in presentation through the use of separate templates and layout, and an external user interface framework, iUI\cite{iui}, which facilitates the construction of user interfaces analogous to those of native applications.
 \section{Classes and methods}
 \subsection{Users and sessions} 
-There are three types of sessions supported.  The primary user type is a standard user, usually a pharmacist or technician, who can create prescriptions and notes, add patients to wards and edit their own notes.  There needs to be an system administrator role, who can edit users and add policies, and an audit role enabling only viewing of the information recorded on the system, and some additional views for information such as all notes made by a particular user.
-Rails and the rails plug-in AuthLogic create a session cookie (user\_credentials) upon user login.  By this mechanism the current session and user is persisted.  Data associated with a session may be stored in the session hash but will be lost if the user logs out, closes the browser or clears their cookies.  As a result, storing data objects in a session is not advisable.  Doing so would also lead to stale data in the object or the database.\\
-As the system will have a limited number of users and roles, a simply access restriction pattern is appropriate.  In this case a boolean property, admin, is employed.  The model controllers check the property on instantiation so that both the controller and associated views have access to the admin attribute of the user.  In combination with a check of the current\_user and user associated with records, editing of notes and other records are restricted.
+The three primary roles reflected in the system are those of technicians/pharmacists, dispensary staff, and administrators.  Any administrator will also be a technician or a pharmacist, so a boolean property has been used to define users with administration rights.  Rails and the rails plug-in AuthLogic create a session cookie (user\_credentials) upon user login.  By this mechanism the current session and user is persisted.  Data associated with a session may be stored in the session hash but will be lost if the user logs out, closes the browser or clears their cookies.  As a result, storing data objects in a session is not advisable.  Doing so would also lead to stale data in the object or the database.\\
+As the system will have a limited number of users and roles, a simple access restriction pattern is appropriate.  In this case a boolean property, admin, is employed to allow access to administration functions.  The model controllers check the property on instantiation so that both the controller and associated views have access to the admin attribute of the user.  In combination with a check of the current\_user and user associated with records, editing of users and other records are restricted.\\
+When a user logs into the system, they are directed to a view of a list of wards in they are a pharmacist, or a list of patients to be discharged on that day if they are a dispensary user.  If there are no discharges for the day, the ward list is shown instead with a notice that there are no patients being discharged on that day.  These behaviours are defined in the user\_sessions\_controller.rb, where user class is tested and the routing defined as appropriate.  The session remains if the browser is closed without a logout, with the option of a timeout, which allows for the multiple brief access periods likely in a mobile setting without a need to login each time.
+\subsubsection{Table description}
+User(id: integer, username: string, crypted\_password: string, password\_salt: string, persistence\_token: string, created\_at: datetime, updated\_at: datetime, admin: boolean, type: string, firstname: string, surname: string, pager: string, band: string)
+\subsection{Ward}
 
+\subsubsection{Table description}
+Ward(id: integer, name: string, specialty: string, nurse: string, ward\_notes: text, created\_at: datetime, updated\_at: datetime, pharmacist\_id: integer)
 \subsection{Check}
 In order to interpret the checks entered by a user a three hashes are used to map the user choices, which are made available by a menu, to actual method calls.  The structure of implementation means that in order to add additional potential conditional tests all that is required is to enter the appropriate values in the hash.  The matching values are method calls that are called on the patient object, for example:\\
 \begin{verbatim}

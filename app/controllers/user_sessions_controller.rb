@@ -14,17 +14,13 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Successfully logged in. You are a " + current_user.class.title
-      if current_user.class.to_s == "Pharmacist"
+      if current_user.class == Pharmacist
         redirect_to(wards_url)
       end
-      if current_user.class.to_s == "Dispensary"
+      if current_user.class == Dispensary
         redirect_to(discharges_url)
       end
     else
-      #respond_to do |format| 
-      #  format.html # index.html.erb 
-      #  format.iphone # index.iphone.erb 
-      #end
       render :action => 'new'
     end
   end
